@@ -1,0 +1,54 @@
+
+/* Copied from React.js website */
+
+.my-container {
+	padding-top: 50px;
+	min-width: 960px;
+}
+
+.nav-main {
+	background: #222;
+	color: #fafafa;
+	position: fixed;
+	top: 0;
+	height: 50px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	width: 100%;
+	z-index: 100;
+}
+
+.wrap {
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.nav-main .nav-home {
+	/*color: #A300CC;*/
+	color: white;
+	font-size: 24px;
+	line-height: 50px;
+	height: 50px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.nav-main .nav-site {
+	float: right;
+	margin: 0;
+}
+
+.nav-main li {
+	display: inline;
+	line-height: 50px;
+	padding-right: 20px
+}
+
+.nav-main li a{
+	color: grey;
+	font-weight: bold;
+	text-decoration: none !important;
+}
+
