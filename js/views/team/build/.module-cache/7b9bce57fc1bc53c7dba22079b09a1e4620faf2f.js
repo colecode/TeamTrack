@@ -9,12 +9,12 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // var model = new Backbone.Model({foo: 'bar'});
+    //var backboneMixin = require('backbone-react-component');
+    var model = new Backbone.Model({foo: 'bar'});
 
-    // var TeamModel = new Backbone.Model
-    // ({
-    //   foo: 'barColin'
-    // });
+    var TeamModel = new Backbone.Model({
+      foo: 'barColin'
+    });
 
 
     var MyWidget = React.createClass({displayName: 'MyWidget',
@@ -44,7 +44,7 @@ define(
               React.createElement("button", {className: 'btn btn-primary', onClick: this.handleSweet}, "Popup sweet alert")
               ), 
               React.createElement("p", null, "Colin Cole Test"), 
-              React.createElement("p", null, this.props.name)
+              React.createElement("p", null, this.props.foo)
             )
           )
           )
@@ -53,21 +53,26 @@ define(
 
     var TeamListView = Backbone.View.extend({
 
-       
+      
+      
       el: $('#mainContent'),
       events: {
 
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        //console.log('test');
+        //React.createElement(MyWidget, null),
+        //document.getElementById('mainContent')
       },
 
       render: function (){
 
+
+
         React.render(
           
-        React.createElement(MyWidget, {model: this.model}),
+        React.createElement(MyWidget, {model: TeamModel}),
         document.getElementById('mainContent')
 
           );

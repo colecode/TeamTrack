@@ -4,10 +4,23 @@ define(
   'jquery',
   'underscore',
   'backbone',
-  'react'
-  ], function($, _, Backbone, React){
+  'react',
+  'backbonemixin',
+  'models/team'
+  ], function($, _, Backbone, React, backboneMixin, MyModel){
+
+    // var model = new Backbone.Model({foo: 'bar'});
+
+    // var TeamModel = new Backbone.Model
+    // ({
+    //   foo: 'barColin'
+    // });
+
 
     var MyWidget = React.createClass({
+
+      mixins: [backboneMixin],
+
       handleClick: function() {
         alert('Hello!');
       },
@@ -15,6 +28,8 @@ define(
         sweetAlert("Oops...", "Something went wrong!", "error");
       },
       render: function() {
+
+        
 
         return (
 
@@ -28,7 +43,8 @@ define(
               <div>
               <button className={'btn btn-primary'} onClick={this.handleSweet}>Popup sweet alert</button>
               </div>
-              <p>Colin Cole</p>
+              <p>Colin Cole Test</p>
+              <p>{this.props.name}</p>
             </div>          
           </div>
           )
@@ -37,20 +53,23 @@ define(
 
     var TeamListView = Backbone.View.extend({
 
+       
       el: $('#mainContent'),
       events: {
 
       },
 
       initialize: function() {
-        //console.log('test');
+        this.model = new MyModel();
       },
 
       render: function (){
 
         React.render(
-          React.createElement(MyWidget, null),
-          document.getElementById('mainContent')
+          
+        <MyWidget model={this.model} />,
+        document.getElementById('mainContent')
+
           );
         } 
 

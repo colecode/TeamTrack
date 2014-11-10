@@ -44,7 +44,7 @@ define(
               React.createElement("button", {className: 'btn btn-primary', onClick: this.handleSweet}, "Popup sweet alert")
               ), 
               React.createElement("p", null, "Colin Cole Test"), 
-              React.createElement("p", null, this.props.name)
+              React.createElement("p", null, this.props.foo)
             )
           )
           )
@@ -60,14 +60,14 @@ define(
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        this.collection = new MyModel();
       },
 
       render: function (){
 
         React.render(
           
-        React.createElement(MyWidget, {model: this.model}),
+        React.createElement(MyWidget, {model: MyModel}),
         document.getElementById('mainContent')
 
           );

@@ -3,11 +3,12 @@ define([
   'underscore',
   'backbone'
 ], function(_, Backbone){
-  var TeamModel = Backbone.Model.extend({
+  
+var ProjectModel = Backbone.Model.extend({
     defaults: {
-      name: "Haddon Heights Boys XC"
+      name: "Harry Potter"
     }
   });
   // Return the model for the module
-  return TeamModel;
+  return ProjectModel;
 });

@@ -60,14 +60,14 @@ define(
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        var ColinTestMod = MyModel;
       },
 
       render: function (){
 
         React.render(
           
-        React.createElement(MyWidget, {model: this.model}),
+        React.createElement(MyWidget, {model: this.collection}),
         document.getElementById('mainContent')
 
           );

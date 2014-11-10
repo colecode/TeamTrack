@@ -60,7 +60,7 @@ define(
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        this.model = new MyModel;
       },
 
       render: function (){

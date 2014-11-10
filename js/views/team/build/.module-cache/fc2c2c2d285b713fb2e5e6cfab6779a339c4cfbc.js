@@ -9,14 +9,6 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // var model = new Backbone.Model({foo: 'bar'});
-
-    // var TeamModel = new Backbone.Model
-    // ({
-    //   foo: 'barColin'
-    // });
-
-
     var MyWidget = React.createClass({displayName: 'MyWidget',
 
       mixins: [backboneMixin],
@@ -28,8 +20,6 @@ define(
         sweetAlert("Oops...", "Something went wrong!", "error");
       },
       render: function() {
-
-        
 
         return (
 
@@ -52,22 +42,21 @@ define(
     });
 
     var TeamListView = Backbone.View.extend({
-
-       
+    
       el: $('#mainContent'),
       events: {
 
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        this.collection = new MyModel();
       },
 
       render: function (){
 
         React.render(
           
-        React.createElement(MyWidget, {model: this.model}),
+        React.createElement(MyWidget, {model: this.collection}),
         document.getElementById('mainContent')
 
           );
