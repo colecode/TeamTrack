@@ -9,14 +9,24 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // Initialize the model here so it's scope can be reached in MyWidget
     var masterModel;
+    var testColin = 'heyyyyy';
+    var model = new Backbone.Model({foo: 'bar'});
+
+    // var TeamModel = new Backbone.Model
+    // ({
+    //   foo: 'barColin'
+    // });
+
 
     var MyWidget = React.createClass({displayName: 'MyWidget',
 
       mixins: [backboneMixin],
 
       handleClick: function() {
+        alert('Hello!');
+        //this.props.name.set('name', 'Ron Weasley');
+        //console.log(testColin);
         masterModel.set('name', 'pooo');
       },
       handleSweet: function() {
@@ -51,8 +61,6 @@ define(
       },
 
       initialize: function() {
-        // Set the model 
-        // TODO: Server call will go here to retreive list of all Runnners
         masterModel = new MyModel();
       },
 

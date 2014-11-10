@@ -9,30 +9,22 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // var model = new Backbone.Model({foo: 'bar'});
-
-    // var TeamModel = new Backbone.Model
-    // ({
-    //   foo: 'barColin'
-    // });
-
+    // Initialize the model here so it's scope can be reached in MyWidget
+    var masterModel;
 
     var MyWidget = React.createClass({
 
       mixins: [backboneMixin],
 
       handleClick: function() {
-        alert('Hello!');
+        masterModel.set('name', 'pooo');
       },
       handleSweet: function() {
         sweetAlert("Oops...", "Something went wrong!", "error");
       },
       render: function() {
 
-        
-
         return (
-
           <div className={'my-container'}>
             <div className={'wrap'}>
               <ul className={'nav nav-tabs'}>
@@ -52,26 +44,25 @@ define(
     });
 
     var TeamListView = Backbone.View.extend({
-
-       
+      
       el: $('#mainContent'),
       events: {
-
+          // none
       },
 
       initialize: function() {
-        this.model = new MyModel();
+        // Set the model 
+        // TODO: Server call will go here to retreive list of all Runnners
+        masterModel = new MyModel();
       },
 
       render: function (){
 
-        React.render(
-          
-        <MyWidget model={this.model} />,
-        document.getElementById('mainContent')
-
-          );
-        } 
+        React.render(       
+          <MyWidget model={masterModel} />,
+          document.getElementById('mainContent')
+        );
+      } 
 
       });
 

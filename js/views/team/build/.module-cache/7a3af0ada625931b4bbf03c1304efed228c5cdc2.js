@@ -9,15 +9,24 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // Initialize the model here so it's scope can be reached in MyWidget
-    var masterModel;
+    var testColin = 'heyyyyy';
+    var model = new Backbone.Model({foo: 'bar'});
+
+    // var TeamModel = new Backbone.Model
+    // ({
+    //   foo: 'barColin'
+    // });
+
 
     var MyWidget = React.createClass({displayName: 'MyWidget',
 
       mixins: [backboneMixin],
 
       handleClick: function() {
-        masterModel.set('name', 'pooo');
+        alert('Hello!');
+        //this.props.name.set('name', 'Ron Weasley');
+        console.log(testColin);
+        model.set('foo', 'pooo');
       },
       handleSweet: function() {
         sweetAlert("Oops...", "Something went wrong!", "error");
@@ -36,7 +45,7 @@ define(
               React.createElement("button", {className: 'btn btn-primary', onClick: this.handleSweet}, "Popup sweet alert")
               ), 
               React.createElement("p", null, "Colin Cole Test"), 
-              React.createElement("p", null, this.props.name)
+              React.createElement("p", null, this.props.foo)
             )
           )
           )
@@ -51,15 +60,13 @@ define(
       },
 
       initialize: function() {
-        // Set the model 
-        // TODO: Server call will go here to retreive list of all Runnners
-        masterModel = new MyModel();
+        //this.model = new MyModel();
       },
 
       render: function (){
 
         React.render(       
-          React.createElement(MyWidget, {model: masterModel}),
+          React.createElement(MyWidget, {model: model}),
           document.getElementById('mainContent')
         );
       } 

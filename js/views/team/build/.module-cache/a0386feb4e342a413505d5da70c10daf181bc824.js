@@ -52,7 +52,6 @@ define(
 
       initialize: function() {
         // Set the model 
-        // TODO: Server call will go here to retreive list of all Runnners
         masterModel = new MyModel();
       },
 

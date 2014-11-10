@@ -9,7 +9,6 @@ define(
   'models/team'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
-    // Initialize the model here so it's scope can be reached in MyWidget
     var masterModel;
 
     var MyWidget = React.createClass({displayName: 'MyWidget',
@@ -51,8 +50,6 @@ define(
       },
 
       initialize: function() {
-        // Set the model 
-        // TODO: Server call will go here to retreive list of all Runnners
         masterModel = new MyModel();
       },
 
