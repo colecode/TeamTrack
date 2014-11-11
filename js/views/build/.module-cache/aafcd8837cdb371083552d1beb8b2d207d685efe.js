@@ -20,7 +20,7 @@ define(
       }
     });
 
-    var RunnerListMaster = React.createClass({
+    var RunnerListMaster = React.createClass({displayName: 'RunnerListMaster',
 
       mixins: [backboneMixin],
 
@@ -31,7 +31,7 @@ define(
             TeamExampleView.render();
           },
           error: function(model,response,xhr) {
-            console.log("grrr");
+            
             console.log(response);
             console.log(xhr);
             console.log("Error");
@@ -42,12 +42,12 @@ define(
       render: function() {
 
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-              <p>{this.props.message}</p>
-              <a href="#" onClick={this.handleClick}>Fetch!</a>
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement("p", null, this.props.message), 
+              React.createElement("a", {href: "#", onClick: this.handleClick}, "Fetch!")
+            )
+          )
           )
       }
     });
@@ -70,7 +70,7 @@ define(
       render: function (){
 
         React.render(       
-          <RunnerListMaster model={masterModel} />,
+          React.createElement(RunnerListMaster, {model: masterModel}),
           document.getElementById('mainContent')
         );
       } 
