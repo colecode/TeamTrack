@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
 *.js
+*.json
 *.class
 *.dll
 *.exe
