@@ -1,10 +1,8 @@
 // Filename: collections/projects
 define([
   'underscore',
-  'backbone',
-  // Pull in the Model module from above
-  'models/team'
-], function(_, Backbone, TeamModel){
+  'backbone'
+], function(_, Backbone){
   var TeamCollection = Backbone.Collection.extend({
     model: TeamModel
   });

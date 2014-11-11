@@ -2,14 +2,16 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/build/list' ,
-  'views/build/runnerlistmaster'
-], function($, _, Backbone, TeamListView, RunnerList){
+  'views/build/runnerlistmaster',
+  'views/build/teamexample'
+], function($, _, Backbone, RunnerList, TeamExample){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
       'team': 'showTeam',
+
+      'example': 'showExample',
 
       // Default
       '*actions': 'defaultAction'
@@ -19,20 +21,17 @@ define([
   var initialize = function(){
     var app_router = new AppRouter;
 
-
-    var index = function() {
-      console.log('TEST!!!');
-    }
-
-
     app_router.on('route:showTeam', function(){
-      // Call render on the module we loaded in via the dependency array
-      // 'views/teams/list'
-      //var teamListView = new TeamListView();
-      //teamListView.render();
-
+      
       var runnerList = new RunnerList();
       runnerList.render();
+
+    });
+
+    app_router.on('route:showExample', function(){
+      
+      var teamExample = new TeamExample();
+      teamExample.render();
 
     });
    
