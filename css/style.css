@@ -52,3 +52,7 @@
 	text-decoration: none !important;
 }
 
+#searchBarComponent {
+	padding-bottom: 30px;
+}
+

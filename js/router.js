@@ -2,8 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/build/list' 
-], function($, _, Backbone, TeamListView){
+  'views/build/list' ,
+  'views/build/runnerlistmaster'
+], function($, _, Backbone, TeamListView, RunnerList){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -27,8 +28,11 @@ define([
     app_router.on('route:showTeam', function(){
       // Call render on the module we loaded in via the dependency array
       // 'views/teams/list'
-      var teamListView = new TeamListView();
-      teamListView.render();
+      //var teamListView = new TeamListView();
+      //teamListView.render();
+
+      var runnerList = new RunnerList();
+      runnerList.render();
 
     });
    
