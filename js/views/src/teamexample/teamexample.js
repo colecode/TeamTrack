@@ -31,7 +31,7 @@ define(
             TeamExampleView.render();
           },
           error: function(model,response,xhr) {
-            console.log("grrr");
+            console.log("grrr!!!");
             console.log(response);
             console.log(xhr);
             console.log("Error");
