@@ -14,10 +14,14 @@ define(
     var masterModel;
 
     var MessageModel = Backbone.Model.extend({
-      url : 'api/example1.php',
       defaults: {
         message: "Text Message"
       }
+    });
+
+    var TeamCollection = Backbone.Collection.extend({
+      url : 'api/example.json',
+      model: MessageModel
     });
 
     var RunnerListMaster = React.createClass({
@@ -25,16 +29,17 @@ define(
       mixins: [backboneMixin],
 
       handleClick: function() {
+
         masterModel.fetch({
-          success: function () {
-            console.log('fetched!');
-            TeamExampleView.render();
+
+          success: function (response) {
+            console.log("Success!");
+            console.log(masterModel.toJSON());
           },
           error: function(model,response,xhr) {
-            console.log("grrr!!!");
-            console.log(response);
-            console.log(xhr);
             console.log("Error");
+            console.log(response);
+            console.log(xhr);        
           }
         });
       },
@@ -44,7 +49,7 @@ define(
         return (
           <div className={'my-container'}>
             <div className={'wrap'}>
-              <p>{this.props.message}</p>
+              <p>{this.props.model}</p>
               <a href="#" onClick={this.handleClick}>Fetch!</a>
             </div>          
           </div>
@@ -63,7 +68,13 @@ define(
         // Set the model 
         // TODO: Server call will go here to retreive list of all Runnners
         //masterModel = new MyModel();
-        masterModel = new MessageModel();
+        //masterModel = new MessageModel();
+
+        //var todos = new TodosCollection([myTodo]);
+        //var myMsg = new MessageModel({message:'Read the whole book', id: 2});
+        masterModel = new TeamCollection();
+
+        console.log(masterModel.toJSON());
 
       },
 

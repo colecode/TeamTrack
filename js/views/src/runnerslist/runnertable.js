@@ -13,6 +13,7 @@ define(
 
         var rows = [];
         this.props.runners.forEach(function(runner) {
+            //console.log(runner);
             rows.push(<RunnerTableRow runner={runner} key={runner.id} />);
         });
         return (

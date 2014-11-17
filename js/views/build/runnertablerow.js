@@ -13,6 +13,9 @@ define(
 
       render: function() {
 
+        //console.log({this.props.runner});
+        //console.log({this.props});
+
         return (
           
             React.createElement("tr", null, 
