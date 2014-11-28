@@ -35,6 +35,11 @@
 	font-weight: bold;
 }
 
+.nav-main .nav-home a {
+	text-decoration: none !important;
+	color: white;
+}
+
 .nav-main .nav-site {
 	float: right;
 	margin: 0;
@@ -51,6 +56,7 @@
 	font-weight: bold;
 	text-decoration: none !important;
 }
+
 
 #searchBarComponent {
 	padding-bottom: 30px;

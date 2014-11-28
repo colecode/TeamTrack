@@ -4,8 +4,7 @@ define([
   'backbone'
 ], function(_, Backbone){
   
-var ProjectModel = Backbone.Model.extend({
-	//urlRoot : '/api/example_1.php',
+var RunnerModel = Backbone.Model.extend({
     defaults: {
       id: "1",
       first: "Harry", 
@@ -13,6 +12,6 @@ var ProjectModel = Backbone.Model.extend({
       school: "Hogwarts"
     }
   });
-  // Return the model for the module
-  return ProjectModel;
+
+  return RunnerModel;
 });

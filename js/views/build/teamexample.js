@@ -5,7 +5,7 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/team',
+  //'models/team',
   'views/build/searchbar',
   'views/build/runnertable'
   ], function($, _, Backbone, React, backboneMixin){
@@ -20,7 +20,7 @@ define(
     });
 
     var TeamCollection = Backbone.Collection.extend({
-      url : 'api/example.json',
+      url : 'api/example1.php',
       model: MessageModel
     });
 

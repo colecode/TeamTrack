@@ -5,11 +5,11 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/team',
+  'models/runner',
   'views/build/searchbar',
   'views/build/runnertable',
-  'collections/teams'
-  ], function($, _, Backbone, React, backboneMixin, RunnerModel, SearchBar, RunnerTable, RunnersCollection){
+  'collections/runners'
+  ], function($, _, Backbone, React, backboneMixin, RunnerModel, SearchBar, RunnerTable, RunnerCollection){
 
     // Initialize the model here so it's scope can be reached in MyWidget
     var masterModel;
@@ -24,7 +24,7 @@ define(
           React.createElement("div", {className: 'my-container'}, 
             React.createElement("div", {className: 'wrap'}, 
               React.createElement(SearchBar, null), 
-              React.createElement(RunnerTable, {runners: this.props.model})
+              React.createElement(RunnerTable, {runners: this.props.collection})
             )
           )
           )
@@ -40,49 +40,47 @@ define(
 
       initialize: function() {
         // Set the model 
-        // TODO: Server call will go here to retreive list of all Runnners
-        //masterModel = new MyModel();
-
-        // var testMasterModel = [
-        // {id: '1', first: 'Colin', last: 'Cole', school: 'HH'},
-        // {id: '2', first: 'Andrew', last: 'Whitman', school: 'HH'},
-        // {id: '3', first: 'Josh', last: 'Black', school: 'HH'},
-        // {id: '4', first: 'Hank', last: 'Baker', school: 'HF'},
-        // {id: '5', first: 'Mike', last: 'Burke', school: 'HF'}      
-        // ];
-
-        // console.log(testMasterModel);
-
-
         // Adding static models to collection
         // Next step: Pull/create models from API service 
-        masterModel = new RunnersCollection();
 
-        var runner1 = new RunnerModel(
-        {
-          "id": "1",
-          "first": "Walter",
-          "last": "White",
-          "school": "HH"
+        masterModel = new RunnerCollection();
+        masterModel.fetch({
+
+          success: function (response) {
+            console.log("Success!");
+            //console.log(masterModel.toJSON());
+          },
+          error: function(model,response,xhr) {
+            console.log("Error");
+            console.log(response);
+            console.log(xhr);        
+          }
         });
 
-        var runner2 = new RunnerModel(
-        {
-          "id": "2",
-          "first": "Skylar",
-          "last": "White",
-          "school": "HH"
-        });
+        // var runner1 = new RunnerModel(
+        // {
+        //   "id": "1",
+        //   "first": "Walter",
+        //   "last": "White",
+        //   "school": "HH"
+        // });
 
-        masterModel.add(runner1);
-        masterModel.add(runner2);
-        console.log(masterModel.toJSON());
+        // var runner2 = new RunnerModel(
+        // {
+        //   "id": "2",
+        //   "first": "Skylar",
+        //   "last": "White",
+        //   "school": "HH"
+        // });
+
+        //  masterModel.add(runner1);
+        //  masterModel.add(runner2);
       },
 
       render: function (){
-
+        // **IMPORTANT** This inital props has to be named 'collection' //
         React.render(       
-          React.createElement(RunnerListMaster, {model: masterModel.toJSON()}),
+          React.createElement(RunnerListMaster, {collection: masterModel}),
           this.el
         );
       } 
