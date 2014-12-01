@@ -6,7 +6,7 @@ define([
 ], function(_, Backbone, RunnerModel){
 
   var RunnerCollection = Backbone.Collection.extend({
-  	url : 'api/example1.php',
+  	url : 'api/runnerslist.php',
     model: RunnerModel
   });
   

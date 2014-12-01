@@ -1,12 +1,10 @@
 <?php
  
 class RedeemAPI {
-    // Main method to redeem a code
-    private $db;
- 
+    
     // Constructor - open DB connection
     function __construct() {
-        $this->db = new mysqli('localhost', 'username', 'password', 'TeamTrack');
+        $this->db = new mysqli("localhost", "colin", "saltytuna814", "TeamTrack");
         $this->db->autocommit(FALSE);
     }
  
@@ -26,18 +24,18 @@ class RedeemAPI {
  
     // Main method to redeem a code
     function redeem() {
-        // Print all codes in database
-        $stmt = $this->db->prepare('SELECT id, first, last, school FROM runners WHERE id = 2');
-        $stmt->execute();
-        $stmt->bind_result($id, $first, $last, $school);
-        while ($stmt->fetch()) {
-            //echo "$code has $uses_remaining uses remaining!";
-            echo '[{"id":$id, "first":$first, "last":$last, "school":$school}]';
+
+        $result = array();
+        $r = $this->db->query('SELECT id, first, last, school FROM runners');
+        while($runner = $r->fetch_assoc()){
+            
+            // Add single runner into total array
+            $result[] = $runner;
         }
-        $stmt->close();
+
+        echo json_encode($result);
 	}
 }
-
 
 // This is the first thing that gets called when this page is loaded
 // Creates a new instance of the RedeemAPI class and calls the redeem method
