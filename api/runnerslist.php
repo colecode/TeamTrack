@@ -1,7 +1,7 @@
 <?php
- 
+
 class RedeemAPI {
-    
+
     // Constructor - open DB connection
     function __construct() {
         $this->db = new mysqli("localhost", "colin", "saltytuna814", "TeamTrack");
@@ -33,6 +33,7 @@ class RedeemAPI {
             $result[] = $runner;
         }
 
+        // return JSON encoded array
         echo json_encode($result);
 	}
 }
