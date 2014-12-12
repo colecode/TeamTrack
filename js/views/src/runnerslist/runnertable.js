@@ -12,10 +12,7 @@ define(
       render: function() {
 
         var rows = [];
-        console.log(this.props.myModel);
-        console.log(this.props.collection);
         this.props.runners.forEach(function(runner) {
-            console.log(runner);
             rows.push(<RunnerTableRow runner={runner} key={runner.id} />);
         });
         return (

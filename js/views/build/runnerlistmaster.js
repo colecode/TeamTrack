@@ -24,7 +24,8 @@ define(
           React.createElement("div", {className: 'my-container'}, 
             React.createElement("div", {className: 'wrap'}, 
               React.createElement(SearchBar, null), 
-              React.createElement(RunnerTable, {runners: this.props.collection})
+              React.createElement(RunnerTable, {runners: this.props.collection}), 
+              React.createElement("a", {href: "#createrunner"}, "Create Runner")
             )
           )
           )
@@ -48,7 +49,6 @@ define(
 
           success: function (response) {
             console.log("Success!");
-            //console.log(masterModel.toJSON());
           },
           error: function(model,response,xhr) {
             console.log("Error");
@@ -56,25 +56,6 @@ define(
             console.log(xhr);        
           }
         });
-
-        // var runner1 = new RunnerModel(
-        // {
-        //   "id": "1",
-        //   "first": "Walter",
-        //   "last": "White",
-        //   "school": "HH"
-        // });
-
-        // var runner2 = new RunnerModel(
-        // {
-        //   "id": "2",
-        //   "first": "Skylar",
-        //   "last": "White",
-        //   "school": "HH"
-        // });
-
-        //  masterModel.add(runner1);
-        //  masterModel.add(runner2);
       },
 
       render: function (){

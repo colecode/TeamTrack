@@ -13,9 +13,6 @@ define(
 
       render: function() {
 
-        //console.log({this.props.runner});
-        //console.log({this.props});
-
         return (
           
             React.createElement("tr", null, 
@@ -24,7 +21,7 @@ define(
               React.createElement("td", null, this.props.runner.school)
             )        
           
-          )
+        )
       }
     });
 

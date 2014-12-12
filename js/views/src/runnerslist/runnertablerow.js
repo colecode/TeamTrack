@@ -13,9 +13,6 @@ define(
 
       render: function() {
 
-        //console.log({this.props.runner});
-        //console.log({this.props});
-
         return (
           
             <tr>
@@ -24,7 +21,7 @@ define(
               <td>{this.props.runner.school}</td>
             </tr>        
           
-          )
+        )
       }
     });
 
