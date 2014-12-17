@@ -11,7 +11,7 @@ var RunnerModel = Backbone.Model.extend({
       last: "Potter",
       school: "Hogwarts"
     }
-  });
+});
 
   return RunnerModel;
 });

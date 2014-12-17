@@ -38,6 +38,12 @@ $app->get('/runners/:id', function($id) use ($db) {
         echo json_encode($result);
 });
 
+// POST Runners/id
+$app->post('/runners/:id', function($id) use ($db) {
+
+        // Do nothing yet
+});
+
 $app->run();
 
 ?>
