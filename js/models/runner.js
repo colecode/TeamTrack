@@ -6,10 +6,10 @@ define([
   
 var RunnerModel = Backbone.Model.extend({
     defaults: {
-      id: "1",
-      first: "Harry", 
-      last: "Potter",
-      school: "Hogwarts"
+      id: "",
+      firstName: "Hank", 
+      lastName: "Shcrader",
+      schoolName: "TexMex"
     }
 });
 

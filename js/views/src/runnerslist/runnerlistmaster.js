@@ -17,16 +17,15 @@ define(
     var RunnerListMaster = React.createClass({
 
       mixins: [backboneMixin],
-
       render: function() {
-
+        
         return (
           <div className={'my-container'}>
-            <div className={'wrap'}>
-              <SearchBar />
-              <RunnerTable runners={this.props.collection} />
-              <a href="#createrunner">Create Runner</a>
-            </div>          
+          <div className={'wrap'}>
+          <SearchBar />
+          <RunnerTable runners={this.props.collection} />
+          <a href="#createrunner">Create Runner Test</a>
+          </div>          
           </div>
           )
       }
@@ -37,36 +36,33 @@ define(
       el: $('#mainContent'),
       events: {
           // none
-      },
+        },
 
-      initialize: function() {
-        // Set the model 
-        // Adding static models to collection
-        // Next step: Pull/create models from API service 
+        initialize: function() {
+         
+          masterModel = new RunnerCollection();
 
-        masterModel = new RunnerCollection();
-        masterModel.fetch({
+          masterModel.fetch({
+            success: function (response) {
+              console.log("Success fetch runners list!");
+            },
+            error: function(model,response,xhr) {
+              console.log("Error fetch runners list");
+              console.log(response);
+              console.log(xhr);        
+            }
+          });
+        },
 
-          success: function (response) {
-            console.log("Success!");
-          },
-          error: function(model,response,xhr) {
-            console.log("Error");
-            console.log(response);
-            console.log(xhr);        
-          }
-        });
-      },
-
-      render: function (){
+        render: function (){
         // **IMPORTANT** This inital props has to be named 'collection' //
         React.render(       
           <RunnerListMaster collection={masterModel} />,
           this.el
-        );
+          );
       } 
 
-      });
+    });
 
     return RunnerListView;
   });

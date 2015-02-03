@@ -16,9 +16,9 @@ define(
         return (
           
             <tr>
-              <td>{this.props.runner.first}</td>
-              <td>{this.props.runner.last}</td>
-              <td>{this.props.runner.school}</td>
+              <td>{this.props.runner.firstName}</td>
+              <td>{this.props.runner.lastName}</td>
+              <td>{this.props.runner.schoolName}</td>
             </tr>        
           
         )

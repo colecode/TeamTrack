@@ -5,107 +5,105 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/runner'
-  ], function($, _, Backbone, React, backboneMixin, RunnerModel){
+  'models/createRunnerModel'
+  ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel){
 
-    // Initialize the model here so it's scope can be reached in MyWidget
-    var masterModel;
-
-    var CreateRunnerModel = Backbone.Model.extend({
-      defaults: {
-        id: "1",
-        firstName: "Harry", 
-        lastName: "Potter",
-        aSchool: "Hogwarts"
-      },
-      url: 'api/index.php/runners'
-    });
-
-    // Used to hold the STATE of the inputs
-    // var CreateRunnerParent = React.createClass({
-
-    //   getInitialState: function() {
-    //     return {
-    //       firstName: '',
-    //       lastName: '',
-    //       aSchool: ''
-    //     };
+    // var CreateRunnerModel = Backbone.Model.extend({
+    //   defaults: {
+    //     fName: "", 
+    //     lName: "",
+    //     sName:""
     //   },
-
-    //   render: function() {
-    //     return (<CreateRunnerMaster 
-    //                 firstName={this.state.firstName}
-    //                 lastName={this.state.lastName}
-    //                 aSchool={this.state.aSchool}/>)
-    //   }
-
+    //   url : 'api/index.php/runners'
     // });
 
-    // Holds the UI and data-bind
     var CreateRunnerMaster = React.createClass({
 
       mixins: [backboneMixin],
 
-      handleClick: function() {
-
-        console.log('submit clicked!');
-        console.log(masterModel);     
-
+      getInitialState: function () {
+        return {
+            firstName: '',
+            lastName: '',
+            schoolName: ''    
+        };
       },
 
-      handleChange: function(e) {
+      handleSubmit: function() {
 
+        myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sName':this.state.schoolName});
+
+        myRunner.save(null, {
+          success:function(model, response) {
+            console.log('Successfully saved!');
+            console.log(response);
+          },
+          error: function(model, error) {
+            console.log('error!!');
+            console.log(model.toJSON());
+            console.log(error);
+          }
+        });
       },
 
       render: function() {
-        console.log(masterModel);
+        
         return (
           <div className={'my-container'}>
             <div className={'wrap'}>
             <form role="form">
               <div className={"form-group"}>
                 <label>First name</label>
-                <input type="text" className={"form-control"} id="createRunnerFirst" placeholder="First name" defaultValue={this.props.firstName}/>
+                <input type="text" className={"form-control"} value={this.props.firstName} onChange={this.onFirstNameChange} />
               </div>
               <div className={"form-group"}>
                 <label>Last name</label>
-                <input type="text" className={"form-control"} id="createRunnerLast" placeholder="Last name" defaultValue={this.props.lastName} />
+                <input type="text" className={"form-control"} value={this.props.lastName} onChange={this.onLastNameChange} />
               </div>
               <div className={"form-group"}>
                 <label>School</label>
-                <input type="text" className={"form-control"} id="createRunnerSchool" placeholder="School" defaultValue={this.props.aSchool} />
+                <input type="text" className={"form-control"} value={this.props.schoolName} onChange={this.onSchoolNameChange} />
               </div>
               <div className={"text-center"}>
-                <button className={"btn btn-primary"} onClick={this.handleClick}>Submit</button>
+                <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
               </div>
             </form>       
             </div>          
           </div>
-          )
-      }
-    });
-
-    var CreateRunnerView = Backbone.View.extend({
-      
-      el: $('#mainContent'),
-      events: {
-          // none
+        )
       },
 
-      initialize: function() {
-          // none
-          masterModel = new CreateRunnerModel();
+      onFirstNameChange: function (e) {
+        this.setState({ firstName: e.target.value });
+      },
+
+      onLastNameChange: function (e) {
+        this.setState({ lastName: e.target.value });
+      },
+
+      onSchoolNameChange: function (e) {
+        this.setState({ schoolName: e.target.value });
+      }
+
+    });
+    
+    var CreateRunnerView = Backbone.View.extend({
+    
+      el: $('#mainContent'),
+      events: {
+      },
+
+      initialize: function() {          
       },
 
       render: function (){
         
         React.render(       
-          <CreateRunnerMaster model={masterModel}/>,
+          <CreateRunnerMaster/>,
           this.el
         );
       } 
-
-      });
+    });
 
     return CreateRunnerView;
   });
