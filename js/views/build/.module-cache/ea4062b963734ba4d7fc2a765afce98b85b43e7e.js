@@ -30,7 +30,7 @@ define(
 
       handleClick: function() {
 
-        sweetAlert("", "Successfully created new runner!", "success");
+        sweetAlert("Successfully created new runner", "", "success");
         // masterModel.fetch({
 
         //   success: function (response) {

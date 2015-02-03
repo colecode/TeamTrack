@@ -9,7 +9,7 @@ define(
   ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel){
 
 
-    var CreateRunnerMaster = React.createClass({
+    var CreateRunnerMaster = React.createClass({displayName: 'CreateRunnerMaster',
 
       mixins: [backboneMixin],
 
@@ -27,6 +27,7 @@ define(
 
         myRunner.save(null, {
           success:function(model, response) {
+            //sweetAlert("", "Successfully created new runner!", "success");
             swal({title:"", text: "Successfully created new runner!", type:"success", timer: 2000 });
           },
           error: function(model, error) {
@@ -39,27 +40,27 @@ define(
       render: function() {
         
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-            <form role="form">
-              <div className={"form-group"}>
-                <label>First name</label>
-                <input type="text" className={"form-control"} value={this.props.firstName} onChange={this.onFirstNameChange} />
-              </div>
-              <div className={"form-group"}>
-                <label>Last name</label>
-                <input type="text" className={"form-control"} value={this.props.lastName} onChange={this.onLastNameChange} />
-              </div>
-              <div className={"form-group"}>
-                <label>School</label>
-                <input type="text" className={"form-control"} value={this.props.schoolName} onChange={this.onSchoolNameChange} />
-              </div>
-              <div className={"text-center"}>
-                <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
-              </div>
-            </form>       
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+            React.createElement("form", {role: "form"}, 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "First name"), 
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.firstName, onChange: this.onFirstNameChange})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "Last name"), 
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.lastName, onChange: this.onLastNameChange})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "School"), 
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.schoolName, onChange: this.onSchoolNameChange})
+              ), 
+              React.createElement("div", {className: "text-center"}, 
+                React.createElement("button", {className: "btn btn-primary", onClick: this.handleSubmit}, "Submit")
+              )
+            )
+            )
+          )
         )
       },
 
@@ -89,7 +90,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateRunnerMaster/>,
+          React.createElement(CreateRunnerMaster, null),
           this.el
         );
       } 

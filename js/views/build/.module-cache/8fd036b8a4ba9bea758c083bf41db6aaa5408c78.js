@@ -21,13 +21,16 @@ define(
       handleSubmit: function() {
 
         myTeam = new CreateTeamModel({'tName':this.state.teamName});
-        
+        console.log(myTeam);
         myTeam.save(null, {
+          //wait:true,
           success:function(model, response) {
-            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 });
+            console.log('Successfully saved!');
+            console.log(response);
           },
           error: function(model, error) {
-            sweetAlert("Oops!", "An error occured while creating a new team!", "error");
+            console.log('error!!');
+            console.log(model.toJSON());
             console.log(error);
           }
         });

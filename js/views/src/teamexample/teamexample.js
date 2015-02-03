@@ -30,41 +30,42 @@ define(
 
       handleClick: function() {
 
-        masterModel.fetch({
+        sweetAlert("", "Successfully created new runner!", "success");
+        // masterModel.fetch({
 
-          success: function (response) {
-            console.log("Success!");
-            console.log(masterModel.toJSON());
-          },
-          error: function(model,response,xhr) {
-            console.log("Error");
-            console.log(response);
-            console.log(xhr);        
-          }
-        });
-      },
+        //   success: function (response) {
+        //     console.log("Success!");
+        //     console.log(masterModel.toJSON());
+        //   },
+        //   error: function(model,response,xhr) {
+        //     console.log("Error");
+        //     console.log(response);
+        //     console.log(xhr);        
+        //   }
+        // });
+  },
 
-      render: function() {
+  render: function() {
 
-        return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-              <p>{this.props.model}</p>
-              <a href="#" onClick={this.handleClick}>Fetch!</a>
-            </div>          
-          </div>
-          )
-      }
-    });
+    return (
+      <div className={'my-container'}>
+      <div className={'wrap'}>
+      <p>{this.props.model}</p>
+      <a href="#" onClick={this.handleClick}>Sweeet!</a>
+      </div>          
+      </div>
+      )
+  }
+});
 
     var TeamExampleView = Backbone.View.extend({
-      
+
       el: $('#mainContent'),
       events: {
           // none
-      },
+        },
 
-      initialize: function() {
+        initialize: function() {
         // Set the model 
         // TODO: Server call will go here to retreive list of all Runnners
         //masterModel = new MyModel();
@@ -83,10 +84,10 @@ define(
         React.render(       
           <RunnerListMaster model={masterModel} />,
           document.getElementById('mainContent')
-        );
+          );
       } 
 
-      });
+    });
 
     return TeamExampleView;
   });

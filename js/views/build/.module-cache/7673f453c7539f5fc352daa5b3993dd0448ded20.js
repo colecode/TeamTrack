@@ -27,10 +27,12 @@ define(
 
         myRunner.save(null, {
           success:function(model, response) {
-            swal({title:"", text: "Successfully created new runner!", type:"success", timer: 2000 });
+            console.log('Successfully saved!');
+            console.log(response);
           },
           error: function(model, error) {
-            sweetAlert("Oops!", "An error occured while creating a new runner!", "error");
+            console.log('error!!');
+            console.log(model.toJSON());
             console.log(error);
           }
         });

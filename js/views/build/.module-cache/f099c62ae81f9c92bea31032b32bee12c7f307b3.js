@@ -30,7 +30,7 @@ define(
 
       handleClick: function() {
 
-        sweetAlert("", "Successfully created new runner!", "success");
+        sweetAlert("!!", "Sweeeeeeet", "error");
         // masterModel.fetch({
 
         //   success: function (response) {
@@ -43,29 +43,29 @@ define(
         //     console.log(xhr);        
         //   }
         // });
-  },
+      },
 
-  render: function() {
+      render: function() {
 
-    return (
-      React.createElement("div", {className: 'my-container'}, 
-      React.createElement("div", {className: 'wrap'}, 
-      React.createElement("p", null, this.props.model), 
-      React.createElement("a", {href: "#", onClick: this.handleClick}, "Sweeet!")
-      )
-      )
-      )
-  }
-});
+        return (
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement("p", null, this.props.model), 
+              React.createElement("a", {href: "#", onClick: this.handleClick}, "Sweeet!")
+            )
+          )
+          )
+      }
+    });
 
     var TeamExampleView = Backbone.View.extend({
-
+      
       el: $('#mainContent'),
       events: {
           // none
-        },
+      },
 
-        initialize: function() {
+      initialize: function() {
         // Set the model 
         // TODO: Server call will go here to retreive list of all Runnners
         //masterModel = new MyModel();
@@ -84,10 +84,10 @@ define(
         React.render(       
           React.createElement(RunnerListMaster, {model: masterModel}),
           document.getElementById('mainContent')
-          );
+        );
       } 
 
-    });
+      });
 
     return TeamExampleView;
   });

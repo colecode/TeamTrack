@@ -5,11 +5,10 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/runner',
   'views/build/searchbar',
   'views/build/runnertable',
   'collections/runners'
-  ], function($, _, Backbone, React, backboneMixin, RunnerModel, SearchBar, RunnerTable, RunnerCollection){
+  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection){
 
     // Initialize the model here so it's scope can be reached in MyWidget
     var masterModel;

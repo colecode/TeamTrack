@@ -2,7 +2,7 @@
 define([
   'underscore',
   'backbone',
-  'models/runner',
+  'models/runnerListModel',
 ], function(_, Backbone, RunnerModel){
 
   var RunnerCollection = Backbone.Collection.extend({

@@ -1,4 +1,3 @@
-// Filename: models/team
 define([
   'underscore',
   'backbone'
@@ -7,9 +6,9 @@ define([
 var RunnerModel = Backbone.Model.extend({
     defaults: {
       id: "",
-      firstName: "Hank", 
-      lastName: "Shcrader",
-      schoolName: "TexMex"
+      firstName: "John", 
+      lastName: "Doe",
+      schoolName: "ABC"
     }
 });
 

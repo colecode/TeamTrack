@@ -27,7 +27,8 @@ define(
 
         myRunner.save(null, {
           success:function(model, response) {
-            swal({title:"", text: "Successfully created new runner!", type:"success", timer: 2000 });
+            sweetAlert("", "Successfully created new runner!", "success");
+            swal({text: "I will close in 2 seconds.", type:"success",   timer: 2000 });
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new runner!", "error");

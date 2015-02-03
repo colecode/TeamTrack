@@ -6,7 +6,7 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/runner'
+  'models/runnerListModel'
   ], function($, _, Backbone, React, backboneMixin, MyModel){
 
     // Initialize the model here so it's scope can be reached in MyWidget
