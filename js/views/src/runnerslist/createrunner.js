@@ -8,6 +8,7 @@ define(
   'models/createRunnerModel'
   ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel){
 
+    // TEST COMMIT DELETE
     // var CreateRunnerModel = Backbone.Model.extend({
     //   defaults: {
     //     fName: "", 
