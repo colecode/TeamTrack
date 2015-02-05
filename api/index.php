@@ -77,6 +77,38 @@ $app->post('/teams', function() use ($app) {
     echo json_encode($tName);
 });
 
+// Fetch dmn_Schools
+$app->get('/dmnSchools', function() use ($db) {
+          
+        $result = array();
+        $sql= "SELECT id, description FROM dmn_Schools"; 
+        
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// Fetch dmn_States
+$app->get('/dmnStates', function() use ($db) {
+          
+        $result = array();
+        $sql= "SELECT id, description FROM dmn_States"; 
+        
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
 $app->run();
 
 ?>

@@ -5,13 +5,21 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/createRunnerModel'
-  ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel){
+  'models/createRunnerModel',
+  'collections/dropdownCollection',
+  'views/build/dropdownContainer',
+  'reactboot'
+  ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel, DropdownCollection, DropdownContainer, ReactBoot){
 
+    //var dropdownCollection;
+    //var states_dropdownCollection;
+    var dmnArray_Schools = [];
+    var dmnArray_States = [];
 
     var CreateRunnerMaster = React.createClass({
 
       mixins: [backboneMixin],
+      mixins: [React.addons.LinkedStateMixin],
 
       getInitialState: function () {
         return {
@@ -51,8 +59,12 @@ define(
                 <input type="text" className={"form-control"} value={this.props.lastName} onChange={this.onLastNameChange} />
               </div>
               <div className={"form-group"}>
-                <label>School</label>
-                <input type="text" className={"form-control"} value={this.props.schoolName} onChange={this.onSchoolNameChange} />
+                <label>School</label><br/>
+                <DropdownContainer allDomains={this.props.dmnArray_Schools} dropTitle="School" />
+              </div>
+              <div className={"form-group"}>
+                <label>State</label><br/>
+                <DropdownContainer allDomains={this.props.dmnArray_States} dropTitle="State" />
               </div>
               <div className={"text-center"}>
                 <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
@@ -83,13 +95,35 @@ define(
       events: {
       },
 
-      initialize: function() {          
+      initialize: function() {  
+
+        $.ajax({
+            url:"api/index.php/dmnSchools",
+            type:"GET",
+            async:false,
+            success:function(msg){
+               dmnArray_Schools = msg;
+            },
+            dataType:"json"
+        });
+
+        $.ajax({
+            url:"api/index.php/dmnStates",
+            type:"GET",
+            async:false,
+            success:function(msg){
+              dmnArray_States = msg;
+            },
+            dataType:"json"
+        });
+
+        
       },
 
       render: function (){
         
         React.render(       
-          <CreateRunnerMaster/>,
+          <CreateRunnerMaster dmnArray_Schools={dmnArray_Schools} dmnArray_States={dmnArray_States}/>,
           this.el
         );
       } 
