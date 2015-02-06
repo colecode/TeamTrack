@@ -5,8 +5,9 @@ define([
   'views/build/runnerlistmaster',
   'views/build/teamexample',
   'views/build/createrunner',
-  'views/build/createteam'
-], function($, _, Backbone, RunnerList, TeamExample, CreateRunner, CreateTeam){
+  'views/build/createteam',
+  'views/build/home'
+], function($, _, Backbone, RunnerList, TeamExample, CreateRunner, CreateTeam, HomePage){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -19,6 +20,8 @@ define([
 
       'createteam' : 'createTeam',
 
+      'home' : 'homePage',
+
       // Default
       '*actions': 'defaultAction'
     }
@@ -26,6 +29,13 @@ define([
 
   var initialize = function(){
     var app_router = new AppRouter;
+
+    app_router.on('route:homePage', function(){
+      
+      var homePage = new HomePage();
+      homePage.render();
+
+    });
 
     app_router.on('route:createRunner', function(){
       

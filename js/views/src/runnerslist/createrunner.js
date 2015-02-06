@@ -59,7 +59,6 @@ define(
 
         var MenuItem = ReactBoot.MenuItem;
         var DropdownButton = ReactBoot.DropdownButton;
-        var rows = [];
         
         return (
           <div className={'my-container'}>
@@ -75,18 +74,6 @@ define(
               </div>
               <div className={"form-group"}>
                 
-                <label>School</label><br/>
-                <DropdownButton bsStyle="primary" title={this.state.schoolName} style={{width : 300}}>  
-
-                  {this.props.dmnArray_Schools.map(function(domainVal, i) {
-                    return (<MenuItem onSelect={this.handleSelect_dmnSchools.bind(this, i)} key={i}>{domainVal.description}</MenuItem>);
-                  },this)}
-
-                </DropdownButton>   
-                  
-              </div>
-              <div className={"form-group"}>
-                
                   <label>State</label><br/>
                   <DropdownButton bsStyle="primary" title={this.state.stateName} style={{width : 150}}>  
 
@@ -97,6 +84,18 @@ define(
                   </DropdownButton> 
 
               </div>
+              <div className={"form-group"}>
+                
+                <label>School</label><br/>
+                <DropdownButton bsStyle="primary" title={this.state.schoolName} style={{width : 300}}>  
+
+                  {this.props.dmnArray_Schools.map(function(domainVal, i) {
+                    return (<MenuItem onSelect={this.handleSelect_dmnSchools.bind(this, i)} key={i}>{domainVal.description}</MenuItem>);
+                  },this)}
+
+                </DropdownButton>   
+                  
+              </div>  
               <div className={"text-center"}>
                 <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
               </div>
