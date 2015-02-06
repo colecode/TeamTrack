@@ -90,12 +90,7 @@ define(
             )
           )
         )
-      },
-
-      // No longer used - leave as an example
-      onFirstNameChange: function (e) {
-        this.setState({ firstName: e.target.value });
-      }   
+      }
 
     });
     

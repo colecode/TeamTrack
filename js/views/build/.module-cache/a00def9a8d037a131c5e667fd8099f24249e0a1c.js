@@ -25,8 +25,7 @@ define(
         return {
             firstName: '',
             lastName: '',
-            schoolName: '',
-            stateName:''  
+            schoolName: ''    
         };
       },
 
@@ -53,35 +52,26 @@ define(
             React.createElement("form", {role: "form"}, 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "First name"), 
-                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('firstName')})
-                
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.firstName, onChange: this.onFirstNameChange})
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "Last name"), 
-                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('lastName')})
-
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.lastName, onChange: this.onLastNameChange})
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement("ul", {className: "list-inline"}, 
+                React.createElement("ul", {className: "horizontal-list"}, 
                   React.createElement("li", null, 
                     React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_Schools, dropTitle: "School"})
                   ), 
                   React.createElement("li", null, 
-                    React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('schoolName')})
+                    React.createElement("input", {type: "text", className: "form-control", value: this.props.schoolName, onChange: this.onSchoolNameChange})
                   )
                 )
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "State"), React.createElement("br", null), 
-                React.createElement("ul", {className: "list-inline"}, 
-                  React.createElement("li", null, 
-                    React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_States, dropTitle: "State"})
-                  ), 
-                  React.createElement("li", null, 
-                    React.createElement("input", {type: "text", className: "form-control", value: this.props.stateName})
-                  )
-                )
+                React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_States, dropTitle: "State"})
               ), 
               React.createElement("div", {className: "text-center"}, 
                 React.createElement("button", {className: "btn btn-primary", onClick: this.handleSubmit}, "Submit")
@@ -92,10 +82,17 @@ define(
         )
       },
 
-      // No longer used - leave as an example
       onFirstNameChange: function (e) {
         this.setState({ firstName: e.target.value });
-      }   
+      },
+
+      onLastNameChange: function (e) {
+        this.setState({ lastName: e.target.value });
+      },
+
+      onSchoolNameChange: function (e) {
+        this.setState({ schoolName: e.target.value });
+      }
 
     });
     

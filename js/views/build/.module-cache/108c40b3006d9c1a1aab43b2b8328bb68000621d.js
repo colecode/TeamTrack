@@ -92,10 +92,17 @@ define(
         )
       },
 
-      // No longer used - leave as an example
       onFirstNameChange: function (e) {
         this.setState({ firstName: e.target.value });
-      }   
+      },
+
+      onLastNameChange: function (e) {
+        this.setState({ lastName: e.target.value });
+      },
+
+      onSchoolNameChange: function (e) {
+        this.setState({ schoolName: e.target.value });
+      }
 
     });
     

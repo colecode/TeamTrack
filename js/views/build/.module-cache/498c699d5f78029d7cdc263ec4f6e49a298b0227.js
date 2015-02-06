@@ -19,8 +19,7 @@ define(
         this.props.allDomains.forEach(function(domainVal, i) {
             rows.push(React.createElement(MenuItem, {onSelect: 
               function (e) { 
-                console.log(this.children);
-                //this.setState({ schoolName: this.children });
+                console.log(this.children)
               }, 
             eventKey: i}, domainVal.description))
         });

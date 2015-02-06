@@ -10,29 +10,35 @@ define(
 
     var DropdownContainer = React.createClass({
 
-      render: function() {
+      render: function(j) {
 
         var MenuItem = ReactBoot.MenuItem;
         var DropdownButton = ReactBoot.DropdownButton;
         var rows = [];
         
         this.props.allDomains.forEach(function(domainVal, i) {
-
-            rows.push(<MenuItem onSelect={this.onDomainChange} eventKey={i}>{domainVal.description}</MenuItem>)
+            rows.push(<MenuItem onSelect={
+              function (e) { 
+                console.log(this.children);
+                //this.setState({ schoolName: this.children });
+              }
+            } eventKey={i}>{domainVal.description}</MenuItem>)
         });
 
         return (     
-           <DropdownButton bsStyle="primary" title={this.props.dropTitle}>
+           <DropdownButton bsStyle="primary" title={this.props.dropTitle} key={j}>
               {rows}
            </DropdownButton>                     
         )
-      },
-
-      onDomainChange: function (e) {
-        this.setState({ schoolName: e.target.value });
       }
 
     });
+
+    function selectedItem ()
+    {
+      //console.log(this.children);
+      //DropdownContainer.setState({ schoolName: this.chilren });
+    }
 
     return DropdownContainer;
   });

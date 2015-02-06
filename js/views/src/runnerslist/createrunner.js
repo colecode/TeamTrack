@@ -25,7 +25,8 @@ define(
         return {
             firstName: '',
             lastName: '',
-            schoolName: ''    
+            schoolName: '',
+            stateName:''  
         };
       },
 
@@ -52,19 +53,35 @@ define(
             <form role="form">
               <div className={"form-group"}>
                 <label>First name</label>
-                <input type="text" className={"form-control"} value={this.props.firstName} onChange={this.onFirstNameChange} />
+                <input type="text" className={"form-control"} valueLink={this.linkState('firstName')} />
+                
               </div>
               <div className={"form-group"}>
                 <label>Last name</label>
-                <input type="text" className={"form-control"} value={this.props.lastName} onChange={this.onLastNameChange} />
+                <input type="text" className={"form-control"} valueLink={this.linkState('lastName')} />
+
               </div>
               <div className={"form-group"}>
                 <label>School</label><br/>
-                <DropdownContainer allDomains={this.props.dmnArray_Schools} dropTitle="School" />
+                <ul className={"list-inline"}>
+                  <li>
+                    <DropdownContainer allDomains={this.props.dmnArray_Schools} dropTitle="School" />
+                  </li>
+                  <li>
+                    <input type="text" className={"form-control"} valueLink={this.linkState('schoolName')} />
+                  </li>
+                </ul>
               </div>
               <div className={"form-group"}>
-                <label>State</label><br/>
-                <DropdownContainer allDomains={this.props.dmnArray_States} dropTitle="State" />
+                <label>State</label><br/>  
+                <ul className={"list-inline"}>
+                  <li>
+                    <DropdownContainer allDomains={this.props.dmnArray_States} dropTitle="State"/>
+                  </li>
+                  <li>
+                    <input type="text" className={"form-control"} value={this.props.stateName}/>
+                  </li>
+                </ul>
               </div>
               <div className={"text-center"}>
                 <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
@@ -75,17 +92,10 @@ define(
         )
       },
 
+      // No longer used - leave as an example
       onFirstNameChange: function (e) {
         this.setState({ firstName: e.target.value });
-      },
-
-      onLastNameChange: function (e) {
-        this.setState({ lastName: e.target.value });
-      },
-
-      onSchoolNameChange: function (e) {
-        this.setState({ schoolName: e.target.value });
-      }
+      }   
 
     });
     

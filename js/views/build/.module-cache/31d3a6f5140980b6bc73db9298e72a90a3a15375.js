@@ -17,12 +17,7 @@ define(
         var rows = [];
         
         this.props.allDomains.forEach(function(domainVal, i) {
-            rows.push(React.createElement(MenuItem, {onSelect: 
-              function (e) { 
-                console.log(this.children);
-                //this.setState({ schoolName: this.children });
-              }, 
-            eventKey: i}, domainVal.description))
+            rows.push(React.createElement(MenuItem, {onSelect: function (e) { console.log('selected!')}, eventKey: i}, domainVal.description))
         });
 
         return (     
@@ -30,15 +25,16 @@ define(
               rows
            )                     
         )
+      },
+
+      onDomainChange: function (e) {
+        console.log('selected!');
+        console.log(e.target.value);
+        //var test = this.props.schoolName;
+        //this.setState({test: e.target.value });
       }
 
     });
-
-    function selectedItem ()
-    {
-      //console.log(this.children);
-      //DropdownContainer.setState({ schoolName: this.chilren });
-    }
 
     return DropdownContainer;
   });

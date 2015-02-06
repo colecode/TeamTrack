@@ -20,7 +20,7 @@ define(
             rows.push(React.createElement(MenuItem, {onSelect: 
               function (e) { 
                 console.log(this.children);
-                //this.setState({ schoolName: this.children });
+                this.setState({ schoolName: this.children });
               }, 
             eventKey: i}, domainVal.description))
         });

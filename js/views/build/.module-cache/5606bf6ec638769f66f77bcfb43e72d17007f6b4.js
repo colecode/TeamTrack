@@ -53,13 +53,11 @@ define(
             React.createElement("form", {role: "form"}, 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "First name"), 
-                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('firstName')})
-                
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.firstName, onChange: this.onFirstNameChange})
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "Last name"), 
-                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('lastName')})
-
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.lastName, onChange: this.onLastNameChange})
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "School"), React.createElement("br", null), 
@@ -68,7 +66,7 @@ define(
                     React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_Schools, dropTitle: "School"})
                   ), 
                   React.createElement("li", null, 
-                    React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('schoolName')})
+                    React.createElement("input", {type: "text", className: "form-control", value: this.props.schoolName})
                   )
                 )
               ), 
@@ -92,10 +90,17 @@ define(
         )
       },
 
-      // No longer used - leave as an example
       onFirstNameChange: function (e) {
         this.setState({ firstName: e.target.value });
-      }   
+      },
+
+      onLastNameChange: function (e) {
+        this.setState({ lastName: e.target.value });
+      },
+
+      onSchoolNameChange: function (e) {
+        this.setState({ schoolName: e.target.value });
+      }
 
     });
     

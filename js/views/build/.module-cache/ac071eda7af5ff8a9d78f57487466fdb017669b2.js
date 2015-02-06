@@ -17,12 +17,7 @@ define(
         var rows = [];
         
         this.props.allDomains.forEach(function(domainVal, i) {
-            rows.push(React.createElement(MenuItem, {onSelect: 
-              function (e) { 
-                console.log(this.children);
-                //this.setState({ schoolName: this.children });
-              }, 
-            eventKey: i}, domainVal.description))
+            rows.push(React.createElement(MenuItem, {onSelect: selectedItem, eventKey: i}, domainVal.description))
         });
 
         return (     
@@ -36,8 +31,7 @@ define(
 
     function selectedItem ()
     {
-      //console.log(this.children);
-      //DropdownContainer.setState({ schoolName: this.chilren });
+      console.log(this.children);
     }
 
     return DropdownContainer;
