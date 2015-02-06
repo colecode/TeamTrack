@@ -76,7 +76,7 @@ define(
               React.createElement("div", {className: "form-group"}, 
                 
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.schoolName, style: {width : 300}}, 
+                React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.schoolName, style: {width : 100}}, 
 
                   this.props.dmnArray_Schools.map(function(domainVal, i) {
                     return (React.createElement(MenuItem, {onSelect: this.handleSelect_dmnSchools.bind(this, i), key: i}, domainVal.description));
@@ -88,7 +88,7 @@ define(
               React.createElement("div", {className: "form-group"}, 
                 
                   React.createElement("label", null, "State"), React.createElement("br", null), 
-                  React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.stateName, style: {width : 150}}, 
+                  React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.stateName, style: {width : 100}}, 
 
                     this.props.dmnArray_States.map(function(domainVal, i) {
                       return (React.createElement(MenuItem, {onSelect: this.handleSelect_dmnStates.bind(this, i), key: i}, domainVal.description));

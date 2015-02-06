@@ -15,6 +15,8 @@ define(
     //var states_dropdownCollection;
     var dmnArray_Schools = [];
     var dmnArray_States = [];
+    var stateSelect = "Select state";
+    var schoolSelect = "Select school";
 
     var CreateRunnerMaster = React.createClass({
 
@@ -25,8 +27,8 @@ define(
         return {
             firstName: '',
             lastName: '',
-            schoolName: '',
-            stateName:''  
+            schoolName: 'Select school',
+            stateName:'Select state'  
         };
       },
 
@@ -45,7 +47,19 @@ define(
         });
       },
 
+      handleSelect_dmnSchools: function(i) {
+        this.setState({ schoolName: this.props.dmnArray_Schools[i].description });
+      },
+
+      handleSelect_dmnStates: function(i) {
+        this.setState({ stateName: this.props.dmnArray_States[i].description });
+      },
+
       render: function() {
+
+        var MenuItem = ReactBoot.MenuItem;
+        var DropdownButton = ReactBoot.DropdownButton;
+        var rows = [];
         
         return (
           <div className={'my-container'}>
@@ -53,35 +67,35 @@ define(
             <form role="form">
               <div className={"form-group"}>
                 <label>First name</label>
-                <input type="text" className={"form-control"} valueLink={this.linkState('firstName')} />
-                
+                <input type="text" className={"form-control"} valueLink={this.linkState('firstName')} />   
               </div>
               <div className={"form-group"}>
                 <label>Last name</label>
                 <input type="text" className={"form-control"} valueLink={this.linkState('lastName')} />
-
               </div>
               <div className={"form-group"}>
+                
                 <label>School</label><br/>
-                <ul className={"list-inline"}>
-                  <li>
-                    <DropdownContainer allDomains={this.props.dmnArray_Schools} dropTitle="School" />
-                  </li>
-                  <li>
-                    <input type="text" className={"form-control"} valueLink={this.linkState('schoolName')} />
-                  </li>
-                </ul>
+                <DropdownButton bsStyle="primary" title={this.state.schoolName} style={{width : 300}}>  
+
+                  {this.props.dmnArray_Schools.map(function(domainVal, i) {
+                    return (<MenuItem onSelect={this.handleSelect_dmnSchools.bind(this, i)} key={i}>{domainVal.description}</MenuItem>);
+                  },this)}
+
+                </DropdownButton>   
+                  
               </div>
               <div className={"form-group"}>
-                <label>State</label><br/>  
-                <ul className={"list-inline"}>
-                  <li>
-                    <DropdownContainer allDomains={this.props.dmnArray_States} dropTitle="State"/>
-                  </li>
-                  <li>
-                    <input type="text" className={"form-control"} value={this.props.stateName}/>
-                  </li>
-                </ul>
+                
+                  <label>State</label><br/>
+                  <DropdownButton bsStyle="primary" title={this.state.stateName} style={{width : 150}}>  
+
+                    {this.props.dmnArray_States.map(function(domainVal, i) {
+                      return (<MenuItem onSelect={this.handleSelect_dmnStates.bind(this, i)} key={i}>{domainVal.description}</MenuItem>);
+                    },this)}
+
+                  </DropdownButton> 
+
               </div>
               <div className={"text-center"}>
                 <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>

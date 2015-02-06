@@ -76,7 +76,7 @@ define(
               React.createElement("div", {className: "form-group"}, 
                 
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.schoolName, style: {width : 300}}, 
+                React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.schoolName, style: {width : 150}}, 
 
                   this.props.dmnArray_Schools.map(function(domainVal, i) {
                     return (React.createElement(MenuItem, {onSelect: this.handleSelect_dmnSchools.bind(this, i), key: i}, domainVal.description));

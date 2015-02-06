@@ -15,8 +15,6 @@ define(
     //var states_dropdownCollection;
     var dmnArray_Schools = [];
     var dmnArray_States = [];
-    var stateSelect = "Select state";
-    var schoolSelect = "Select school";
 
     var CreateRunnerMaster = React.createClass({displayName: 'CreateRunnerMaster',
 
@@ -27,8 +25,8 @@ define(
         return {
             firstName: '',
             lastName: '',
-            schoolName: 'Select school',
-            stateName:'Select state'  
+            schoolName: '',
+            stateName:''  
         };
       },
 
@@ -47,19 +45,7 @@ define(
         });
       },
 
-      handleSelect_dmnSchools: function(i) {
-        this.setState({ schoolName: this.props.dmnArray_Schools[i].description });
-      },
-
-      handleSelect_dmnStates: function(i) {
-        this.setState({ stateName: this.props.dmnArray_States[i].description });
-      },
-
       render: function() {
-
-        var MenuItem = ReactBoot.MenuItem;
-        var DropdownButton = ReactBoot.DropdownButton;
-        var rows = [];
         
         return (
           React.createElement("div", {className: 'my-container'}, 
@@ -74,28 +60,26 @@ define(
                 React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('lastName')})
               ), 
               React.createElement("div", {className: "form-group"}, 
-                
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.schoolName, style: {width : 300}}, 
-
-                  this.props.dmnArray_Schools.map(function(domainVal, i) {
-                    return (React.createElement(MenuItem, {onSelect: this.handleSelect_dmnSchools.bind(this, i), key: i}, domainVal.description));
-                  },this)
-
+                React.createElement("ul", {className: "list-inline"}, 
+                  React.createElement("li", null, 
+                    React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_Schools, dropTitle: "School", schoolName: this.props.schoolName})
+                  ), 
+                  React.createElement("li", null, 
+                    React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('schoolName')})
+                  )
                 )
-                  
               ), 
               React.createElement("div", {className: "form-group"}, 
-                
-                  React.createElement("label", null, "State"), React.createElement("br", null), 
-                  React.createElement(DropdownButton, {bsStyle: "primary", title: this.state.stateName, style: {width : 150}}, 
-
-                    this.props.dmnArray_States.map(function(domainVal, i) {
-                      return (React.createElement(MenuItem, {onSelect: this.handleSelect_dmnStates.bind(this, i), key: i}, domainVal.description));
-                    },this)
-
+                React.createElement("label", null, "State"), React.createElement("br", null), 
+                React.createElement("ul", {className: "list-inline"}, 
+                  React.createElement("li", null, 
+                    React.createElement(DropdownContainer, {allDomains: this.props.dmnArray_States, dropTitle: "State"})
+                  ), 
+                  React.createElement("li", null, 
+                    React.createElement("input", {type: "text", readOnly: "True", className: "form-control", value: this.props.stateName})
                   )
-
+                )
               ), 
               React.createElement("div", {className: "text-center"}, 
                 React.createElement("button", {className: "btn btn-primary", onClick: this.handleSubmit}, "Submit")

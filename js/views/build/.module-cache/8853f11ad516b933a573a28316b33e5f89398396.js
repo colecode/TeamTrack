@@ -8,7 +8,7 @@ define(
   'reactboot'
   ], function($, _, Backbone, React, DropdownRow, ReactBoot){
 
-    var DropdownContainer = React.createClass({
+    var DropdownContainer = React.createClass({displayName: 'DropdownContainer',
 
       handleClick: function(i) {
         console.log('You clicked: ' + this.props.allDomains[i]);
@@ -32,18 +32,18 @@ define(
         // });
 
         this.props.allDomains.forEach(function(domainVal, i) {
-          rows.push(<MenuItem onSelect={
+          rows.push(React.createElement(MenuItem, {onSelect: 
             function (e) { 
               //schoolName: this.children;
               console.log(this.children);
-            }
-          } key={i}>{domainVal.description}</MenuItem>)
+            }, 
+          key: i}, domainVal.description))
         });
 
         return (     
-           <DropdownButton bsStyle="primary" title={this.props.dropTitle} style={{width : 200}}>
-              {rows}
-           </DropdownButton>                     
+           React.createElement(DropdownButton, {bsStyle: "primary", title: this.props.dropTitle}, 
+              rows
+           )                     
         )
       }
 
