@@ -10,6 +10,10 @@ $('.nav-main li a').hover(
 	$(this).css('color', 'grey'); }
 );
 
+$("#myTable tr").click(function() {
+    $(this).toggleClass("highlight-row");
+});
+
 
 });
 

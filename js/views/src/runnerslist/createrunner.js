@@ -34,11 +34,18 @@ define(
 
       handleSubmit: function() {
 
-        myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sName':this.state.schoolName});
+        var myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sName':this.state.schoolName});
 
         myRunner.save(null, {
           success:function(model, response) {
             swal({title:"", text: "Successfully created new runner!", type:"success", timer: 2000 });
+            
+            // Reset form fields upon success
+            // this.setState({ firstName: '' });
+            // this.setState({ lastName: '' });
+            // this.setState({ schoolName: 'Select school' });
+            // this.setState({ stateName: 'Select state' });
+
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new runner!", "error");
@@ -96,7 +103,7 @@ define(
                 </DropdownButton>   
                   
               </div>  
-              <div className={"text-center"}>
+              <div>
                 <button className={"btn btn-primary"} onClick={this.handleSubmit}>Submit</button>
               </div>
             </form>       

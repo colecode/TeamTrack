@@ -20,9 +20,9 @@ define(
               <Jumbotron>
                 <div className={'my-container'}>
                 <div className={'wrap'}>
-                <h1>Hello!</h1>
-                <p>Welcome to TeamTrack, the simplest way to track all of your atheletes&apos; performance metrics.</p>
-                <p><Button bsStyle="primary" href="#createrunner">Create a Team</Button></p>
+                  <h1>Hello!</h1>
+                  <p>Welcome to TeamTrack, the simplest way to track all of your runners&apos; performance metrics.</p>
+                  <p><Button bsStyle="primary" href="#createrunner">Create a Team</Button></p>
                 </div>
                 </div>
               </Jumbotron>

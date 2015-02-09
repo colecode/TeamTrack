@@ -23,7 +23,6 @@ define(
           <div className={'wrap'}>
           <SearchBar />
           <RunnerTable runners={this.props.collection} />
-          <a href="#createrunner">Create Runner Test</a>
           </div>          
           </div>
           )
