@@ -9,20 +9,15 @@ define(
   ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
 
     var tmpRunnersArray = [];
+
     var RunnerTable = React.createClass({
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
-        var myRunner = this.props.runners[i];
-        tmpRunnersArray.push(myRunner);
-        
         //var myRunner = this.props.runners[i];
-      },
-
-      handleMySubmit: function() {
-        //tmpRunnersArray.toJSON();
-        this.props.onTeamSubmit({teamRunners: tmpRunnersArray});
+        //tmpRunnersArray.push(myRunner); 
+        this.props.selectedRunners.push(this.props.runners[i];);       
       },
 
       render: function() {
@@ -36,7 +31,6 @@ define(
         return (
             
             <div id="runnerTableComponent">
-              <button className={"btn btn-primary"} onClick={this.handleMySubmit}>Submit</button>
               <Table id="myTable">
               <thead>
                 <tr>

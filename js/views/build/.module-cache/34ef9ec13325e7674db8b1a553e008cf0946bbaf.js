@@ -7,38 +7,28 @@ define(
   'backbonemixin',
   'views/build/searchbar',
   'views/build/runnertable',
-  'collections/runners',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
+  'collections/runners'
+  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection){
 
-    var RunnerListMaster = React.createClass({
+    var RunnerListMaster = React.createClass({displayName: 'RunnerListMaster',
 
       mixins: [backboneMixin],
 
-      getInitialState: function () {
-        return {
-            selectedRunners:[] 
-        };
-      },
-
-      handleTeamSubmit: function() {
-        var teamArray = this.state.selectedRunners;
+      handleTeamSubmit: function(teamRunners) {
+        var aTeam = teamRunners;
       },
 
       render: function() {
-        var Button = ReactBoot.Button;
         
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>           
-              <SearchBar />
-              <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.props.collection} onTeamSubmit={this.handleTeamSubmit} />
-              </div>
-              <br/>
-              <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement(SearchBar, null), 
+              React.createElement("div", {className: 'runner-table-div'}, 
+                React.createElement(RunnerTable, {runners: this.props.collection, onTeamSubmit: this.handleTeamSubmit})
+              )
+            )
+          )
           )
       }
     });
@@ -69,7 +59,7 @@ define(
         render: function (){
         
         React.render(       
-          <RunnerListMaster collection={masterModel} />,
+          React.createElement(RunnerListMaster, {collection: masterModel}),
           this.el
           );
       } 

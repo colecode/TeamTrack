@@ -9,15 +9,16 @@ define(
   ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
 
     var tmpRunnersArray = [];
-
+    
     var RunnerTable = React.createClass({displayName: 'RunnerTable',
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
         var myRunner = this.props.runners[i];
-        tmpRunnersArray.push(myRunner); 
-        this.props.selectedRunners.push(myRunner);       
+        tmpRunnersArray.push(myRunner);
+        
+        //var myRunner = this.props.runners[i];
       },
 
       handleMySubmit: function() {
@@ -36,6 +37,7 @@ define(
         return (
             
             React.createElement("div", {id: "runnerTableComponent"}, 
+              React.createElement("button", {className: "btn btn-primary", onClick: this.handleMySubmit}, "Submit"), 
               React.createElement(Table, {id: "myTable"}, 
               React.createElement("thead", null, 
                 React.createElement("tr", null, 

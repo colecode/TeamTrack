@@ -17,7 +17,7 @@ define(
         
         var myRunner = this.props.runners[i];
         tmpRunnersArray.push(myRunner); 
-        this.props.selectedRunners.push(myRunner);       
+        //this.props.selectedRunners.push(myRunner);       
       },
 
       handleMySubmit: function() {

@@ -16,8 +16,9 @@ define(
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
         var myRunner = this.props.runners[i];
-        tmpRunnersArray.push(myRunner); 
-        this.props.selectedRunners.push(myRunner);       
+        tmpRunnersArray.push(myRunner);
+        
+        //var myRunner = this.props.runners[i];
       },
 
       handleMySubmit: function() {
