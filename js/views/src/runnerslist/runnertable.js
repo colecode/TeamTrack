@@ -8,12 +8,21 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
 
+    var tmpRunnersArray = [];
     var RunnerTable = React.createClass({
        
       handleSelect: function(i) {
-        $($("#myTable tbody tr")[i]).addClass("highlight-row");;
+        $($("#myTable tbody tr")[i]).toggleClass("info");;
+        
+        var myRunner = this.props.runners[i];
+        tmpRunnersArray.push(myRunner);
         
         //var myRunner = this.props.runners[i];
+      },
+
+      handleMySubmit: function() {
+        //tmpRunnersArray.toJSON();
+        this.props.onTeamSubmit({teamRunners: tmpRunnersArray});
       },
 
       render: function() {
@@ -25,9 +34,10 @@ define(
         });
 
         return (
-          
+            
             <div id="runnerTableComponent">
-              <Table id="myTable" condensed>
+              <button className={"btn btn-primary"} onClick={this.handleMySubmit}>Submit</button>
+              <Table id="myTable">
               <thead>
                 <tr>
                 <th>First Name</th>
@@ -48,7 +58,7 @@ define(
                                 {runner.schoolName}
                                 </td>
                               </tr>);
-                },this)}
+                    },this)}
                 </tbody>
               </Table>
             </div>              

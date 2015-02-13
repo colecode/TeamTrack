@@ -10,20 +10,22 @@ define(
   'collections/runners'
   ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection){
 
-    // Initialize the model here so it's scope can be reached in MyWidget
-    var masterModel;
-
     var RunnerListMaster = React.createClass({
 
       mixins: [backboneMixin],
+
+      handleTeamSubmit: function(teamRunners) {
+        var aTeam = teamRunners;
+      },
+
       render: function() {
         
         return (
           <div className={'my-container'}>
-          <div className={'wrap'}>
-          <SearchBar />
-          <RunnerTable runners={this.props.collection} />
-          </div>          
+            <div className={'wrap'}>
+              <SearchBar />
+              <RunnerTable runners={this.props.collection} onTeamSubmit={this.handleTeamSubmit} />
+            </div>          
           </div>
           )
       }
@@ -53,7 +55,7 @@ define(
         },
 
         render: function (){
-        // **IMPORTANT** This inital props has to be named 'collection' //
+        
         React.render(       
           <RunnerListMaster collection={masterModel} />,
           this.el
