@@ -39,7 +39,7 @@ define(
               <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
             </div>          
           </div>
-          )
+        )
       }
     });
 

@@ -5,8 +5,9 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot){
+  'reactboot',
+  'views/build/carousel'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
 
     var HomePageClass = React.createClass({
 
@@ -14,18 +15,28 @@ define(
       render: function() {
         var Jumbotron = ReactBoot.Jumbotron;
         var Button = ReactBoot.Button;
+
+        var jumboStyle = {
+          marginBottom: 0
+        };
         
         return (
+          <div>
+          <Jumbotron style={jumboStyle}>    
+          <div className={'my-container'}>
+          <div className={'wrap'}>  
+          <h1>Hello!</h1>
+          <p>Welcome to TeamTrack, the simplest way to track all of your runners&apos; performance metrics.</p>
+          <p><Button bsStyle="primary" href="#createrunner">Let&apos;s get started</Button></p>
+          </div>
+          </div>      
           
-              <Jumbotron>
-                <div className={'my-container'}>
-                <div className={'wrap'}>
-                  <h1>Hello!</h1>
-                  <p>Welcome to TeamTrack, the simplest way to track all of your runners&apos; performance metrics.</p>
-                  <p><Button bsStyle="primary" href="#createrunner">Create a Team</Button></p>
-                </div>
-                </div>
-              </Jumbotron>
+          </Jumbotron>
+          
+          <HomeCarousel/>
+
+          
+          </div>
         )
       }
     });

@@ -15,27 +15,17 @@ define(
       render: function() {
         var Jumbotron = ReactBoot.Jumbotron;
         var Button = ReactBoot.Button;
-
-        var jumboStyle = {
-          marginBottom: 0
-        };
         
         return (
-          React.createElement("div", null, 
-          React.createElement(Jumbotron, {style: jumboStyle}, 
-          React.createElement("div", {className: 'my-container'}, 
-          React.createElement("div", {className: 'wrap'}, 
-          React.createElement("h1", null, "Hello!"), 
-          React.createElement("p", null, "Welcome to TeamTrack, the simplest way to track all of your runners' performance metrics."), 
-          React.createElement("p", null, React.createElement(Button, {bsStyle: "primary", href: "#createrunner"}, "Let's get started"))
-          )
-          )
           
-          ), 
-          
-          React.createElement(HomeCarousel, null)
-
-          
+          React.createElement(Jumbotron, null, 
+                React.createElement("div", {className: 'my-container'}, 
+                React.createElement("div", {className: 'wrap'}, 
+                  React.createElement("h1", null, "Hello!"), 
+                  React.createElement("p", null, "Welcome to TeamTrack, the simplest way to track all of your runners' performance metrics."), 
+                  React.createElement("p", null, React.createElement(Button, {bsStyle: "primary", href: "#createrunner"}, "Create a Team"))
+                )
+                )
           )
         )
       }

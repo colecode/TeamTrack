@@ -27,7 +27,7 @@ define(
           React.createElement("div", {className: 'wrap'}, 
           React.createElement("h1", null, "Hello!"), 
           React.createElement("p", null, "Welcome to TeamTrack, the simplest way to track all of your runners' performance metrics."), 
-          React.createElement("p", null, React.createElement(Button, {bsStyle: "primary", href: "#createrunner"}, "Let's get started"))
+          React.createElement("p", null, React.createElement(Button, {bsStyle: "primary", href: "#createrunner"}, "Create a Team"))
           )
           )
           

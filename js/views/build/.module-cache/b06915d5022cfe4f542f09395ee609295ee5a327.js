@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
 
@@ -47,7 +47,7 @@ define(
 
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
-        this.setState({ schoolName: 'Select school' });
+
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
@@ -93,27 +93,27 @@ define(
         var submitBtnStyle = {paddingTop: 100};
         
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-            <form role="form">
-              <div className={"form-group"}>
-                <label>Team Name</label>
-                <input type="text" className={"form-control"} value={this.props.teamName} onChange={this.onTeamNameChange} />
-              </div>
-              <div className={"form-group"}>
-                <label>State</label><br/>
-                <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
-              </div>
-              <div className={"form-group"}>
-                <label>School</label><br/>
-                <DropdownContainer id="schoolDropdown" disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />
-              </div>   
-              <div style={submitBtnStyle}>
-                <Button bsStyle="primary" bsSize="large" block onClick={this.handleSubmit}>Create Team</Button>
-              </div>
-            </form>       
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+            React.createElement("form", {role: "form"}, 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "Team Name"), 
+                React.createElement("input", {type: "text", className: "form-control", value: this.props.teamName, onChange: this.onTeamNameChange})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "State"), React.createElement("br", null), 
+                React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "School"), React.createElement("br", null), 
+                React.createElement(DropdownContainer, {id: "schoolDropdown", disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+              ), 
+              React.createElement("div", {style: submitBtnStyle}, 
+                React.createElement(Button, {bsStyle: "primary", bsSize: "large", block: true, onClick: this.handleSubmit}, "Create Team")
+              )
+            )
+            )
+          )
         )
       }
 
@@ -131,7 +131,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateTeamMaster/>,
+          React.createElement(CreateTeamMaster, null),
           this.el
         );
       } 
