@@ -8,29 +8,26 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
 
+    var selectedIndexArray = [];
+
     var RunnerTable = React.createClass({displayName: 'RunnerTable',
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
-        // Index of object
-        var a = this.props.selectedRunners.indexOf(this.props.runners[i]);
-        
-        // If object does not exist in array, add it
-        if(a == -1)
-        {
-          this.props.selectedRunners.push(this.props.runners[i]); 
-        }
-        // Remove it
-        else
-        {
-          this.props.selectedRunners.splice(a,1);
-        }
-              
+        //var myRunner = this.props.runners[i];
+        //tmpRunnersArray.push(myRunner); 
+        selectedIndexArray.push(i);
+        this.props.selectedRunners.push(this.props.runners[i]);       
       },
 
       render: function() {
         var Table = ReactBoot.Table;
+
+        // var rows = [];
+        // this.props.runners.forEach(function(runner) {
+        //     rows.push(<RunnerTableRow runner={runner} key={runner.id} />);
+        // });
 
         return (
             
@@ -40,7 +37,6 @@ define(
                 React.createElement("tr", null, 
                 React.createElement("th", null, "First Name"), 
                 React.createElement("th", null, "Last Name"), 
-                React.createElement("th", null, "State"), 
                 React.createElement("th", null, "School")
               )
               ), 
@@ -52,9 +48,6 @@ define(
                                 ), 
                                 React.createElement("td", null, 
                                 runner.lastName
-                                ), 
-                                React.createElement("td", null, 
-                                runner.stateName
                                 ), 
                                 React.createElement("td", null, 
                                 runner.schoolName

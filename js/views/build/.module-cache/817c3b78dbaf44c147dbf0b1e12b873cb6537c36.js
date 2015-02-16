@@ -19,18 +19,25 @@ define(
         return {
             firstName: '',
             lastName: '',
-            schoolName: 'Select school',   
+            schoolName: 'Select school',
             stateName:'Select state',
             dmnArray_Schools:[],
-            dmnArray_States:[] ,
-            disableDropdown: 1,
-            schoolCode:''
+            dmnArray_States:[] 
         };
       },
 
       // Load Dmns for dropdowns
       loadDomainsFromServer: function() {
         
+        $.ajax({
+          url:"api/index.php/dmnSchools",
+          type:"GET",
+          success:function(data){
+           this.setState({dmnArray_Schools: data});
+         }.bind(this),     
+         dataType:"json"
+        });
+
         $.ajax({
           url:"api/index.php/dmnStates",
           type:"GET",
@@ -44,7 +51,7 @@ define(
 
       handleSubmit: function() {
 
-        var myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sCode':this.state.schoolCode});
+        var myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sName':this.state.schoolName});
 
         myRunner.save(null, {
           success:function(model, response) {
@@ -58,30 +65,11 @@ define(
       },
 
       handleSelect_dmnSchools: function(val) {
-        this.setState({schoolName: val.selectedDomain.children });
-        this.setState({schoolCode: val.selectedDomain.domainCode});
+        this.setState({schoolName: val.selectedDomain });
       },
 
       handleSelect_dmnStates: function(val) {
-        this.setState({ stateName: val.selectedDomain.children });
-
-        $.ajax({
-          url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
-          type:"GET",
-          success:function(data){
-
-            this.setState({disableDropdown: 0});
-            this.setState({dmnArray_Schools: data});
-
-          }.bind(this), 
-          error:function(err) {
-            
-            console.log('error retrieving school dropdown');
-            console.log(err);
-          },   
-         dataType:"json"
-        });
-
+        this.setState({ stateName: val.selectedDomain });
       },
 
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
@@ -94,9 +82,7 @@ define(
         var MenuItem = ReactBoot.MenuItem;
         var DropdownButton = ReactBoot.DropdownButton;
         var Button = ReactBoot.Button;
-
-        var submitBtnStyle = {paddingTop: 100};
-
+        
         return (
           React.createElement("div", {className: 'my-container'}, 
             React.createElement("div", {className: 'wrap'}, 
@@ -110,14 +96,22 @@ define(
                 React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('lastName')})
               ), 
               React.createElement("div", {className: "form-group"}, 
+
                 React.createElement("label", null, "State"), React.createElement("br", null), 
                 React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
+
               ), 
               React.createElement("div", {className: "form-group"}, 
+
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+                React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+
               ), 
-              React.createElement("div", {style: submitBtnStyle}, 
+              React.createElement("br", null), 
+              React.createElement("br", null), 
+              React.createElement("br", null), 
+              React.createElement("br", null), 
+              React.createElement("div", null, 
                 React.createElement(Button, {bsStyle: "primary", bsSize: "large", block: true, onClick: this.handleSubmit}, "Create Runner")
               )
             )

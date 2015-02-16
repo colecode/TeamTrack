@@ -8,25 +8,29 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
 
-    var tmpRunnersArray = [];
-
     var RunnerTable = React.createClass({
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
-        //var myRunner = this.props.runners[i];
-        //tmpRunnersArray.push(myRunner); 
-        this.props.selectedRunners.push(this.props.runners[i];);       
+        // Index of object
+        var a = this.props.selectedRunners.indexOf(this.props.runners[i]);
+        
+        // If object does not exist in array, add it
+        if(a == -1)
+        {
+          this.props.selectedRunners.push(this.props.runners[i]); 
+        }
+        // Remove it
+        else
+        {
+          this.props.selectedRunners.splice(a,1);
+        }
+              
       },
 
       render: function() {
         var Table = ReactBoot.Table;
-
-        var rows = [];
-        this.props.runners.forEach(function(runner) {
-            rows.push(<RunnerTableRow runner={runner} key={runner.id} />);
-        });
 
         return (
             
@@ -36,6 +40,7 @@ define(
                 <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>State</th>
                 <th>School</th>
               </tr>
               </thead>
@@ -47,6 +52,9 @@ define(
                                 </td>
                                 <td>
                                 {runner.lastName}
+                                </td>
+                                <td>
+                                {runner.stateName}
                                 </td>
                                 <td>
                                 {runner.schoolName}

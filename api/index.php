@@ -71,12 +71,14 @@ function sendResponse($status = 200, $body = '', $content_type = 'text/html')
 $app->get('/runners', function() use ($db) {
           
         $result = array();
-        $sql= "SELECT id, firstName, lastName, schoolName FROM Runners"; 
+        $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
+        FROM Runners r 
+        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
+        JOIN dmn_States x ON x.id = s.dmn_StatesID"; 
         
         $r = $db->query($sql);
         while($runner = $r->fetch_assoc()){
             
-            // Add single runner into total array
             $result[] = $runner;
         }
 
@@ -116,12 +118,12 @@ $app->post('/runners', function() use ($app) {
     // Retrieve input values - put into local vars
     $fName = $request['fName'];
     $lName = $request['lName'];
-    $sName = $request['sName'];
+    $sCode = $request['sCode'];
 
     try {
         // Prepare statement
-        $stmt = $db2->prepare("INSERT INTO Runners (firstName,lastName,schoolName) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $fName, $lName, $sName);
+        $stmt = $db2->prepare("INSERT INTO Runners (firstName,lastName,dmn_SchoolsID) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $fName, $lName, $sCode);
         $stmt->execute();
         $stmt->close();
 
@@ -144,11 +146,12 @@ $app->post('/teams', function() use ($app) {
     // Retrieve input values - put into local vars
     $tName = $request['tName'];
     $userID = 23;
+    $sCode = $request['sCode'];
 
     try {
         // Prepare statement
-        $stmt = $db2->prepare("INSERT INTO Teams (teamName, ownerUserID) VALUES (?,?)");
-        $stmt->bind_param("si", $tName, $userID);
+        $stmt = $db2->prepare("INSERT INTO Teams (teamName, ownerUserID, dmn_SchoolsID) VALUES (?,?,?)");
+        $stmt->bind_param("sii", $tName, $userID, $sCode);
         $stmt->execute();
         $stmt->close();
 
@@ -179,12 +182,30 @@ $app->get('/dmnSchools', function() use ($db) {
         echo json_encode($result);
 });
 
+
 // Fetch dmn_States
 $app->get('/dmnStates', function() use ($db) {
           
         $result = array();
         $sql= "SELECT id, description FROM dmn_States"; 
         
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// Fetch schools from state
+$app->get('/dmnSchools/:id', function($id) use ($db) {
+          
+        $result = array();
+        $sql= "SELECT id, description FROM dmn_Schools WHERE dmn_StatesID = $id"; 
+        //$sql= "SELECT id, description FROM dmn_States";
+
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
             

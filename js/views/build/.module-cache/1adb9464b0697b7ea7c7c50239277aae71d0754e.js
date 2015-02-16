@@ -24,7 +24,7 @@ define(
         var rows = [];
 
         this.props.dmnArray.map(function(domainVal, i) {
-          rows.push(React.createElement(MenuItem, {onSelect: selectedDomainVal, domainCode: domainVal.id, key: domainVal.id}, domainVal.description))
+          rows.push(React.createElement(MenuItem, {onSelect: selectedDomainVal, href: domainVal.id, key: domainVal.id}, domainVal.description))
         });
 
         if(this.props.disabled == 1)

@@ -32,6 +32,11 @@ define(
       render: function() {
         var Table = ReactBoot.Table;
 
+        // var rows = [];
+        // this.props.runners.forEach(function(runner) {
+        //     rows.push(<RunnerTableRow runner={runner} key={runner.id} />);
+        // });
+
         return (
             
             React.createElement("div", {id: "runnerTableComponent"}, 
@@ -40,7 +45,6 @@ define(
                 React.createElement("tr", null, 
                 React.createElement("th", null, "First Name"), 
                 React.createElement("th", null, "Last Name"), 
-                React.createElement("th", null, "State"), 
                 React.createElement("th", null, "School")
               )
               ), 
@@ -52,9 +56,6 @@ define(
                                 ), 
                                 React.createElement("td", null, 
                                 runner.lastName
-                                ), 
-                                React.createElement("td", null, 
-                                runner.stateName
                                 ), 
                                 React.createElement("td", null, 
                                 runner.schoolName

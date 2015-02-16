@@ -15,7 +15,8 @@ define(
         var myParent = this;
 
         function selectedDomainVal() {
-          myParent.props.onDomainSelect({selectedDomain:this.children})
+          var test = myParent;
+          myParent.props.onDomainSelect({selectedDomain:this})
         }
 
         var MenuItem = ReactBoot.MenuItem;
@@ -23,14 +24,26 @@ define(
         var rows = [];
 
         this.props.dmnArray.map(function(domainVal, i) {
-          rows.push(<MenuItem onSelect={selectedDomainVal} key={i}>{domainVal.description}</MenuItem>)
+          rows.push(<MenuItem onSelect={selectedDomainVal} domainCode={domainVal.id} key={domainVal.id}>{domainVal.description}</MenuItem>)
         });
 
-        return (    
+        if(this.props.disabled == 1)
+        {
+          return (    
+           <DropdownButton disabled ref="DropMenu" bsStyle="primary" title={this.props.menuTitle} style={{width : 200}} >
+              {rows}
+           </DropdownButton>                     
+          )
+        }
+        else
+        {
+          return (    
            <DropdownButton ref="DropMenu" bsStyle="primary" title={this.props.menuTitle} style={{width : 200}} >
               {rows}
            </DropdownButton>                     
-        )
+          )
+        }
+
       }
 
     });
