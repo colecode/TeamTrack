@@ -23,19 +23,15 @@ define(
         return (
           <div>
           <Jumbotron style={jumboStyle}>    
-          <div className={'my-container'}>
-          <div className={'wrap'}>  
-          <h1>Hello!</h1>
-          <p>Welcome to TeamTrack, the simplest way to track all of your runners&apos; performance metrics.</p>
-          <p><Button bsStyle="primary" href="#createrunner">Let&apos;s get started</Button></p>
-          </div>
-          </div>      
-          
+            <div className={'my-container'}>
+            <div className={'wrap'}>  
+              <h1>Hello!</h1>
+              <p>Welcome to TeamTrack, the simplest way to track all of your runners&apos; performance metrics.</p>
+              <p><Button bsStyle="primary" href="#createrunner">Let&apos;s get started</Button></p>
+            </div>
+            </div>      
           </Jumbotron>
-          
           <HomeCarousel/>
-
-          
           </div>
         )
       }

@@ -86,16 +86,18 @@ $app->get('/runners', function() use ($db) {
         echo json_encode($result);
 });
 
-// Fetch specific Runner
 $app->get('/runners/:id', function($id) use ($db) {
-
-	    $result = array();
-		$sql= "SELECT id, firstName, lastName, schoolName FROM Runners WHERE id = $id";  
-
+          
+        $result = array();
+        $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
+        FROM Runners r 
+        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
+        JOIN dmn_States x ON x.id = s.dmn_StatesID
+        WHERE r.lastName LIKE '$id%'";
+        
         $r = $db->query($sql);
         while($runner = $r->fetch_assoc()){
             
-            // Add single runner into total array
             $result[] = $runner;
         }
 

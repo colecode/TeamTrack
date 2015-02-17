@@ -17,8 +17,7 @@ define(
 
       getInitialState: function () {
         return {
-            selectedRunners:[],
-            allRunners:[]
+            selectedRunners:[] 
         };
       },
 
@@ -26,35 +25,17 @@ define(
         var teamArray = this.state.selectedRunners;
       },
 
-      handleSearch: function(val) {
-        var test = val.searchTerm;
-        if(val.searchTerm)
-        {
-          $.ajax({
-            url:"api/index.php/runners/" + val.searchTerm,
-            type:"GET",
-            success:function(data){
-              this.setState({allRunners: data});
-            }.bind(this),     
-            dataType:"json"
-          });
-        }
-        else
-        {
-          this.loadListfromServer();
-        }
-      },
-
       loadListfromServer: function() {
         
         $.ajax({
-          url:"api/index.php/runners",
+          url:"api/index.php/dmnStates",
           type:"GET",
           success:function(data){
-            this.setState({allRunners: data});
+            this.setState({dmnArray_States: data});
           }.bind(this),     
           dataType:"json"
         });
+
       },
 
       componentDidMount: function() {
@@ -67,9 +48,9 @@ define(
         return (
           React.createElement("div", {className: 'my-container'}, 
             React.createElement("div", {className: 'wrap'}, 
-              React.createElement(SearchBar, {onSearch: this.handleSearch}), 
+              React.createElement(SearchBar, null), 
               React.createElement("div", {className: 'runner-table-div'}, 
-                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners, onTeamSubmit: this.handleTeamSubmit})
+                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.props.collection, onTeamSubmit: this.handleTeamSubmit})
               ), 
               React.createElement("br", null), 
               React.createElement(Button, {bsStyle: "primary", bsSize: "large", block: true, onClick: this.handleTeamSubmit}, "Create Team")
@@ -83,17 +64,29 @@ define(
       
       el: $('#mainContent'),
       events: {
-  
+          // none
         },
 
         initialize: function() {
          
+          masterModel = new RunnerCollection();
+
+          masterModel.fetch({
+            success: function (response) {
+              console.log("Success fetch runners list!");
+            },
+            error: function(model,response,xhr) {
+              console.log("Error fetch runners list");
+              console.log(response);
+              console.log(xhr);        
+            }
+          });
         },
 
         render: function (){
         
         React.render(       
-          React.createElement(RunnerListMaster, null),
+          React.createElement(RunnerListMaster, {collection: masterModel}),
           this.el
           );
       } 

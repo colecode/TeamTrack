@@ -29,7 +29,6 @@ define(
 
       onSearchChange: function (e) {
         this.setState({ searchInput: e.target.value });
-        this.props.onSearch({searchTerm: e.target.value});
       }  
 
     });

@@ -19,11 +19,11 @@ define(
           
           <Carousel>
                 <CarouselItem>
-                  <img width={1600} height={500} alt="900x500" src="resources/bolt-widescreen.jpg"/>
-                  <div className={"carousel-caption"}>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <div className={"carousel-caption"}>
+                    <h3>Be the best</h3>
+                    <p>Add new runners. Build a team. Become a champion.</p>
                   </div>
+                  <img width={1600} height={500} alt="1600x500" src="resources/bolt-widescreen.jpg"/>    
                 </CarouselItem>
             </Carousel>
         )

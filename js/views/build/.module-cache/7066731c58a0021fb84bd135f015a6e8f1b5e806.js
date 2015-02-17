@@ -21,7 +21,7 @@ define(
             React.createElement("div", {id: "searchBarComponent"}, 
             React.createElement("div", {className: 'input-group'}, 
               React.createElement("span", {className: "input-group-addon"}, React.createElement("i", {className: "glyphicon glyphicon-search"})), 
-              React.createElement("input", {type: "text", className: "form-control", placeholder: "Search", value: this.state.searchInput, onChange: this.onSearchChange, placeholder: "Search by last name"})
+              React.createElement("input", {type: "text", className: "form-control", placeholder: "Search", value: this.state.searchInput, onChange: this.onSearchChange})
             )
             )
           )
@@ -29,7 +29,6 @@ define(
 
       onSearchChange: function (e) {
         this.setState({ searchInput: e.target.value });
-        this.props.onSearch({searchTerm: e.target.value});
       }  
 
     });

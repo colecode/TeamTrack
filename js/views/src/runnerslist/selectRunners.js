@@ -17,8 +17,7 @@ define(
 
       getInitialState: function () {
         return {
-            selectedRunners:[],
-            allRunners:[]
+            selectedRunners:[] 
         };
       },
 
@@ -26,39 +25,25 @@ define(
         var teamArray = this.state.selectedRunners;
       },
 
-      handleSearch: function(val) {
-        var test = val.searchTerm;
-        if(val.searchTerm)
-        {
-          $.ajax({
-            url:"api/index.php/runners/" + val.searchTerm,
-            type:"GET",
-            success:function(data){
-              this.setState({allRunners: data});
-            }.bind(this),     
-            dataType:"json"
-          });
-        }
-        else
-        {
-          this.loadListfromServer();
-        }
-      },
-
-      loadListfromServer: function() {
+      populateList: function() {
         
-        $.ajax({
-          url:"api/index.php/runners",
-          type:"GET",
-          success:function(data){
-            this.setState({allRunners: data});
-          }.bind(this),     
-          dataType:"json"
-        });
+          masterModel = new RunnerCollection();
+
+          masterModel.fetch({
+            success: function (response) {
+              console.log("Success fetch runners list!");
+            },
+            error: function(model,response,xhr) {
+              console.log("Error fetch runners list");
+              console.log(response);
+              console.log(xhr);        
+            }
+          });
+
       },
 
       componentDidMount: function() {
-        this.loadListfromServer();
+        this.populateList();
       },
 
       render: function() {
@@ -67,9 +52,9 @@ define(
         return (
           <div className={'my-container'}>
             <div className={'wrap'}>           
-              <SearchBar onSearch={this.handleSearch} />
+              <SearchBar />
               <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
+                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.props.collection} onTeamSubmit={this.handleTeamSubmit} />
               </div>
               <br/>
               <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
@@ -83,17 +68,29 @@ define(
       
       el: $('#mainContent'),
       events: {
-  
+          // none
         },
 
         initialize: function() {
          
+          masterModel = new RunnerCollection();
+
+          masterModel.fetch({
+            success: function (response) {
+              console.log("Success fetch runners list!");
+            },
+            error: function(model,response,xhr) {
+              console.log("Error fetch runners list");
+              console.log(response);
+              console.log(xhr);        
+            }
+          });
         },
 
         render: function (){
         
         React.render(       
-          <RunnerListMaster/>,
+          <RunnerListMaster collection={masterModel} />,
           this.el
           );
       } 

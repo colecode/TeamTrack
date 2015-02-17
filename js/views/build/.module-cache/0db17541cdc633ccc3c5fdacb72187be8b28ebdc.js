@@ -11,7 +11,7 @@ define(
   'reactboot'
   ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
 
-    var RunnerListMaster = React.createClass({
+    var RunnerListMaster = React.createClass({displayName: 'RunnerListMaster',
 
       mixins: [backboneMixin],
 
@@ -28,21 +28,6 @@ define(
 
       handleSearch: function(val) {
         var test = val.searchTerm;
-        if(val.searchTerm)
-        {
-          $.ajax({
-            url:"api/index.php/runners/" + val.searchTerm,
-            type:"GET",
-            success:function(data){
-              this.setState({allRunners: data});
-            }.bind(this),     
-            dataType:"json"
-          });
-        }
-        else
-        {
-          this.loadListfromServer();
-        }
       },
 
       loadListfromServer: function() {
@@ -65,16 +50,16 @@ define(
         var Button = ReactBoot.Button;
         
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>           
-              <SearchBar onSearch={this.handleSearch} />
-              <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
-              </div>
-              <br/>
-              <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement(SearchBar, {onSearch: this.handleSearch}), 
+              React.createElement("div", {className: 'runner-table-div'}, 
+                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners, onTeamSubmit: this.handleTeamSubmit})
+              ), 
+              React.createElement("br", null), 
+              React.createElement(Button, {bsStyle: "primary", bsSize: "large", block: true, onClick: this.handleTeamSubmit}, "Create Team")
+            )
+          )
         )
       }
     });
@@ -93,7 +78,7 @@ define(
         render: function (){
         
         React.render(       
-          <RunnerListMaster/>,
+          React.createElement(RunnerListMaster, null),
           this.el
           );
       } 
