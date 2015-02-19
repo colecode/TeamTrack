@@ -71,3 +71,35 @@
     overflow: scroll;
 }
 
+.page-title-bar {
+	background: #337ab7;
+	color: #fafafa;
+	position: fixed;
+	top: 0;
+	height: 50px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	width: 100%;
+	z-index: 100;
+	margin-top: 50px;
+	display:none;
+}
+
+.page-title-bar .page-title-div {
+	/*color: #A300CC;*/
+	color: white;
+	font-size: 24px;
+	line-height: 50px;
+	height: 50px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+#pageHeader {
+	margin-top: 15px;
+}
+
+#bufferDiv {
+	height:50px;
+	display:none;
+}
+

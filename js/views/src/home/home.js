@@ -12,6 +12,12 @@ define(
     var HomePageClass = React.createClass({
 
       mixins: [backboneMixin],
+
+      componentDidMount: function() {
+        $("#mainPageBar").hide();
+        $("#bufferDiv").hide();
+      },
+
       render: function() {
         var Jumbotron = ReactBoot.Jumbotron;
         var Button = ReactBoot.Button;

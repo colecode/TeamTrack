@@ -6,15 +6,16 @@ define([
   'views/build/teamexample',
   'views/build/createrunner',
   'views/build/createteam',
-  'views/build/home'
-], function($, _, Backbone, RunnerList, TeamExample, CreateRunner, CreateTeam, HomePage){
+  'views/build/home',
+  'views/build/selectRunners'
+], function($, _, Backbone, RunnerList, TeamExample, CreateRunner, CreateTeam, HomePage, SelectRunners){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
-      'team': 'showTeam',
+      'runnerslist': 'showRunners',
 
-      'example': 'showExample',
+      'selectrunners/:id': 'selectRunners',
 
       'createrunner' : 'createRunner',
 
@@ -51,19 +52,20 @@ define([
 
     });
 
-    app_router.on('route:showTeam', function(){
+    app_router.on('route:showRunners', function(){
       
       var runnerList = new RunnerList();
       runnerList.render();
 
     });
 
-    app_router.on('route:showExample', function(){
-      
-      var teamExample = new TeamExample();
-      teamExample.render();
+    app_router.on('route:selectRunners', function(id){
+
+      var selectrunners = new SelectRunners({teamId: id});
+      selectrunners.render();
 
     });
+  
    
     app_router.on('route:defaultAction', function(actions){
       // We have no matching route, lets just log what the URL was

@@ -17,47 +17,67 @@ define(
 
       getInitialState: function () {
         return {
-            selectedRunners:[] 
+            selectedRunners:[],
+            allRunners:[]
         };
       },
 
-      handleTeamSubmit: function() {
-        var teamArray = this.state.selectedRunners;
+      handleSubmit: function() {
+        swal({title:"", text: "You have successfully created a new team!", type:"success"});
       },
 
-      populateList: function() {
-        
-          masterModel = new RunnerCollection();
-
-          masterModel.fetch({
-            success: function (response) {
-              console.log("Success fetch runners list!");
-            },
-            error: function(model,response,xhr) {
-              console.log("Error fetch runners list");
-              console.log(response);
-              console.log(xhr);        
-            }
+      handleSearch: function(val) {
+        var test = val.searchTerm;
+        if(val.searchTerm)
+        {
+          $.ajax({
+            url:"api/index.php/runners/" + val.searchTerm,
+            type:"GET",
+            success:function(data){
+              this.setState({allRunners: data});
+            }.bind(this),     
+            dataType:"json"
           });
+        }
+        else
+        {
+          this.loadListfromServer();
+        }
+      },
 
+      loadListfromServer: function() {
+        
+        $.ajax({
+          url:"api/index.php/runners",
+          type:"GET",
+          success:function(data){
+            this.setState({allRunners: data});
+          }.bind(this),     
+          dataType:"json"
+        });
       },
 
       componentDidMount: function() {
-        this.populateList();
+        this.loadListfromServer();
+        $("#pageHeader").html("Step 3: Build your roster");
+        $("#mainPageBar").show();
+        $("#bufferDiv").show();
       },
 
       render: function() {
         var Button = ReactBoot.Button;
-        
+        var nextBtnStyle = {paddingTop: 20};
+
         return (
           <div className={'my-container'}>
             <div className={'wrap'}>           
-              <SearchBar />
+              <SearchBar onSearch={this.handleSearch} />
               <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.props.collection} onTeamSubmit={this.handleTeamSubmit} />
+                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
               </div>
-              <br/>
-              <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
+              <div style={nextBtnStyle}>
+                <Button bsStyle="success" bsSize="large" block href="#home">Finished! Create My Team</Button>
+              </div>
             </div>          
           </div>
         )
@@ -68,29 +88,20 @@ define(
       
       el: $('#mainContent'),
       events: {
-          // none
+  
         },
 
-        initialize: function() {
-         
-          masterModel = new RunnerCollection();
-
-          masterModel.fetch({
-            success: function (response) {
-              console.log("Success fetch runners list!");
-            },
-            error: function(model,response,xhr) {
-              console.log("Error fetch runners list");
-              console.log(response);
-              console.log(xhr);        
-            }
-          });
+        initialize: function(options) { 
+          if(options)
+          {
+            var test = options.teamId;
+          }
         },
 
         render: function (){
         
         React.render(       
-          <RunnerListMaster collection={masterModel} />,
+          <RunnerListMaster/>,
           this.el
           );
       } 

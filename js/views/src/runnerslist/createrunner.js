@@ -7,7 +7,7 @@ define(
   'backbonemixin',
   'models/createRunnerModel',
   'reactboot',
-  'views/build/dropdownContainer'
+  'views/build/dropdownContainer',
   ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel, ReactBoot, DropdownContainer){
 
     var CreateRunnerMaster = React.createClass({
@@ -24,7 +24,8 @@ define(
             dmnArray_Schools:[],
             dmnArray_States:[] ,
             disableDropdown: 1,
-            schoolCode:''
+            schoolCode:'',
+            disableNextButton:'false',
         };
       },
 
@@ -88,6 +89,9 @@ define(
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         this.loadDomainsFromServer();
+        $("#pageHeader").html("Step 1: Add atheletes to the database");
+        $("#mainPageBar").show();
+        $("#bufferDiv").show();
       },
 
       render: function() {
@@ -142,10 +146,11 @@ define(
     
       el: $('#mainContent'),
       events: {
+        
       },
 
-      initialize: function() {  
- 
+      initialize: function() { 
+        
       },
 
       render: function (){

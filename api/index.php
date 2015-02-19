@@ -67,7 +67,7 @@ function sendResponse($status = 200, $body = '', $content_type = 'text/html')
     echo $body;
 }
 
-// Fetch all Runners
+// Fetch all
 $app->get('/runners', function() use ($db) {
           
         $result = array();
@@ -86,14 +86,15 @@ $app->get('/runners', function() use ($db) {
         echo json_encode($result);
 });
 
-$app->get('/runners/:id', function($id) use ($db) {
+// Filter list
+$app->get('/runners/:name', function($name) use ($db) {
           
         $result = array();
         $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
         FROM Runners r 
         JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
         JOIN dmn_States x ON x.id = s.dmn_StatesID
-        WHERE r.lastName LIKE '$id%'";
+        WHERE r.lastName LIKE '$name%'";
         
         $r = $db->query($sql);
         while($runner = $r->fetch_assoc()){

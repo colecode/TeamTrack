@@ -85,12 +85,17 @@ define(
 
       componentDidMount: function() {
         this.loadDomainsFromServer();
+        $("#pageHeader").html("Step 2: Enter team attributes");
+        $("#mainPageBar").show();
+        $("#bufferDiv").show();
       },
 
       render: function() {
 
         var Button = ReactBoot.Button;
+        var ButtonGroup = ReactBoot.ButtonGroup;
         var submitBtnStyle = {paddingTop: 100};
+        var nextBtnStyle = {paddingTop: 30};
         
         return (
           <div className={'my-container'}>
@@ -108,9 +113,10 @@ define(
                 <label>School</label><br/>
                 <DropdownContainer id="schoolDropdown" disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />
               </div>   
-              <div style={submitBtnStyle}>
-                <Button bsStyle="primary" bsSize="large" block onClick={this.handleSubmit}>Create Team</Button>
-              </div>
+              <ButtonGroup>
+                <Button bsStyle="primary" onClick={this.handleSubmit}>Save</Button>
+                <Button bsStyle="success" href="#selectrunners/2">Next</Button>
+              </ButtonGroup>
             </form>       
             </div>          
           </div>

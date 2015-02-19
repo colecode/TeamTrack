@@ -15,7 +15,7 @@
 
 </head>
 <body>
-	<div class="my-container">
+	<div id="super-container" class="my-container">
 		<div class="nav-main">
 			<div class="wrap">
 				<div class="nav-home">
@@ -24,14 +24,16 @@
 				<div class="nav-site">
 					<ul>
 						<li>
-							<a href="#team">Runners</a>
+							<a href="#runnerslist">Browse All Runners</a>
 						</li>
+						<!--
 						<li>
 							<a href="#createrunner">Create Runner</a>
 						</li>
 						<li>
 							<a href="#createteam">Create Team</a>
 						</li>
+						-->
 						<li>
 							<a href="#example">Account</a>
 						</li>
@@ -43,8 +45,14 @@
 
 			</div>
 		</div>
-
-
+		<div id="mainPageBar" class="page-title-bar">
+			<div class="wrap">
+				<div id="mainPageDiv" class="page-title-div">
+					<h4 id="pageHeader"></h2>
+				</div>
+			</div>
+		</div>
+		<div id="bufferDiv"></div>
 		<div id="mainContent"></div>
 		
 		<div id="page">

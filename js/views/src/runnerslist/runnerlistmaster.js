@@ -22,10 +22,6 @@ define(
         };
       },
 
-      handleTeamSubmit: function() {
-        var teamArray = this.state.selectedRunners;
-      },
-
       handleSearch: function(val) {
         var test = val.searchTerm;
         if(val.searchTerm)
@@ -59,6 +55,8 @@ define(
 
       componentDidMount: function() {
         this.loadListfromServer();
+        $("#mainPageBar").hide();
+        $("#bufferDiv").hide();
       },
 
       render: function() {
@@ -71,8 +69,6 @@ define(
               <div className={'runner-table-div'}>
                 <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
               </div>
-              <br/>
-              <Button bsStyle="primary" bsSize="large" block onClick={this.handleTeamSubmit}>Create Team</Button>
             </div>          
           </div>
         )
@@ -86,8 +82,11 @@ define(
   
         },
 
-        initialize: function() {
-         
+        initialize: function(options) { 
+          if(options)
+          {
+            var test = options.teamId;
+          }
         },
 
         render: function (){
