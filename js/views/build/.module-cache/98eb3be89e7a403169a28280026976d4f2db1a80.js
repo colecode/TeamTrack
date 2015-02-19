@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer',
   ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel, ReactBoot, DropdownContainer){
 
-    var CreateRunnerMaster = React.createClass({
+    var CreateRunnerMaster = React.createClass({displayName: 'CreateRunnerMaster',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -101,38 +101,42 @@ define(
         var Button = ReactBoot.Button;
         var ButtonGroup = ReactBoot.ButtonGroup;
 
-        var btnBlockBuffer = {paddingTop: 100};
-        var myWidth = $(".wrap").width() / 2;
-        var wrapWidth = {width:myWidth};
+        var submitBtnStyle = {paddingTop: 100};
+        var nextBtnStyle = {paddingTop: 30};
+        var btnWidth = {width:400};
+
+
+        var wrapWidth = $(".wrap").width() / 2;
+        var btnWidth2 = {width:400};
 
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-            <form role="form">
-              <div className={"form-group"}>
-                <label>First name</label>
-                <input type="text" className={"form-control"} valueLink={this.linkState('firstName')} />   
-              </div>
-              <div className={"form-group"}>
-                <label>Last name</label>
-                <input type="text" className={"form-control"} valueLink={this.linkState('lastName')} />
-              </div>
-              <div className={"form-group"}>
-                <label>State</label><br/>
-                <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
-              </div>
-              <div className={"form-group"}>
-                <label>School</label><br/>
-                <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />
-              </div>          
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+            React.createElement("form", {role: "form"}, 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "First name"), 
+                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('firstName')})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "Last name"), 
+                React.createElement("input", {type: "text", className: "form-control", valueLink: this.linkState('lastName')})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "State"), React.createElement("br", null), 
+                React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
+              ), 
+              React.createElement("div", {className: "form-group"}, 
+                React.createElement("label", null, "School"), React.createElement("br", null), 
+                React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+              ), 
               
-              <ButtonGroup style={btnBlockBuffer}>
-                <Button bsStyle="primary" bsSize="large" style={wrapWidth} onClick={this.handleSubmit}>Save</Button>
-                <Button bsStyle="success" bsSize="large" style={wrapWidth} href="#createteam">Next</Button>
-              </ButtonGroup>
-            </form>       
-            </div>          
-          </div>
+              React.createElement(ButtonGroup, {style: submitBtnStyle}, 
+                React.createElement(Button, {bsStyle: "primary", bsSize: "large", style: btnWidth, onClick: this.handleSubmit}, "Create Runner"), 
+                React.createElement(Button, {bsStyle: "success", bsSize: "large", style: btnWidth, href: "#createteam"}, "Next")
+              )
+            )
+            )
+          )
         )
       },
 
@@ -157,7 +161,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateRunnerMaster/>,
+          React.createElement(CreateRunnerMaster, null),
           this.el
         );
       } 

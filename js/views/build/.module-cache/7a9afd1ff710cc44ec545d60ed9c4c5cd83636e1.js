@@ -11,7 +11,7 @@ define(
   'reactboot'
   ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
 
-    var RunnerListMaster = React.createClass({
+    var RunnerListMaster = React.createClass({displayName: 'RunnerListMaster',
 
       mixins: [backboneMixin],
 
@@ -69,17 +69,17 @@ define(
         var nextBtnStyle = {paddingTop: 20};
 
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>           
-              <SearchBar onSearch={this.handleSearch} />
-              <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
-              </div>
-              <div style={nextBtnStyle}>
-                <Button bsStyle="success" bsSize="large" block href="#home">Finish</Button>
-              </div>
-            </div>          
-          </div>
+          React.createElement("div", {className: 'my-container'}, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement(SearchBar, {onSearch: this.handleSearch}), 
+              React.createElement("div", {className: 'runner-table-div'}, 
+                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners, onTeamSubmit: this.handleTeamSubmit})
+              ), 
+              React.createElement("div", {style: nextBtnStyle}, 
+                React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, href: "#home"}, "Finished! Create My Team")
+              )
+            )
+          )
         )
       }
     });
@@ -101,7 +101,7 @@ define(
         render: function (){
         
         React.render(       
-          <RunnerListMaster/>,
+          React.createElement(RunnerListMaster, null),
           this.el
           );
       } 

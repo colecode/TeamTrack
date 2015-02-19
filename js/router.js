@@ -3,16 +3,15 @@ define([
   'underscore',
   'backbone',
   'views/build/runnerlistmaster',
-  'views/build/teamexample',
   'views/build/createrunner',
   'views/build/createteam',
   'views/build/home',
   'views/build/selectRunners'
-], function($, _, Backbone, RunnerList, TeamExample, CreateRunner, CreateTeam, HomePage, SelectRunners){
+], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
-      // Define some URL routes
+      
       'runnerslist': 'showRunners',
 
       'selectrunners/:id': 'selectRunners',
@@ -22,6 +21,8 @@ define([
       'createteam' : 'createTeam',
 
       'home' : 'homePage',
+
+      'myteams' : 'myTeams',
 
       // Default
       '*actions': 'defaultAction'
@@ -60,6 +61,13 @@ define([
     });
 
     app_router.on('route:selectRunners', function(id){
+
+      var selectrunners = new SelectRunners({teamId: id});
+      selectrunners.render();
+
+    });
+
+    app_router.on('route:myTeams', function(id){
 
       var selectrunners = new SelectRunners({teamId: id});
       selectrunners.render();
