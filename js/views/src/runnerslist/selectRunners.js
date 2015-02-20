@@ -8,8 +8,11 @@ define(
   'views/build/searchbar',
   'views/build/runnertable',
   'collections/runners',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
+  'reactboot',
+  'models/runnerToRosterModel'
+  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot, RunnerRosterModel){
+    
+    var teamId = -1;
 
     var RunnerListMaster = React.createClass({
 
@@ -23,11 +26,38 @@ define(
       },
 
       handleSubmit: function() {
-        swal({title:"", text: "You have successfully created a new team!", type:"success"});
+        var flag = false;
+
+        //for each object in selected runners
+        for (var i = this.state.selectedRunners.length - 1; i >= 0; i--) {
+          
+          var tmp = this.state.selectedRunners[i];
+          var myRunner = new RunnerRosterModel({'tId':teamId, 'rId':tmp.id});
+
+          myRunner.save(null, {
+            success:function(model, response) {
+              // 
+            },
+            error: function(model, error) {
+              console.log(error);
+              flag = true;      
+            }
+          });
+        };
+
+        if(flag)
+        {
+          sweetAlert("Oops!", "An error occured while building your roster!", "error");      
+        }
+        else
+        {
+          swal({title:"", text: "You have successfully created a new team!", type:"success"});
+        }
+
       },
 
       handleSearch: function(val) {
-        var test = val.searchTerm;
+  
         if(val.searchTerm)
         {
           $.ajax({
@@ -73,10 +103,10 @@ define(
             <div className={'wrap'}>           
               <SearchBar onSearch={this.handleSearch} />
               <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
+                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners}/>
               </div>
               <div style={nextBtnStyle}>
-                <Button bsStyle="success" bsSize="large" block href="#home">Finish</Button>
+                <Button bsStyle="success" bsSize="large" block onClick={this.handleSubmit}>Finish</Button>
               </div>
             </div>          
           </div>
@@ -85,16 +115,18 @@ define(
     });
 
     var RunnerListView = Backbone.View.extend({
-      
-      el: $('#mainContent'),
-      events: {
+
+        el: $('#mainContent'),
+
+        events: {
   
         },
 
         initialize: function(options) { 
+
           if(options)
           {
-            var test = options.teamId;
+            teamId = options.teamId;
           }
         },
 

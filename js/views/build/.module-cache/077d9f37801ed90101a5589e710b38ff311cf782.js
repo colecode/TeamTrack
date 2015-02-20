@@ -10,6 +10,8 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
+    var createRunnerURL = '';
+
     var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
@@ -23,8 +25,7 @@ define(
             schoolName: 'Select school',
             stateName:'Select state',
             disableDropdown: 1,
-            schoolCode:'',
-            nextURL: '',
+            schoolCode:''
         };
       },
 
@@ -50,7 +51,6 @@ define(
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
-        
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
@@ -78,10 +78,9 @@ define(
 
         myTeam.save(null, {
           success:function(model, response) {
-            var str = "#selectrunners/" + response;
-            myParent.setState({nextURL:str});
-
-            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
+            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 });
+            //myParent.setState({myTeamId:response});
+            this.props.myURL = "#createrunner/" + response;
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new team!", "error");
@@ -105,6 +104,7 @@ define(
         var btnBlockBuffer = {paddingTop: 100};
         var myWidth = $(".wrap").width() / 2;
         var wrapWidth = {width:myWidth};
+        //var selectrunnersURL = "#selectrunners/" + {this.state.myTeamId};
         
         return (
           React.createElement("div", {className: 'my-container'}, 
@@ -124,7 +124,7 @@ define(
               ), 
               React.createElement(ButtonGroup, {style: btnBlockBuffer}, 
                 React.createElement(Button, {bsStyle: "primary", bsSize: "large", style: wrapWidth, onClick: this.handleSubmit}, "Save"), 
-                React.createElement(Button, {bsStyle: "success", bsSize: "large", style: wrapWidth, href: this.state.nextURL}, "Next")
+                React.createElement(Button, {bsStyle: "success", bsSize: "large", style: wrapWidth, href: this.props.myURL}, "Next")
               )
             )
             )
@@ -146,7 +146,7 @@ define(
       render: function (){
         
         React.render(       
-          React.createElement(CreateTeamMaster, null),
+          React.createElement(CreateTeamMaster, {myURL: ""}),
           this.el
         );
       } 

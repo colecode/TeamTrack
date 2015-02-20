@@ -24,8 +24,7 @@ define(
             dmnArray_Schools:[],
             dmnArray_States:[] ,
             disableDropdown: 1,
-            schoolCode:'',
-            disableNextButton:'false',
+            schoolCode:''          
         };
       },
 

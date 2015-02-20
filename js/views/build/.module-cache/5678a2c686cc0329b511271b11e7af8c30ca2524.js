@@ -24,7 +24,7 @@ define(
             stateName:'Select state',
             disableDropdown: 1,
             schoolCode:'',
-            nextURL: '',
+            myTeamId:-1,
         };
       },
 
@@ -50,7 +50,6 @@ define(
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
-        
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
@@ -78,10 +77,9 @@ define(
 
         myTeam.save(null, {
           success:function(model, response) {
+            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 });
             var str = "#selectrunners/" + response;
             myParent.setState({nextURL:str});
-
-            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new team!", "error");
@@ -105,6 +103,7 @@ define(
         var btnBlockBuffer = {paddingTop: 100};
         var myWidth = $(".wrap").width() / 2;
         var wrapWidth = {width:myWidth};
+        //var selectrunnersURL = "#selectrunners/" + {this.state.myTeamId};
         
         return (
           React.createElement("div", {className: 'my-container'}, 

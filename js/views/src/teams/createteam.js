@@ -13,6 +13,7 @@ define(
     var CreateTeamMaster = React.createClass({
 
       mixins: [backboneMixin],
+      mixins: [React.addons.LinkedStateMixin],
 
       getInitialState: function () {
         return {
@@ -22,7 +23,8 @@ define(
             schoolName: 'Select school',
             stateName:'Select state',
             disableDropdown: 1,
-            schoolCode:''
+            schoolCode:'',
+            nextURL: '',
         };
       },
 
@@ -48,6 +50,7 @@ define(
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
+        
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
@@ -71,10 +74,14 @@ define(
       handleSubmit: function() {
 
         myTeam = new CreateTeamModel({'tName':this.state.teamName, 'sCode':this.state.schoolCode});
-        
+        myParent = this;
+
         myTeam.save(null, {
           success:function(model, response) {
-            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 });
+            var str = "#selectrunners/" + response;
+            myParent.setState({nextURL:str});
+
+            swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new team!", "error");
@@ -105,7 +112,7 @@ define(
             <form role="form">
               <div className={"form-group"}>
                 <label>Team Name</label>
-                <input type="text" className={"form-control"} value={this.props.teamName} onChange={this.onTeamNameChange} />
+                <input type="text" className={"form-control"} valueLink={this.linkState('teamName')} />
               </div>
               <div className={"form-group"}>
                 <label>State</label><br/>
@@ -117,7 +124,7 @@ define(
               </div>   
               <ButtonGroup style={btnBlockBuffer}>
                 <Button bsStyle="primary" bsSize="large" style={wrapWidth} onClick={this.handleSubmit}>Save</Button>
-                <Button bsStyle="success" bsSize="large" style={wrapWidth} href="#selectrunners/2">Next</Button>
+                <Button bsStyle="success" bsSize="large" style={wrapWidth} href={this.state.nextURL}>Next</Button>
               </ButtonGroup>
             </form>       
             </div>          

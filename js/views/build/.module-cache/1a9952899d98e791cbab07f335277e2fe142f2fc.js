@@ -27,12 +27,12 @@ define(
 
       handleSubmit: function() {
         var flag = false;
-
+        var runnersArray = this.state.selectedRunners;
         //for each object in selected runners
         for (var i = this.state.selectedRunners.length - 1; i >= 0; i--) {
           
           var tmp = this.state.selectedRunners[i];
-          var myRunner = new RunnerRosterModel({'tId':teamId, 'rId':tmp.id});
+          var myRunner = new RunnerRosterModel({'tID':teamId, 'rID':tmp.id});
 
           myRunner.save(null, {
             success:function(model, response) {
@@ -47,11 +47,11 @@ define(
 
         if(flag)
         {
-          sweetAlert("Oops!", "An error occured while building your roster!", "error");      
+          swal({title:"", text: "You have successfully created a new team!", type:"success"});
         }
         else
         {
-          swal({title:"", text: "You have successfully created a new team!", type:"success"});
+          sweetAlert("Oops!", "An error occured while building your roster!", "error");
         }
 
       },

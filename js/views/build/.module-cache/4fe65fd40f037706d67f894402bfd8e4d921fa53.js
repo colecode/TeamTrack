@@ -47,11 +47,11 @@ define(
 
         if(flag)
         {
-          sweetAlert("Oops!", "An error occured while building your roster!", "error");      
+          swal({title:"", text: "You have successfully created a new team!", type:"success"});
         }
         else
         {
-          swal({title:"", text: "You have successfully created a new team!", type:"success"});
+          sweetAlert("Oops!", "An error occured while building your roster!", "error");
         }
 
       },

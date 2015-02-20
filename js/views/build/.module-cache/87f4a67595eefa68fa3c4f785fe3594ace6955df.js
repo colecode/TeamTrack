@@ -50,7 +50,6 @@ define(
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
-        
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,

@@ -8,11 +8,10 @@ define(
   'views/build/searchbar',
   'views/build/runnertable',
   'collections/runners',
-  'reactboot',
-  'models/runnerToRosterModel'
-  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot, RunnerRosterModel){
+  'reactboot'
+  ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
     
-    var teamId = -1;
+    var aID = -1;
 
     var RunnerListMaster = React.createClass({displayName: 'RunnerListMaster',
 
@@ -26,34 +25,7 @@ define(
       },
 
       handleSubmit: function() {
-        var flag = false;
-
-        //for each object in selected runners
-        for (var i = this.state.selectedRunners.length - 1; i >= 0; i--) {
-          
-          var tmp = this.state.selectedRunners[i];
-          var myRunner = new RunnerRosterModel({'tId':teamId, 'rId':tmp.id});
-
-          myRunner.save(null, {
-            success:function(model, response) {
-              // 
-            },
-            error: function(model, error) {
-              console.log(error);
-              flag = true;      
-            }
-          });
-        };
-
-        if(flag)
-        {
-          sweetAlert("Oops!", "An error occured while building your roster!", "error");      
-        }
-        else
-        {
-          swal({title:"", text: "You have successfully created a new team!", type:"success"});
-        }
-
+        swal({title:"", text: "You have successfully created a new team!", type:"success"});
       },
 
       handleSearch: function(val) {
@@ -103,10 +75,10 @@ define(
             React.createElement("div", {className: 'wrap'}, 
               React.createElement(SearchBar, {onSearch: this.handleSearch}), 
               React.createElement("div", {className: 'runner-table-div'}, 
-                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners})
+                React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners, onTeamSubmit: this.handleTeamSubmit})
               ), 
               React.createElement("div", {style: nextBtnStyle}, 
-                React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
+                React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, href: "#home"}, "Finish")
               )
             )
           )
@@ -126,14 +98,14 @@ define(
 
           if(options)
           {
-            teamId = options.teamId;
+            aId = options.teamId;
           }
         },
 
         render: function (){
         
         React.render(       
-          React.createElement(RunnerListMaster, null),
+          React.createElement(RunnerListMaster, {teamdId: aId}),
           this.el
           );
       } 

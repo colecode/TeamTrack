@@ -2,7 +2,26 @@
 require '../vendor/autoload.php';
 
 $app = new \Slim\Slim();
-$db = new mysqli("localhost", "colin", "saltytuna814", "TeamTrack");
+
+function db_connect() {
+
+    // Define connection as a static variable, to avoid connecting more than once 
+    static $connection;
+
+    // Try and connect to the database, if a connection has not been established yet
+    if(!isset($connection)) {
+         // Load configuration as an array. Use the actual location of your configuration file
+        $config = parse_ini_file('../../Config/config.ini'); 
+        $connection = new mysqli('localhost',$config['username'],$config['password'],$config['dbname']);
+    }
+
+    // If connection was not successful, handle the error
+    if($connection === false) {
+        // Handle error - notify administrator, log to a file, show an error screen, etc.
+        return mysqli_connect_error(); 
+    }
+    return $connection;
+}
 
 // Helper method to get a string description for an HTTP status code
 // From http://www.gen-x-design.com/archives/create-a-rest-api-with-php/ 
@@ -67,9 +86,10 @@ function sendResponse($status = 200, $body = '', $content_type = 'text/html')
     echo $body;
 }
 
-// Fetch all
-$app->get('/runners', function() use ($db) {
-          
+// Runners list
+$app->get('/runners', function() {
+        
+        $db = db_connect();
         $result = array();
         $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
         FROM Runners r 
@@ -87,8 +107,9 @@ $app->get('/runners', function() use ($db) {
 });
 
 // Filter list
-$app->get('/runners/:name', function($name) use ($db) {
-          
+$app->get('/runners/:name', function($name) {
+        
+        $db = db_connect();
         $result = array();
         $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
         FROM Runners r 
@@ -106,17 +127,12 @@ $app->get('/runners/:name', function($name) use ($db) {
         echo json_encode($result);
 });
 
-// Update existing Runner
-$app->post('/runners/:id', function($id) use ($db) {
-    echo 'Colin!!!';
-});
 
 // Create new Runner
 $app->post('/runners', function() use ($app) {
     
-    $db2 = new mysqli("localhost", "colin", "saltytuna814", "TeamTrack");
+    $db = db_connect();
     $request = (array) json_decode($app->request()->getBody());
-    $app->response()->header('Content-Type', 'application/json');
 
     // Retrieve input values - put into local vars
     $fName = $request['fName'];
@@ -125,7 +141,7 @@ $app->post('/runners', function() use ($app) {
 
     try {
         // Prepare statement
-        $stmt = $db2->prepare("INSERT INTO Runners (firstName,lastName,dmn_SchoolsID) VALUES (?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO Runners (firstName,lastName,dmn_SchoolsID) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $fName, $lName, $sCode);
         $stmt->execute();
         $stmt->close();
@@ -140,11 +156,10 @@ $app->post('/runners', function() use ($app) {
 });
 
 // Create new Team
-$app->post('/teams', function() use ($app) {
+$app->post('/teams', function() use ($app)  {
     
-    $db2 = new mysqli("localhost", "colin", "saltytuna814", "TeamTrack");
+    $db = db_connect();
     $request = (array) json_decode($app->request()->getBody());
-    $app->response()->header('Content-Type', 'application/json');
     
     // Retrieve input values - put into local vars
     $tName = $request['tName'];
@@ -153,11 +168,41 @@ $app->post('/teams', function() use ($app) {
 
     try {
         // Prepare statement
-        $stmt = $db2->prepare("INSERT INTO Teams (teamName, ownerUserID, dmn_SchoolsID) VALUES (?,?,?)");
+        $stmt = $db->prepare("INSERT INTO Teams (teamName, ownerUserID, dmn_SchoolsID) VALUES (?,?,?)");
         $stmt->bind_param("sii", $tName, $userID, $sCode);
         $stmt->execute();
         $stmt->close();
 
+        $lastId = $db->insert_id;
+        
+        // Send success code
+        sendResponse(200, json_encode($lastId));
+
+    } catch(PDOException $e) {
+        // Send error code
+        sendResponse(400, '. $e->getMessage() .');
+    }
+
+    
+});
+
+// Create new Team
+$app->post('/teamroster', function() use ($app) {
+    
+    $db = db_connect();
+    $request = (array) json_decode($app->request()->getBody());
+    
+    // Retrieve input values - put into local vars
+    $tId = $request['tId'];
+    $rId = $request['rId'];
+
+    try {
+        // Prepare statement
+        $stmt = $db->prepare("INSERT INTO TeamRoster (teamId, runnerId) VALUES (?,?)");
+        $stmt->bind_param("ii", $tId, $rId);
+        $stmt->execute();
+        $stmt->close();
+        
         // Send success code
         sendResponse(200, json_encode('Success'));
 
@@ -170,8 +215,9 @@ $app->post('/teams', function() use ($app) {
 });
 
 // Fetch dmn_Schools
-$app->get('/dmnSchools', function() use ($db) {
-          
+$app->get('/dmnSchools', function()  {
+        
+        $db = db_connect();  
         $result = array();
         $sql= "SELECT id, description FROM dmn_Schools"; 
         
@@ -187,8 +233,9 @@ $app->get('/dmnSchools', function() use ($db) {
 
 
 // Fetch dmn_States
-$app->get('/dmnStates', function() use ($db) {
-          
+$app->get('/dmnStates', function() {
+        
+        $db = db_connect();  
         $result = array();
         $sql= "SELECT id, description FROM dmn_States"; 
         
@@ -203,11 +250,11 @@ $app->get('/dmnStates', function() use ($db) {
 });
 
 // Fetch schools from state
-$app->get('/dmnSchools/:id', function($id) use ($db) {
-          
+$app->get('/dmnSchools/:id', function($id)  {
+        
+        $db = db_connect();  
         $result = array();
         $sql= "SELECT id, description FROM dmn_Schools WHERE dmn_StatesID = $id"; 
-        //$sql= "SELECT id, description FROM dmn_States";
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){

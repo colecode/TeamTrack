@@ -29,10 +29,10 @@ define(
         var flag = false;
 
         //for each object in selected runners
-        for (var i = this.state.selectedRunners.length - 1; i >= 0; i--) {
+        for (var i = selectedRunners.length - 1; i >= 0; i--) {
           
-          var tmp = this.state.selectedRunners[i];
-          var myRunner = new RunnerRosterModel({'tId':teamId, 'rId':tmp.id});
+          var tmp = selectedRunners[i];
+          var myRunner = new RunnerRosterModel({'tID':teamId, 'rID':tmp.id});
 
           myRunner.save(null, {
             success:function(model, response) {
@@ -40,18 +40,19 @@ define(
             },
             error: function(model, error) {
               console.log(error);
-              flag = true;      
+              flag = true;
+              
             }
           });
         };
 
         if(flag)
         {
-          sweetAlert("Oops!", "An error occured while building your roster!", "error");      
+          swal({title:"", text: "You have successfully created a new team!", type:"success"});
         }
         else
         {
-          swal({title:"", text: "You have successfully created a new team!", type:"success"});
+          sweetAlert("Oops!", "An error occured while building your roster!", "error");
         }
 
       },
@@ -106,7 +107,7 @@ define(
                 React.createElement(RunnerTable, {selectedRunners: this.state.selectedRunners, runners: this.state.allRunners})
               ), 
               React.createElement("div", {style: nextBtnStyle}, 
-                React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
+                React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, href: "#home"}, "Finish")
               )
             )
           )
