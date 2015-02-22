@@ -86,7 +86,7 @@ function sendResponse($status = 200, $body = '', $content_type = 'text/html')
     echo $body;
 }
 
-// Runners list
+// GET Runners
 $app->get('/runners', function() {
         
         $db = db_connect();
@@ -106,7 +106,7 @@ $app->get('/runners', function() {
         echo json_encode($result);
 });
 
-// Filter list
+// GET Runners filtered
 $app->get('/runners/:name', function($name) {
         
         $db = db_connect();
@@ -128,7 +128,7 @@ $app->get('/runners/:name', function($name) {
 });
 
 
-// Create new Runner
+// POST Runner
 $app->post('/runners', function() use ($app) {
     
     $db = db_connect();
@@ -155,7 +155,7 @@ $app->post('/runners', function() use ($app) {
     }
 });
 
-// Create new Team
+// POST Team
 $app->post('/teams', function() use ($app)  {
     
     $db = db_connect();
@@ -186,7 +186,7 @@ $app->post('/teams', function() use ($app)  {
     
 });
 
-// Create new Team
+// POST Team roster
 $app->post('/teamroster', function() use ($app) {
     
     $db = db_connect();
@@ -214,7 +214,27 @@ $app->post('/teamroster', function() use ($app) {
     
 });
 
-// Fetch dmn_Schools
+// GET Teams
+$app->get('/myteams', function() {
+        
+        $db = db_connect();
+        $result = array();
+        $sql= "SELECT r.id, r.teamName, x.description AS stateName, s.description AS schoolName 
+        FROM Teams r 
+        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
+        JOIN dmn_States x ON x.id = s.dmn_StatesID"; 
+        
+        $r = $db->query($sql);
+        while($team = $r->fetch_assoc()){
+            
+            $result[] = $team;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// GET dmn_Schools
 $app->get('/dmnSchools', function()  {
         
         $db = db_connect();  
@@ -232,7 +252,7 @@ $app->get('/dmnSchools', function()  {
 });
 
 
-// Fetch dmn_States
+// GET dmn_States
 $app->get('/dmnStates', function() {
         
         $db = db_connect();  
@@ -249,7 +269,7 @@ $app->get('/dmnStates', function() {
         echo json_encode($result);
 });
 
-// Fetch schools from state
+// GET schools per state
 $app->get('/dmnSchools/:id', function($id)  {
         
         $db = db_connect();  

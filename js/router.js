@@ -6,8 +6,9 @@ define([
   'views/build/createrunner',
   'views/build/createteam',
   'views/build/home',
-  'views/build/selectRunners'
-], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners){
+  'views/build/selectRunners',
+  'views/build/myteams'
+], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -69,8 +70,8 @@ define([
 
     app_router.on('route:myTeams', function(id){
 
-      var selectrunners = new SelectRunners({teamId: id});
-      selectrunners.render();
+      var myteams = new MyTeams();
+      myteams.render();
 
     });
   

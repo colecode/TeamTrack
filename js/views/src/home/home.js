@@ -37,7 +37,7 @@ define(
             </div>
             </div>      
           </Jumbotron>
-          <HomeCarousel/>
+          
           </div>
         )
       }

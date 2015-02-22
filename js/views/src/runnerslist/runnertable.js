@@ -4,9 +4,8 @@ define(
   'underscore',
   'backbone',
   'react',
-  'views/build/runnertablerow',
   'reactboot',
-  ], function($, _, Backbone, React, RunnerTableRow, ReactBoot){
+  ], function($, _, Backbone, React, ReactBoot){
 
     var RunnerTable = React.createClass({
        
