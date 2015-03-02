@@ -7,7 +7,7 @@ define(
   'backbonemixin',
   'models/createRunnerModel',
   'reactboot',
-  'views/build/dropdownContainer',
+  'views/build/dropdowncontainer',
   ], function($, _, Backbone, React, backboneMixin, CreateRunnerModel, ReactBoot, DropdownContainer){
 
     var CreateRunnerMaster = React.createClass({
