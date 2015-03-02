@@ -8,7 +8,7 @@ define(
   ], function($, _, Backbone, React, ReactBoot){
 
 
-    var DropdownContainer = React.createClass({displayName: 'DropdownContainer',
+    var DropdownContainer = React.createClass({
          
       render: function() {
         
@@ -27,23 +27,23 @@ define(
         var rows = [];
 
         this.props.dmnArray.map(function(domainVal, i) {
-          rows.push(React.createElement(MenuItem, {onSelect: selectedDomainVal, domainCode: domainVal.id, key: domainVal.id}, domainVal.description))
+          rows.push(<MenuItem onSelect={selectedDomainVal} domainCode={domainVal.id} key={domainVal.id}>{domainVal.description}</MenuItem>)
         });
 
         if(this.props.disabled == 1)
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, disabled: true, ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle}, 
-              rows
-           )                     
+           <DropdownButton style={wrapWidth} disabled ref="DropMenu" bsStyle="primary" title={this.props.menuTitle} >
+              {rows}
+           </DropdownButton>                     
           )
         }
         else
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle}, 
-              rows
-           )                     
+           <DropdownButton style={wrapWidth} ref="DropMenu" bsStyle="primary" title={this.props.menuTitle}  >
+              {rows}
+           </DropdownButton>                     
           )
         }
 

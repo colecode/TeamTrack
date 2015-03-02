@@ -12,9 +12,6 @@ define(
          
       render: function() {
         
-        var myWidth = $(".wrap").width();
-        var wrapWidth = {width:myWidth};
-
         var myParent = this;
 
         function selectedDomainVal() {
@@ -33,7 +30,7 @@ define(
         if(this.props.disabled == 1)
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, disabled: true, ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle}, 
+           React.createElement(DropdownButton, {disabled: true, ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle, style: {width : 200}}, 
               rows
            )                     
           )
@@ -41,7 +38,7 @@ define(
         else
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle}, 
+           React.createElement(DropdownButton, {ref: "DropMenu", bsStyle: "primary", title: this.props.menuTitle, style: {width : 200}}, 
               rows
            )                     
           )

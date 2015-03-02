@@ -23,8 +23,7 @@ define(
             schoolName: 'Select school',
             stateName:'Select state',
             disableDropdown: 1,
-            schoolCode:'',
-            nextURL: '',
+            schoolCode:''
         };
       },
 
@@ -79,9 +78,10 @@ define(
         myTeam.save(null, {
           success:function(model, response) {
             var str = "#selectrunners/" + response;
-            myParent.setState({nextURL:str});
-
             swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
+
+            // Go to 'Select runners' page
+            window.location.href = str;
           },
           error: function(model, error) {
             sweetAlert("Oops!", "An error occured while creating a new team!", "error");
@@ -124,7 +124,6 @@ define(
               </div>   
               <ButtonGroup style={btnBlockBuffer}>
                 <Button bsStyle="primary" bsSize="large" style={wrapWidth} onClick={this.handleSubmit}>Save</Button>
-                <Button bsStyle="success" bsSize="large" style={wrapWidth} href={this.state.nextURL}>Next</Button>
               </ButtonGroup>
             </form>       
             </div>          

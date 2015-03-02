@@ -102,7 +102,7 @@ define(
 
         var btnBlockBuffer = {paddingTop: 100};
         var myWidth = $(".wrap").width() / 2;
-        
+        var bigWidth = $(".wrap").width();
         var wrapWidth = {width:myWidth};
 
         return (
@@ -119,11 +119,11 @@ define(
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "State"), React.createElement("br", null), 
-                React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
+                React.createElement(DropdownContainer, {style: bigWidth, dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
               ), 
               React.createElement("div", {className: "form-group"}, 
                 React.createElement("label", null, "School"), React.createElement("br", null), 
-                React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+                React.createElement(DropdownContainer, {style: bigWidth, disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
               ), 
               
               React.createElement(ButtonGroup, {style: btnBlockBuffer}, 

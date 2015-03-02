@@ -6,7 +6,7 @@ define(
   'reactboot',
   ], function($, _, React, ReactBoot){
 
-    var TeamsTable = React.createClass({displayName: 'TeamsTable',
+    var TeamsPanelItem = React.createClass({displayName: 'TeamsPanelItem',
        
       handleSelect: function() {
               
@@ -18,10 +18,10 @@ define(
         
         return (
             
-            React.createElement("div", {id: "teamsTableComponent"}, 
+            React.createElement("div", {id: "panelItemDiv"}, 
              React.createElement(PanelGroup, {defaultActiveKey: "1", accordion: true}, 
                 
-                this.props.myteams.map(function(team, i) {
+                this.props.runnersonteam.map(function(runOnTeam, i) {
                       return (React.createElement(Panel, {eventKey: i, header: team.teamName}, 
                                 "test ", i
                               ));
@@ -32,7 +32,5 @@ define(
       }
     });
 
-    return TeamsTable;
+    return TeamsPanelItem;
 });
-
-
