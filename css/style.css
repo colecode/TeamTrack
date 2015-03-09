@@ -103,3 +103,65 @@
 	display:none;
 }
 
+.form-field-sizes {
+	width: 300px;
+	margin-bottom: 5px;
+}
+
+.form-box-wrap {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+/*	padding-left: 20px;
+	padding-right: 20px; */
+}
+
+.navbar-wrap {
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.promo {
+	width: 1600px;
+	height: 400px;
+	background-image: url("../resources/bg.jpg");
+}
+
+/*.promo-jumbotron {
+	color: white;
+	
+}
+
+.promo-subtext {
+	color: white;
+	font-size: 25px;
+}
+
+.promo-jumbotron-p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200;
+}*/
+
+.my-jumbotron {
+	color: white;
+}
+
+.my-jumbotron h1 {
+	font-size: 50px;
+	margin-top: 0px;
+	padding-top: 150px;
+}
+
+.my-jumbotron p {
+	margin-bottom: 15px;
+  	font-size: 21px;
+  	font-weight: 200;
+}
+
+
+
+

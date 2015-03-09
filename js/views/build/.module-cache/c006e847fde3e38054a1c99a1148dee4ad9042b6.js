@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -108,17 +108,17 @@ define(
         
         return (
         
-        <div className={'form-box-wrap'}>
-          <div className={'input-group margin-bottom-sm form-field-sizes'}>
-            <span className={'input-group-addon'}><i className={'fa fa-envelope-o fa-fw'}></i></span>
-            <input className={'form-control'} type="text" placeholder="Email address" />
-          </div>
+        React.createElement("div", null, 
+          React.createElement("div", {className: 'input-group margin-bottom-sm form-field-w'}, 
+            React.createElement("span", {className: 'input-group-addon'}, React.createElement("i", {className: 'fa fa-envelope-o fa-fw'})), 
+            React.createElement("input", {className: 'form-control', type: "text", placeholder: "Email address"})
+          ), 
 
-          <div className={'input-group form-field-sizes'}>
-            <span className={'input-group-addon'}><i className={'fa fa-key fa-fw'}></i></span>
-            <input className={'form-control'} type="password" placeholder="Password" />
-          </div>
-        </div>
+          React.createElement("div", {className: 'input-group'}, 
+            React.createElement("span", {className: 'input-group-addon'}, React.createElement("i", {className: 'fa fa-key fa-fw'})), 
+            React.createElement("input", {className: 'form-control', type: "password", placeholder: "Password"})
+          )
+        )
   
         )
       }
@@ -137,7 +137,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateTeamMaster/>,
+          React.createElement(CreateTeamMaster, null),
           this.el
         );
       } 
