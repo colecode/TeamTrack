@@ -9,7 +9,7 @@ define(
   'views/build/carousel'
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
 
-    var HomePageClass = React.createClass({
+    var HomePageClass = React.createClass({displayName: 'HomePageClass',
 
       mixins: [backboneMixin],
 
@@ -27,17 +27,16 @@ define(
         };
         
         return (
-          <div>        
-            <div className={'promo'}>
-              <div className={'navbar-wrap'}>
-              <div className={'my-jumbotron'}>
-                <h1>TeamTrack</h1>
-                <p>Follow your team.</p>
-                <Button bsStyle="primary" href="#createrunner">Let&apos;s get started</Button>
-              </div>
-              </div>
-            </div>
-          </div>
+          React.createElement("div", null, 
+            React.createElement("div", {className: 'promo'}, 
+              React.createElement("div", {className: 'navbar-wrap'}, 
+              React.createElement("div", {className: 'my-jumbotron'}, 
+                React.createElement("h1", null, "TeamTrack"), 
+                React.createElement("p", null, "Follow your team.")
+              )
+              )
+            )
+          )
         )
       }
     });
@@ -55,7 +54,7 @@ define(
       render: function (){
 
         React.render(       
-          <HomePageClass/>,
+          React.createElement(HomePageClass, null),
           this.el
           );
       } 

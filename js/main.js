@@ -7,7 +7,7 @@ require.config({
     jquery: 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min',
     underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min',
     backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min',
-    react: 'http://fb.me/react-with-addons-0.12.1',
+    react: '../css/react-with-addons',
     backbonemixin: 'http://cdnjs.cloudflare.com/ajax/libs/backbone-react-component/0.7.2/backbone-react-component',
     reactboot:'../css/react-bootstrap.min'
   }

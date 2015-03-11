@@ -62,9 +62,6 @@
 	padding-bottom: 30px;
 }
 
-.highlight-row {
-    background: red;
-}
 
 .runner-table-div {
 	height: 500px;
@@ -103,18 +100,6 @@
 	display:none;
 }
 
-.form-field-sizes {
-	width: 300px;
-	margin-bottom: 5px;
-}
-
-.form-box-wrap {
-	width: 300px;
-	margin-left: auto;
-	margin-right: auto;
-/*	padding-left: 20px;
-	padding-right: 20px; */
-}
 
 .navbar-wrap {
 	width: 960px;
@@ -127,24 +112,8 @@
 .promo {
 	width: 1600px;
 	height: 400px;
-	background-image: url("../resources/bg.jpg");
+	background-image: url("../resources/green-background.png");
 }
-
-/*.promo-jumbotron {
-	color: white;
-	
-}
-
-.promo-subtext {
-	color: white;
-	font-size: 25px;
-}
-
-.promo-jumbotron-p {
-  margin-bottom: 15px;
-  font-size: 21px;
-  font-weight: 200;
-}*/
 
 .my-jumbotron {
 	color: white;
@@ -154,13 +123,44 @@
 	font-size: 50px;
 	margin-top: 0px;
 	padding-top: 150px;
+	font-family: 'Roboto', sans-serif;
 }
 
 .my-jumbotron p {
 	margin-bottom: 15px;
   	font-size: 21px;
   	font-weight: 200;
+  	font-family: 'Roboto', sans-serif;
 }
+
+/* Form style */
+
+.form-save-btn {
+	background-color: gainsboro;
+}
+
+.form-box-wrap {
+	padding-top: 75px;
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-box-wrap h3 {
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	padding-bottom: 100px;
+}
+
+.form-field-sizes {
+	width: 300px;
+	margin-bottom: 5px;
+}
+
+/*.create-team-header {
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+}*/
 
 
 

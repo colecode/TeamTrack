@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -20,8 +20,8 @@ define(
             teamName: '' ,
             dmnArray_Schools:[],
             dmnArray_States:[],
-            schoolName: '',
-            stateName:'',
+            schoolName: 'Select school',
+            stateName:'Select state',
             disableDropdown: 1,
             schoolCode:''
         };
@@ -105,21 +105,21 @@ define(
         
         return (
         
-        <div className={'form-box-wrap'}>
-        <h3 className={'create-team-header'}>Create Team</h3>
-          <div className={'input-group margin-bottom-sm form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="Team name" valueLink={this.linkState('teamName')} />
-          </div>
-          <div className={'input-group form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="State" valueLink={this.linkState('stateName')}/>
-          </div>
-          <div className={'input-group form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="School" valueLink={this.linkState('schoolName')} />
-          </div>     
-           <div className={'input-group form-field-sizes'}>
-            <button className={'btn btn form-control form-save-btn'}>Save</button>
-          </div>
-        </div>
+        React.createElement("div", {className: 'form-box-wrap'}, 
+        React.createElement("h3", {className: 'create-team-header'}, "Create Team"), 
+          React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+            React.createElement("input", {className: 'form-control', type: "text", placeholder: "Team name", valueLink: this.linkState('teamName')})
+          ), 
+          React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement("input", {className: 'form-control', type: "text", placeholder: "State", valueLink: this.linkState('stateName')})
+          ), 
+          React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement("input", {className: 'form-control', type: "text", placeholder: "School", valueLink: this.linkState('schoolName')})
+          ), 
+           React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement("button", {className: 'btn btn form-control form-save-btn'}, "Save")
+          )
+        )
   
         )
       }
@@ -138,7 +138,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateTeamMaster/>,
+          React.createElement(CreateTeamMaster, null),
           this.el
         );
       } 

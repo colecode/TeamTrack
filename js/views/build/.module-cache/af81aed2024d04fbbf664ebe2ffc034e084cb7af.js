@@ -6,8 +6,9 @@ define(
   'react',
   'backbonemixin',
   'reactboot',
-  'views/build/carousel'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
+  'views/build/carousel',
+  'view/build/master-navbar'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel, MasterNavbar){
 
     var HomePageClass = React.createClass({displayName: 'HomePageClass',
 

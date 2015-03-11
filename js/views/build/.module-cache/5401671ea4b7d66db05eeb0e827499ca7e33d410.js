@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -20,8 +20,8 @@ define(
             teamName: '' ,
             dmnArray_Schools:[],
             dmnArray_States:[],
-            schoolName: '',
-            stateName:'',
+            schoolName: 'Select school',
+            stateName:'Select state',
             disableDropdown: 1,
             schoolCode:''
         };
@@ -30,14 +30,14 @@ define(
       // Load Dmns for dropdowns
       loadDomainsFromServer: function() {
         
-        // $.ajax({
-        //   url:"api/index.php/dmnStates",
-        //   type:"GET",
-        //   success:function(data){
-        //     this.setState({dmnArray_States: data});
-        //   }.bind(this),     
-        //   dataType:"json"
-        // });
+        $.ajax({
+          url:"api/index.php/dmnStates",
+          type:"GET",
+          success:function(data){
+            this.setState({dmnArray_States: data});
+          }.bind(this),     
+          dataType:"json"
+        });
 
       },
 
@@ -92,6 +92,9 @@ define(
 
       componentDidMount: function() {
         this.loadDomainsFromServer();
+        $("#pageHeader").html("Step 2: Enter team attributes");
+        $("#mainPageBar").show();
+        $("#bufferDiv").show();
       },
 
       render: function() {
@@ -105,21 +108,17 @@ define(
         
         return (
         
-        <div className={'form-box-wrap'}>
-        <h3 className={'create-team-header'}>Create Team</h3>
-          <div className={'input-group margin-bottom-sm form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="Team name" valueLink={this.linkState('teamName')} />
-          </div>
-          <div className={'input-group form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="State" valueLink={this.linkState('stateName')}/>
-          </div>
-          <div className={'input-group form-field-sizes'}>
-            <input className={'form-control'} type="text" placeholder="School" valueLink={this.linkState('schoolName')} />
-          </div>     
-           <div className={'input-group form-field-sizes'}>
-            <button className={'btn btn form-control form-save-btn'}>Save</button>
-          </div>
-        </div>
+        React.createElement("div", {className: 'form-box-wrap'}, 
+          React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+            React.createElement("span", {className: 'input-group-addon'}, React.createElement("i", {className: 'fa fa-pencil-square-o'})), 
+            React.createElement("input", {className: 'form-control', type: "text", placeholder: "Team name"})
+          ), 
+
+          React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement("span", {className: 'input-group-addon'}, React.createElement("i", {className: 'fa fa-pencil-square-o'})), 
+            React.createElement("input", {className: 'form-control', type: "password", placeholder: "Password"})
+          )
+        )
   
         )
       }
@@ -138,7 +137,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateTeamMaster/>,
+          React.createElement(CreateTeamMaster, null),
           this.el
         );
       } 

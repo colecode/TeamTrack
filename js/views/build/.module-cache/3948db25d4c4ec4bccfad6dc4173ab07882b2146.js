@@ -6,8 +6,9 @@ define(
   'react',
   'backbonemixin',
   'reactboot',
-  'views/build/carousel'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
+  'views/build/carousel',
+  'views/build/master-navbar'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel, MasterNavbar){
 
     var HomePageClass = React.createClass({displayName: 'HomePageClass',
 
@@ -28,6 +29,7 @@ define(
         
         return (
           React.createElement("div", null, 
+            React.createElement(MasterNavbar, null), 
             React.createElement("div", {className: 'promo'}, 
               React.createElement("div", {className: 'navbar-wrap'}, 
               React.createElement("div", {className: 'my-jumbotron'}, 
