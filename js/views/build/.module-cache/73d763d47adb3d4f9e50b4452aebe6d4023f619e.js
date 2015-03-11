@@ -12,7 +12,7 @@ define(
          
       render: function() {
         
-        var myWidth = $(".form-field-sizes").width();
+        var myWidth = $(".wrap").width();
         var wrapWidth = {width:myWidth};
 
         var myParent = this;
@@ -33,7 +33,7 @@ define(
         if(this.props.disabled == 1)
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, disabled: true, ref: "DropMenu", bsStyle: "default", title: this.props.menuTitle}, 
+           React.createElement(DropdownButton, {disabled: true, ref: "DropMenu", bsStyle: "default", title: this.props.menuTitle}, 
               rows
            )                     
           )
@@ -41,7 +41,7 @@ define(
         else
         {
           return (    
-           React.createElement(DropdownButton, {style: wrapWidth, ref: "DropMenu", bsStyle: "default", title: this.props.menuTitle}, 
+           React.createElement(DropdownButton, {ref: "DropMenu", bsStyle: "default", title: this.props.menuTitle}, 
               rows
            )                     
           )
