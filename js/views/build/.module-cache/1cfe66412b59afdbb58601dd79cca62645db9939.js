@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamMaster = React.createClass({displayName: 'CreateTeamMaster',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -105,21 +105,21 @@ define(
         
         return (
         
-        <div className={'form-box-wrap'}>
-        <h3>Create Team</h3>
-          <div className={'input-group margin-bottom-sm form-field-sizes'}>
-            <input className={'form-control text-center'} type="text" placeholder="Team name" valueLink={this.linkState('teamName')} />
-          </div>
-          <div className={'input-group form-field-sizes'}>
-            <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
-          </div> 
-          <div className={'input-group form-field-sizes'}>
-            <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />   
-          </div>  
-           <div className={'input-group form-field-sizes'}>
-            <button className={'btn btn form-control form-save-btn'}>Save</button>
-          </div>
-        </div>
+        React.createElement("div", {className: 'form-box-wrap'}, 
+        React.createElement("h3", null, "Create Team"), 
+          React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", valueLink: this.linkState('teamName')})
+          ), 
+          React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
+          ), 
+          React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+          ), 
+           React.createElement("div", {className: 'input-group form-field-sizes'}, 
+            React.createElement("button", {className: 'btn btn form-control form-save-btn'}, "Save")
+          )
+        )
   
         )
       }
@@ -138,7 +138,7 @@ define(
       render: function (){
         
         React.render(       
-          <CreateTeamMaster/>,
+          React.createElement(CreateTeamMaster, null),
           this.el
         );
       } 
@@ -146,4 +146,28 @@ define(
 
     return CreateTeamView;
   });
+
+//<input className={'form-control'} type="text" placeholder="School" valueLink={this.linkState('schoolName')} />
+
+// <div className={'my-container'}>
+//             <div className={'wrap'}>
+//             <form role="form">
+//               <div className={"form-group"}>
+//                 <label>Team Name</label>
+//                 <input type="text" className={"form-control"} valueLink={this.linkState('teamName')} />
+//               </div>
+//               <div className={"form-group"}>
+//                 <label>State</label><br/>
+//                 <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
+//               </div>
+//               <div className={"form-group"}>
+//                 <label>School</label><br/>
+//                 <DropdownContainer id="schoolDropdown" disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />
+//               </div>   
+//               <ButtonGroup style={btnBlockBuffer}>
+//                 <Button bsStyle="primary" bsSize="large" style={wrapWidth} onClick={this.handleSubmit}>Save</Button>
+//               </ButtonGroup>
+//             </form>       
+//             </div>          
+//           </div>
 

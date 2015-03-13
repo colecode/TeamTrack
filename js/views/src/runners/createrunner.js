@@ -88,50 +88,42 @@ define(
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         this.loadDomainsFromServer();
-        $("#pageHeader").html("Step 1: Add runners to the database");
-        $("#mainPageBar").show();
-        $("#bufferDiv").show();
       },
 
       render: function() {
 
-        var MenuItem = ReactBoot.MenuItem;
-        var DropdownButton = ReactBoot.DropdownButton;
-        var Button = ReactBoot.Button;
-        var ButtonGroup = ReactBoot.ButtonGroup;
+        // var MenuItem = ReactBoot.MenuItem;
+        // var DropdownButton = ReactBoot.DropdownButton;
+        // var Button = ReactBoot.Button;
+        // var ButtonGroup = ReactBoot.ButtonGroup;
 
-        var btnBlockBuffer = {paddingTop: 100};
-        var myWidth = $(".wrap").width() / 2;
+        // var btnBlockBuffer = {paddingTop: 100};
+        // var myWidth = $(".wrap").width() / 2;
         
-        var wrapWidth = {width:myWidth};
+        // var wrapWidth = {width:myWidth};
 
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>
-            <form role="form">
-              <div className={"form-group"}>
-                <label>First name</label>
-                <input type="text" className={"form-control"} valueLink={this.linkState('firstName')} />   
-              </div>
-              <div className={"form-group"}>
-                <label>Last name</label>
-                <input type="text" className={"form-control"} valueLink={this.linkState('lastName')} />
-              </div>
-              <div className={"form-group"}>
-                <label>State</label><br/>
-                <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
-              </div>
-              <div className={"form-group"}>
-                <label>School</label><br/>
-                <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />
-              </div>          
-              
-              <ButtonGroup style={btnBlockBuffer}>
-                <Button bsStyle="primary" bsSize="large" style={wrapWidth} onClick={this.handleSubmit}>Save</Button>
-                <Button bsStyle="success" bsSize="large" style={wrapWidth} href="#createteam">Next</Button>
-              </ButtonGroup>
-            </form>       
-            </div>          
+
+          <div className={'form-box-wrap'}>
+            <h3>Create Runner</h3>
+            <div className={'input-group margin-bottom-sm form-field-sizes'}>
+              <input className={'form-control text-center'} type="text" placeholder="First name" valueLink={this.linkState('firstName')} />
+            </div>
+            <div className={'input-group margin-bottom-sm form-field-sizes'}>
+              <input className={'form-control text-center'} type="text" placeholder="Last name" valueLink={this.linkState('lastName')} />
+            </div>
+            <div className={'input-group form-field-sizes'}>
+              <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
+            </div> 
+            <div className={'input-group form-field-sizes'}>
+              <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />   
+            </div>  
+            <div className={'input-group form-field-sizes'}>
+              <button className={'btn btn form-control form-save-btn'} onClick={this.handleSubmit}>Save</button>
+            </div>
+            <div className={'input-group form-field-sizes'}>
+              <button className={'btn btn form-control form-save-btn'} href="#createteam">Next</button>
+            </div>
           </div>
         )
       },

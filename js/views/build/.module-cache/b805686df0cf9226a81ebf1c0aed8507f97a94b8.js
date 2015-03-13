@@ -88,6 +88,9 @@ define(
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         this.loadDomainsFromServer();
+        $("#pageHeader").html("Step 1: Add runners to the database");
+        $("#mainPageBar").show();
+        $("#bufferDiv").show();
       },
 
       render: function() {

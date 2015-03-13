@@ -89,9 +89,6 @@ define(
 
       componentDidMount: function() {
         this.loadListfromServer();
-        $("#pageHeader").html("Step 3: Build your roster");
-        $("#mainPageBar").show();
-        $("#bufferDiv").show();
       },
 
       render: function() {

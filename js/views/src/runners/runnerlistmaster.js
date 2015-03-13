@@ -55,8 +55,6 @@ define(
 
       componentDidMount: function() {
         this.loadListfromServer();
-        $("#mainPageBar").hide();
-        $("#bufferDiv").hide();
       },
 
       render: function() {
