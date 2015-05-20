@@ -8,8 +8,9 @@ define([
   'views/build/home',
   'views/build/selectRunners',
   'views/build/myteams',
-  'views/build/sandbox'
-], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams, Sandbox){
+  'views/build/sandbox',
+  'views/build/runnerprofile'
+], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams, Sandbox, RunnerProfile){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -25,6 +26,8 @@ define([
       'home' : 'homePage',
 
       'myteams' : 'myTeams',
+
+      'runnerprofile/:id' : 'runnerProfile',
 
       'sandbox' : 'sandBox',
 
@@ -68,6 +71,13 @@ define([
 
       var selectrunners = new SelectRunners({teamId: id});
       selectrunners.render();
+
+    });
+
+    app_router.on('route:runnerProfile', function(id){
+
+      var runnerprofile = new RunnerProfile({runnerId: id});
+      runnerprofile.render();
 
     });
 

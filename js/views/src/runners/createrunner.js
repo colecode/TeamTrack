@@ -94,7 +94,7 @@ define(
 
         // var MenuItem = ReactBoot.MenuItem;
         // var DropdownButton = ReactBoot.DropdownButton;
-        // var Button = ReactBoot.Button;
+        var Button = ReactBoot.Button;
         // var ButtonGroup = ReactBoot.ButtonGroup;
 
         // var btnBlockBuffer = {paddingTop: 100};
@@ -122,7 +122,7 @@ define(
               <button className={'btn btn form-control form-save-btn'} onClick={this.handleSubmit}>Save</button>
             </div>
             <div className={'input-group form-field-sizes'}>
-              <button className={'btn btn form-control form-save-btn'} href="#createteam">Next</button>
+              <Button className={'btn btn form-control form-save-btn'} href="#createteam">Next</Button>
             </div>
           </div>
         )
