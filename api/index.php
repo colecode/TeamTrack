@@ -286,6 +286,27 @@ $app->get('/dmnSchools/:id', function($id)  {
         echo json_encode($result);
 });
 
+
+// GET schools per state
+$app->get('/getprofile/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql= "SELECT a.firstName, a.lastName, b.description AS schoolName, c.description AS stateName FROM runners a
+               INNER JOIN dmn_Schools b ON a.dmn_SchoolsID = b.id
+               INNER JOIN dmn_States c ON b.dmn_StatesID = c.id
+               WHERE a.id = $id"; 
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
 $app->run();
 
 ?>

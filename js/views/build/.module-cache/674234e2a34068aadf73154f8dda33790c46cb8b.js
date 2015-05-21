@@ -10,7 +10,7 @@ define(
 
     var runnerId = -1;
 
-    var RunnerProfileClass = React.createClass({
+    var RunnerProfileClass = React.createClass({displayName: 'RunnerProfileClass',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -52,15 +52,15 @@ define(
 
         return (
 
-          <div className={'left-align-container'}>
-            <h3>Runner Profile</h3>
-            <div className={'input-group margin-bottom-sm form-field-sizes'}>
-              <h4>First Name: {this.state.firstName}</h4> 
-              <h4>Last Name: {this.state.lastName}</h4> 
-              <h4>School Name: {this.state.schoolName}</h4>
-              <h4>State Name: {this.state.stateName}</h4>
-            </div>
-          </div>
+          React.createElement("div", {className: 'form-box-wrap'}, 
+            React.createElement("h3", null, "Runner Profile"), 
+            React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+              React.createElement("h4", null, "First Name: ", this.state.runner.firstName), 
+              React.createElement("h4", null, "Last Name: ", this.state.lastName), 
+              React.createElement("h4", null, "School Name: ", this.state.schoolName), 
+              React.createElement("h4", null, "State Name: ", this.state.stateName)
+            )
+          )
         )
       }
 
@@ -84,7 +84,7 @@ define(
       render: function (){
         
         React.render(       
-          <RunnerProfileClass/>,
+          React.createElement(RunnerProfileClass, null),
           this.el
         );
       } 

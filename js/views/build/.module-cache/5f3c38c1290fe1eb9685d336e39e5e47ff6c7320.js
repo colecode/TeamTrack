@@ -17,33 +17,31 @@ define(
 
       getInitialState: function () {
         return {
-            firstName: '',
-            lastName: '',
+            firstName: 'Hank',
+            lastName: 'McCoy',
             age: '',  
             stateName:'',
-            schoolName: ''   
+            schoolName: ''       
         };
       },
 
-      loadDataFromServer: function() {
+      // Load Dmns for dropdowns
+      loadDomainsFromServer: function() {
         
-        $.ajax({
-          url:"api/index.php/getprofile/" + runnerId,
-          type:"GET",
-          success:function(data){            
-            this.setState({firstName: data[0].firstName});
-            this.setState({lastName: data[0].lastName});
-            this.setState({schoolName: data[0].schoolName});
-            this.setState({stateName: data[0].stateName});
-          }.bind(this),     
-          dataType:"json"
-        });
+        // $.ajax({
+        //   url:"api/index.php/dmnStates",
+        //   type:"GET",
+        //   success:function(data){
+        //     this.setState({dmnArray_States: data});
+        //   }.bind(this),     
+        //   dataType:"json"
+        // });
 
       },
 
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
-        this.loadDataFromServer();
+        this.loadDomainsFromServer();
       },
 
       render: function() {
@@ -52,13 +50,15 @@ define(
 
         return (
 
-          React.createElement("div", {className: 'left-align-container'}, 
+          React.createElement("div", {className: 'form-box-wrap'}, 
             React.createElement("h3", null, "Runner Profile"), 
             React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
-              React.createElement("h4", null, "First Name: ", this.state.firstName), 
-              React.createElement("h4", null, "Last Name: ", this.state.lastName), 
-              React.createElement("h4", null, "School Name: ", this.state.schoolName), 
-              React.createElement("h4", null, "State Name: ", this.state.stateName)
+              React.createElement("h5", null, "First Name: ", this.state.firstName)
+              
+            ), 
+            React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+              React.createElement("h5", null, "Last Name"), 
+              React.createElement("label", {className: 'form-control text-center', valueLink: this.linkState('lasttName')})
             )
           )
         )
