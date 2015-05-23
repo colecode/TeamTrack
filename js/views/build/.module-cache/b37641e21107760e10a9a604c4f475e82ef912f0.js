@@ -6,9 +6,8 @@ define(
   'react',
   'backbonemixin',
   'reactboot',
-  'fixeddatatable',
-  'views/build/racestable'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable){
+  'fixeddatatable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable){
 
     var runnerId = -1;
     var allRows = [];
@@ -25,9 +24,7 @@ define(
             age: '',  
             stateName:'',
             schoolName: '',
-            races:[], 
-            selectedRace:[],
-            allRaces:[]
+            races:[]  
         };
       },
 
@@ -49,8 +46,8 @@ define(
           url:"api/index.php/getraces/" + runnerId,
           type:"GET",
           success:function(data){            
-            this.setState({allRaces: data});  
-            //allRows = data;
+            //this.setState({races: data});  
+            allRows = data;
           }.bind(this),     
           dataType:"json"
         });
@@ -121,7 +118,18 @@ define(
           ), 
           React.createElement("div", {id: "races-box"}, 
             React.createElement("h3", null, "Races"), 
-            React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+            React.createElement(RacesTable, {selectedRace: this.state.selectedRace, race: this.state.allRaces}), 
+            React.createElement(Table, {
+            rowHeight: 50, 
+            rowGetter: rowGetter, 
+            rowsCount: rows.length, 
+            width: 500, 
+            height: rows.length * 50, 
+            headerHeight: 50}, 
+            React.createElement(Column, {label: "Date", width: 100, dataKey: 0}), 
+            React.createElement(Column, {label: "Race Name", width: 100, dataKey: 1}), 
+            React.createElement(Column, {label: "Finish Time", width: 100, dataKey: 2})
+            )
           )
           )
         )
@@ -155,19 +163,4 @@ define(
 
     return RunnerProfileView;
   });
-
-
-
-
-// <Table
-//             rowHeight={50}
-//             rowGetter={rowGetter}
-//             rowsCount={rows.length}
-//             width={500}
-//             height={rows.length * 50}
-//             headerHeight={50}>
-//             <Column label="Date" width={100} dataKey={0} />
-//             <Column label="Race Name" width={100} dataKey={1} />
-//             <Column label="Finish Time" width={100} dataKey={2} />
-//             </Table>
 

@@ -13,17 +13,17 @@ define(
         $($("#myTable tbody tr")[i]).toggleClass("info");;
         
         // Index of object
-        var a = this.props.selectedRunners.indexOf(this.props.runners[i]);
+        var a = this.props.selectedRaces.indexOf(this.props.races[i]);
         
         // If object does not exist in array, add it
         if(a == -1)
         {
-          this.props.selectedRunners.push(this.props.runners[i]); 
+          this.props.selectedRace.push(this.props.runners[i]); 
         }
         // Remove it
         else
         {
-          this.props.selectedRunners.splice(a,1);
+          this.props.selectedRace.splice(a,1);
         }
               
       },

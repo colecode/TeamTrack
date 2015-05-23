@@ -49,7 +49,7 @@ define(
           url:"api/index.php/getraces/" + runnerId,
           type:"GET",
           success:function(data){            
-            this.setState({allRaces: data});  
+            this.setState({races: data});  
             //allRows = data;
           }.bind(this),     
           dataType:"json"

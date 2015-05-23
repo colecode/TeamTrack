@@ -25,9 +25,7 @@ define(
             age: '',  
             stateName:'',
             schoolName: '',
-            races:[], 
-            selectedRace:[],
-            allRaces:[]
+            races:[]  
         };
       },
 
@@ -49,8 +47,8 @@ define(
           url:"api/index.php/getraces/" + runnerId,
           type:"GET",
           success:function(data){            
-            this.setState({allRaces: data});  
-            //allRows = data;
+            //this.setState({races: data});  
+            allRows = data;
           }.bind(this),     
           dataType:"json"
         });
@@ -122,6 +120,7 @@ define(
           React.createElement("div", {id: "races-box"}, 
             React.createElement("h3", null, "Races"), 
             React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+            
           )
           )
         )

@@ -9,7 +9,8 @@ require.config({
     backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min',
     react: '../css/react-with-addons',
     backbonemixin: 'http://cdnjs.cloudflare.com/ajax/libs/backbone-react-component/0.7.2/backbone-react-component',
-    reactboot:'../css/react-bootstrap.min'
+    reactboot:'../css/react-bootstrap.min',
+    fixeddatatable: '../css/fixed-data-table'
   }
 });
 

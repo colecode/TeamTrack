@@ -7,7 +7,7 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, ReactBoot){
 
-    var RacesTable = React.createClass({displayName: 'RacesTable',
+    var RacesSubTable = React.createClass({displayName: 'RacesSubTable',
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;

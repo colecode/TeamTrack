@@ -6,12 +6,10 @@ define(
   'react',
   'backbonemixin',
   'reactboot',
-  'fixeddatatable',
-  'views/build/racestable'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable){
+  'fixeddatatable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable){
 
     var runnerId = -1;
-    var allRows = [];
 
     var RunnerProfileClass = React.createClass({displayName: 'RunnerProfileClass',
 
@@ -24,10 +22,7 @@ define(
             lastName: '',
             age: '',  
             stateName:'',
-            schoolName: '',
-            races:[], 
-            selectedRace:[],
-            allRaces:[]
+            schoolName: ''   
         };
       },
 
@@ -45,16 +40,6 @@ define(
           dataType:"json"
         });
 
-        $.ajax({
-          url:"api/index.php/getraces/" + runnerId,
-          type:"GET",
-          success:function(data){            
-            this.setState({allRaces: data});  
-            //allRows = data;
-          }.bind(this),     
-          dataType:"json"
-        });
-
       },
 
       // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
@@ -65,47 +50,6 @@ define(
       render: function() {
 
         var Label = ReactBoot.Label;
-        var Table = FixedDataTable.Table;
-        var Column = FixedDataTable.Column;
-
-        // Table data as a list of array.
-        // var rows = [
-        // ['a1', 'b1', 'c1'],
-        // ['a2', 'b3', 'c2'],
-        // ['a3', 'b3', 'c3']  
-        // ];
-        var rows = allRows;
-
-        // var rows = function getRows() {
-        //   $.ajax({
-        //       url:"api/index.php/getraces/" + runnerId,
-        //       type:"GET",
-        //       success:function(data){            
-        //         return data;
-        //     }.bind(this),     
-        //     dataType:"json"
-        //   });
-        // };
-
-        function rowGetter(rowIndex) {
-          return rows[rowIndex];
-        };
-
-        // function rowGetter2(rowIndex) {
-          
-        //   var tet = 1;
-        //   $.ajax({
-        //     url:"api/index.php/getraces/" + runnerId,
-        //     type:"GET",
-        //     success:function(data){            
-        //       //this.setState({races: data}); 
-        //       rows = data;
-        //       return rows[rowIndex]; 
-        //     }.bind(this),     
-        //     dataType:"json"
-        // });
-        //   //return rows[rowIndex];
-        // };
 
         return (
 
@@ -121,7 +65,7 @@ define(
           ), 
           React.createElement("div", {id: "races-box"}, 
             React.createElement("h3", null, "Races"), 
-            React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+              React.createElement(RacesSubTable, null)
           )
           )
         )
@@ -155,19 +99,4 @@ define(
 
     return RunnerProfileView;
   });
-
-
-
-
-// <Table
-//             rowHeight={50}
-//             rowGetter={rowGetter}
-//             rowsCount={rows.length}
-//             width={500}
-//             height={rows.length * 50}
-//             headerHeight={50}>
-//             <Column label="Date" width={100} dataKey={0} />
-//             <Column label="Race Name" width={100} dataKey={1} />
-//             <Column label="Finish Time" width={100} dataKey={2} />
-//             </Table>
 

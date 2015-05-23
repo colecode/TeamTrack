@@ -7,7 +7,7 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, ReactBoot){
 
-    var RacesTable = React.createClass({displayName: 'RacesTable',
+    var RacesSubTable = React.createClass({displayName: 'RacesSubTable',
        
       handleSelect: function(i) {
         $($("#myTable tbody tr")[i]).toggleClass("info");;
@@ -33,7 +33,7 @@ define(
 
         return (
             
-            React.createElement("div", {id: "raceTableComponent"}, 
+            React.createElement("div", {id: "runnerTableComponent"}, 
               React.createElement(Table, {id: "myTable"}, 
               React.createElement("thead", null, 
                 React.createElement("tr", null, 
@@ -67,7 +67,7 @@ define(
       }
     });
 
-    return RacesTable;
+    return RunnerTable;
 });
 
 
