@@ -33,16 +33,9 @@ define(
 
       // },
 
-      handleSelect: function(i) {
-
-        var test = 'test';
-      },
-              
-
       // // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         //this.loadDataFromServer();
-        var test = this.props.allSplits;
       },
        
       render: function() {
@@ -59,8 +52,8 @@ define(
               )
               ), 
               React.createElement("tbody", null, 
-                this.props.allSplits.map(function(split, j) {
-                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, j), key: j}, 
+                this.props.allSplits.map(function(split, i) {
+                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, i), key: i}, 
                                 React.createElement("td", null, 
                                 split.splitIndex
                                 ), 

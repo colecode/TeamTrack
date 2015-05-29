@@ -33,12 +33,6 @@ define(
 
       // },
 
-      handleSelect: function(i) {
-
-        var test = 'test';
-      },
-              
-
       // // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         //this.loadDataFromServer();

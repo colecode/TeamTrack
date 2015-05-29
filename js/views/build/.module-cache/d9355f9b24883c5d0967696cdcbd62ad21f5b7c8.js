@@ -7,9 +7,8 @@ define(
   'backbonemixin',
   'reactboot',
   'fixeddatatable',
-  'views/build/racestable',
-  'views/build/splitstable'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable){
+  'views/build/racestable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable){
 
     var runnerId = -1;
     var allRows = [];
@@ -123,6 +122,10 @@ define(
           React.createElement("div", {id: "races-box"}, 
             React.createElement("h3", null, "Races"), 
             React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+          ), 
+          React.createElement("div", {id: "splits-box"}, 
+            React.createElement("h3", null, "Splits"), 
+            React.createElement(SplitsTable, {raceParentID: this.state.selectedRace})
           )
           )
         )

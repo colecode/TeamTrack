@@ -123,6 +123,10 @@ define(
           React.createElement("div", {id: "races-box"}, 
             React.createElement("h3", null, "Races"), 
             React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+          ), 
+          React.createElement("div", {id: "splits-box"}, 
+            React.createElement("h3", null, "Splits"), 
+            React.createElement(SplitsTable, {raceParentID: this.props.selectedRace})
           )
           )
         )

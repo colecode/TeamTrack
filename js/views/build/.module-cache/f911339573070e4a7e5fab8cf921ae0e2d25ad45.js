@@ -5,48 +5,28 @@ define(
   'backbone',
   'react',
   'reactboot',
-  'views/build/splitstable'
-  ], function($, _, Backbone, React, ReactBoot, SplitsTable){
+  ], function($, _, Backbone, React, ReactBoot){
 
     var RacesTable = React.createClass({displayName: 'RacesTable',
             
-      getInitialState: function () {
-        return {
-            myRace: '' ,
-            allSplits: []            
-        };
-      },
 
       handleSelect: function(i) {
 
         $($("#myRacesTable tbody tr")[i]).toggleClass("info");;
         
         // Index of object
-        //var a = this.props.selectedRace.indexOf(this.props.races[i]);
+        var a = this.props.selectedRace.indexOf(this.props.races[i]);
         
         // If object does not exist in array, add it
-        //if(a == -1)
-        // {
-        //   this.props.selectedRace.push(this.props.races[i]); 
-        // }
-        // // Remove it
-        // else
-        // {
-        //   this.props.selectedRace.splice(a,1);
-        // }
-
-        var test = this.props.races[i].raceRunID;
-        //this.state.myRace = test;
-
-        //this.setState({myRace: test});
-        $.ajax({
-          url:"api/index.php/getsplits/" + test,
-          type:"GET",
-          success:function(data){            
-            this.setState({allSplits: data});  
-          }.bind(this),     
-          dataType:"json"
-        });
+        if(a == -1)
+        {
+          this.props.selectedRace.push(this.props.races[i]); 
+        }
+        // Remove it
+        else
+        {
+          this.props.selectedRace.splice(a,1);
+        }
               
       },
 
@@ -84,7 +64,7 @@ define(
                     },this)
                 )
               ), 
-              React.createElement(SplitsTable, {allSplits: this.state.allSplits})
+              React.createElement(SplitsTable, {myRace: this.props.myRace})
             )              
           )
       }

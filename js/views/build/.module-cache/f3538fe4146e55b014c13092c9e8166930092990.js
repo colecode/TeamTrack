@@ -7,13 +7,14 @@ define(
   'backbonemixin',
   'reactboot',
   'fixeddatatable',
-  'views/build/racestable'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable){
+  'views/build/racestable',
+  'views/build/splitstable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable){
 
     var runnerId = -1;
     var allRows = [];
 
-    var RunnerProfileClass = React.createClass({
+    var RunnerProfileClass = React.createClass({displayName: 'RunnerProfileClass',
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -109,21 +110,21 @@ define(
 
         return (
 
-          <div className={'left-align-container'}>
-          <div id="profile-header">
-            <h3>Runner Profile</h3>
-            <div className={'input-group margin-bottom-sm form-field-sizes'}>
-              <h4>First Name: {this.state.firstName}</h4> 
-              <h4>Last Name: {this.state.lastName}</h4> 
-              <h4>School Name: {this.state.schoolName}</h4>
-              <h4>State Name: {this.state.stateName}</h4>
-            </div>
-          </div>
-          <div id="races-box">
-            <h3>Races</h3>
-            <RacesTable selectedRace={this.state.selectedRace} races={this.state.allRaces} />       
-          </div>
-          </div>
+          React.createElement("div", {className: 'left-align-container'}, 
+          React.createElement("div", {id: "profile-header"}, 
+            React.createElement("h3", null, "Runner Profile"), 
+            React.createElement("div", {className: 'input-group margin-bottom-sm form-field-sizes'}, 
+              React.createElement("h4", null, "First Name: ", this.state.firstName), 
+              React.createElement("h4", null, "Last Name: ", this.state.lastName), 
+              React.createElement("h4", null, "School Name: ", this.state.schoolName), 
+              React.createElement("h4", null, "State Name: ", this.state.stateName)
+            )
+          ), 
+          React.createElement("div", {id: "races-box"}, 
+            React.createElement("h3", null, "Races"), 
+            React.createElement(RacesTable, {selectedRace: this.state.selectedRace, races: this.state.allRaces})
+          )
+          )
         )
       }
 
@@ -147,7 +148,7 @@ define(
       render: function (){
         
         React.render(       
-          <RunnerProfileClass/>,
+          React.createElement(RunnerProfileClass, null),
           this.el
         );
       } 

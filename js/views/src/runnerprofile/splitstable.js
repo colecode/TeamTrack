@@ -7,7 +7,7 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, ReactBoot){
 
-    var SplitsTable = React.createClass({displayName: 'SplitsTable',
+    var SplitsTable = React.createClass({
        
       // getInitialState: function () {
       //   return {
@@ -50,28 +50,28 @@ define(
 
         return (
             
-            React.createElement("div", {id: "splitsTableComponent"}, 
-              React.createElement(Table, {id: "mySplitsTable"}, 
-              React.createElement("thead", null, 
-                React.createElement("tr", null, 
-                React.createElement("th", null, "Split Number"), 
-                React.createElement("th", null, "Split Time")
-              )
-              ), 
-              React.createElement("tbody", null, 
-                this.props.allSplits.map(function(split, j) {
-                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, j), key: j}, 
-                                React.createElement("td", null, 
-                                split.splitIndex
-                                ), 
-                                React.createElement("td", null, 
-                                split.splitTime
-                                )
-                              ));
-                    },this)
-                )
-              )
-            )              
+            <div id="splitsTableComponent">
+              <Table id="mySplitsTable">
+              <thead>
+                <tr>
+                <th>Split Number</th>
+                <th>Split Time</th>
+              </tr>
+              </thead>
+              <tbody>
+                {this.props.allSplits.map(function(split, j) {
+                      return (<tr onClick={this.handleSelect.bind(this, j)} key={j}>
+                                <td>
+                                {split.splitIndex}
+                                </td>
+                                <td>
+                                {split.splitTime}
+                                </td>
+                              </tr>);
+                    },this)}
+                </tbody>
+              </Table>
+            </div>              
           )
       }
     });

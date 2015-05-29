@@ -9,42 +9,6 @@ define(
 
     var SplitsTable = React.createClass({displayName: 'SplitsTable',
        
-      // getInitialState: function () {
-      //   return {
-      //       allSplits:[]
-      //     };
-      // },
-
-      // loadDataFromServer: function() {
-        
-      //   var test = this.props.myRace;
-        
-      //   if(test)
-      //   {
-      //   $.ajax({
-      //     url:"api/index.php/getsplits/" + test,
-      //     type:"GET",
-      //     success:function(data){            
-      //       this.setState({allSplits: data});  
-      //     }.bind(this),     
-      //     dataType:"json"
-      //   });
-      // }
-
-      // },
-
-      handleSelect: function(i) {
-
-        var test = 'test';
-      },
-              
-
-      // // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
-      componentDidMount: function() {
-        //this.loadDataFromServer();
-        var test = this.props.allSplits;
-      },
-       
       render: function() {
         var Table = ReactBoot.Table;
 
@@ -55,17 +19,25 @@ define(
               React.createElement("thead", null, 
                 React.createElement("tr", null, 
                 React.createElement("th", null, "Split Number"), 
-                React.createElement("th", null, "Split Time")
+                React.createElement("th", null, "Split Time"), 
+                React.createElement("th", null, "Difference"), 
+                React.createElement("th", null, "Current Total")
               )
               ), 
               React.createElement("tbody", null, 
-                this.props.allSplits.map(function(split, j) {
-                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, j), key: j}, 
+                this.props.splits.map(function(split, i) {
+                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, i), key: i}, 
                                 React.createElement("td", null, 
                                 split.splitIndex
                                 ), 
                                 React.createElement("td", null, 
                                 split.splitTime
+                                ), 
+                                React.createElement("td", null, 
+                                split.splitDiff
+                                ), 
+                                React.createElement("td", null, 
+                                split.splitTotal
                                 )
                               ));
                     },this)

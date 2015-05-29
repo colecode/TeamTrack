@@ -35,10 +35,10 @@ define(
         //   this.props.selectedRace.splice(a,1);
         // }
 
-        var test = this.props.races[i].raceRunID;
+        var test = this.props.races[i];
         //this.state.myRace = test;
 
-        //this.setState({myRace: test});
+        this.setState({myRace: test});
         $.ajax({
           url:"api/index.php/getsplits/" + test,
           type:"GET",
@@ -84,7 +84,7 @@ define(
                     },this)
                 )
               ), 
-              React.createElement(SplitsTable, {allSplits: this.state.allSplits})
+              React.createElement(SplitsTable, {myRace: this.state.myRace, allSplits: this.state.allSplits})
             )              
           )
       }

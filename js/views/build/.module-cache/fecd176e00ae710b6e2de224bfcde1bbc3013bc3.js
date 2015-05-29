@@ -10,12 +10,6 @@ define(
 
     var RacesTable = React.createClass({displayName: 'RacesTable',
             
-      getInitialState: function () {
-        return {
-            myRace: '' ,
-            allSplits: []            
-        };
-      },
 
       handleSelect: function(i) {
 
@@ -35,18 +29,8 @@ define(
         //   this.props.selectedRace.splice(a,1);
         // }
 
-        var test = this.props.races[i].raceRunID;
-        //this.state.myRace = test;
-
-        //this.setState({myRace: test});
-        $.ajax({
-          url:"api/index.php/getsplits/" + test,
-          type:"GET",
-          success:function(data){            
-            this.setState({allSplits: data});  
-          }.bind(this),     
-          dataType:"json"
-        });
+        var test = this.props.races[i];
+        this.state.myRace = test;
               
       },
 
@@ -84,7 +68,7 @@ define(
                     },this)
                 )
               ), 
-              React.createElement(SplitsTable, {allSplits: this.state.allSplits})
+              React.createElement(SplitsTable, {myRace: this.state.myRace})
             )              
           )
       }
