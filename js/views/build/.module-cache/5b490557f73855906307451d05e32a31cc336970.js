@@ -9,7 +9,6 @@ define(
   'views/build/carousel'
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
 
-    var test = 'test12233';
     var HomePageClass = React.createClass({displayName: 'HomePageClass',
 
       mixins: [backboneMixin],
