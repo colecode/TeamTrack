@@ -10,6 +10,7 @@ define(
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, HomeCarousel){
 
     var test = 'test12233';
+    var test = 'test33';
     var HomePageClass = React.createClass({
 
       mixins: [backboneMixin],
