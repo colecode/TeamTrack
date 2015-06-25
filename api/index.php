@@ -313,7 +313,7 @@ $app->get('/getraces/:id', function($id)  {
         $db = db_connect();  
         $result = array();
         //$sql= "SELECT raceDate, raceName FROM Races WHERE id = $id";
-        $sql = "SELECT a.id AS raceRunID, b.raceDate, b.raceName, b.eventName, a.finishTime 
+        $sql = "SELECT a.id AS raceRunID, b.raceDate, b.raceName, b.eventName, TIME(a.finishTime) AS finishTime
                  FROM RunnersInRace a 
                  INNER JOIN Races b ON a.racesID = b.id 
                  WHERE a.runnersID = $id";
