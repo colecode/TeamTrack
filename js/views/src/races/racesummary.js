@@ -48,6 +48,7 @@ define(
 
           <div className={'left-align-container'}>
           <div>
+            <h1>Race Results</h1>
             <h3>{this.state.raceName}</h3>
             <h4>{this.state.raceDate}</h4>
             <h4>{this.state.eventName}</h4>
