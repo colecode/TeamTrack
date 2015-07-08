@@ -11,8 +11,8 @@ function db_connect() {
     // Try and connect to the database, if a connection has not been established yet
     if(!isset($connection)) {
          // Load configuration as an array. Use the actual location of your configuration file
-        $config = parse_ini_file('../../Config/config.ini'); 
-        $connection = new mysqli('localhost',$config['username'],$config['password'],$config['dbname']);
+        $config = parse_ini_file('../../../Config/config.ini'); 
+        $connection = new mysqli($config['host'],$config['username'],$config['password'],$config['dbname']);
     }
 
     // If connection was not successful, handle the error
@@ -91,10 +91,10 @@ $app->get('/runners', function() {
         
         $db = db_connect();
         $result = array();
-        $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
+        $sql= "SELECT r.runnerID, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
         FROM Runners r 
-        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
-        JOIN dmn_States x ON x.id = s.dmn_StatesID"; 
+        JOIN Schools s ON r.fk_schoolID = s.id 
+        JOIN States x ON x.id = s.fk_stateID"; 
         
         $r = $db->query($sql);
         while($runner = $r->fetch_assoc()){
@@ -111,10 +111,10 @@ $app->get('/runners/:name', function($name) {
         
         $db = db_connect();
         $result = array();
-        $sql= "SELECT r.id, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
+        $sql= "SELECT r.runnerID, r.firstName, r.lastName, x.description AS stateName, s.description AS schoolName 
         FROM Runners r 
-        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
-        JOIN dmn_States x ON x.id = s.dmn_StatesID
+        JOIN Schools s ON s.id = r.fk_schoolID
+        JOIN States x ON x.id = s.fk_stateID
         WHERE r.lastName LIKE '$name%'";
         
         $r = $db->query($sql);
@@ -141,7 +141,7 @@ $app->post('/runners', function() use ($app) {
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO Runners (firstName,lastName,dmn_SchoolsID) VALUES (?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO Runners (firstName,lastName,fk_schoolID) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $fName, $lName, $sCode);
         $stmt->execute();
         $stmt->close();
@@ -168,7 +168,7 @@ $app->post('/teams', function() use ($app)  {
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO Teams (teamName, ownerUserID, dmn_SchoolsID) VALUES (?,?,?)");
+        $stmt = $db->prepare("INSERT INTO Teams (teamName, fk_coachID, schoolID) VALUES (?,?,?)");
         $stmt->bind_param("sii", $tName, $userID, $sCode);
         $stmt->execute();
         $stmt->close();
@@ -198,7 +198,7 @@ $app->post('/teamroster', function() use ($app) {
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO TeamRoster (teamId, runnerId) VALUES (?,?)");
+        $stmt = $db->prepare("INSERT INTO TeamRoster (fk_teamID, fk_runnerID) VALUES (?,?)");
         $stmt->bind_param("ii", $tId, $rId);
         $stmt->execute();
         $stmt->close();
@@ -219,10 +219,10 @@ $app->get('/myteams', function() {
         
         $db = db_connect();
         $result = array();
-        $sql= "SELECT r.id, r.teamName, x.description AS stateName, s.description AS schoolName 
+        $sql= "SELECT r.teamID, r.teamName, x.description AS stateName, s.description AS schoolName 
         FROM Teams r 
-        JOIN dmn_Schools s ON r.dmn_SchoolsID = s.id 
-        JOIN dmn_States x ON x.id = s.dmn_StatesID"; 
+        JOIN Schools s ON s.id = r.fk_schoolID 
+        JOIN States x ON x.id = s.fk_stateID"; 
         
         $r = $db->query($sql);
         while($team = $r->fetch_assoc()){
@@ -239,7 +239,7 @@ $app->get('/dmnSchools', function()  {
         
         $db = db_connect();  
         $result = array();
-        $sql= "SELECT id, description FROM dmn_Schools"; 
+        $sql= "SELECT id, description FROM Schools"; 
         
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -257,7 +257,7 @@ $app->get('/dmnStates', function() {
         
         $db = db_connect();  
         $result = array();
-        $sql= "SELECT id, description FROM dmn_States"; 
+        $sql= "SELECT id, description FROM States"; 
         
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -274,7 +274,7 @@ $app->get('/dmnSchools/:id', function($id)  {
         
         $db = db_connect();  
         $result = array();
-        $sql= "SELECT id, description FROM dmn_Schools WHERE dmn_StatesID = $id"; 
+        $sql= "SELECT id, description FROM Schools WHERE fk_stateID = $id"; 
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -292,10 +292,10 @@ $app->get('/getprofile/:id', function($id)  {
         
         $db = db_connect();  
         $result = array();
-        $sql= "SELECT a.firstName, a.lastName, b.description AS schoolName, c.description AS stateName FROM runners a
-               INNER JOIN dmn_Schools b ON a.dmn_SchoolsID = b.id
-               INNER JOIN dmn_States c ON b.dmn_StatesID = c.id
-               WHERE a.id = $id"; 
+        $sql= "SELECT a.firstName, a.lastName, b.description AS schoolName, c.description AS stateName FROM Runners a
+               INNER JOIN Schools b ON a.fk_schoolID = b.id
+               INNER JOIN States c ON b.fk_stateID = c.id
+               WHERE a.runnerID = $id"; 
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -313,10 +313,10 @@ $app->get('/getraces/:id', function($id)  {
         $db = db_connect();  
         $result = array();
         //$sql= "SELECT raceDate, raceName FROM Races WHERE id = $id";
-        $sql = "SELECT a.id AS raceRunID, b.raceDate, b.raceName, b.eventName, TIME(a.finishTime) AS finishTime
+        $sql = "SELECT a.runInRaceID, b.raceDate, b.raceName, b.eventName, TIME(a.finishTime) AS finishTime
                  FROM RunnersInRace a 
-                 INNER JOIN Races b ON a.racesID = b.id 
-                 WHERE a.runnersID = $id";
+                 INNER JOIN Races b ON a.fk_raceID = b.raceID 
+                 WHERE a.fk_runnerID = $id";
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -333,9 +333,30 @@ $app->get('/getsplits/:id', function($id)  {
         
         $db = db_connect();  
         $result = array();
-        $sql = "SELECT id, splitNumber AS splitIndex, TIME(splitTime) AS splitTime
+        $sql = "SELECT splitID, splitNumber AS splitIndex, TIME(splitTime) AS splitTime
                 FROM Splits
-                WHERE runnersInRaceID = $id";
+                WHERE fk_runInRaceID = $id";
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// GET runners per race
+$app->get('/getruninrace/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql = "SELECT a.runInRaceID, c.raceID, c.raceDate, c.raceName, c.eventName, b.firstName, b.lastName, a.finishTime
+                FROM RunnersInRace a
+                INNER JOIN Runners b ON b.runnerID = a.fk_runnerID
+                INNER JOIN Races c ON c.raceID = a.fk_raceID
+                WHERE fk_raceID = $id";
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){

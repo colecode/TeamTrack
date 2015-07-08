@@ -28,9 +28,16 @@ define(
               
       },
 
+      handleProfile: function(i) {
+            
+        var str = "#runnerprofile/" + this.props.runners[i].runnerID;
+        window.location.href = str;
+              
+      },
+
       render: function() {
         var Table = ReactBoot.Table;
-
+        var Button = ReactBoot.Button;
         return (
             
             <div id="runnerTableComponent">
@@ -57,6 +64,9 @@ define(
                                 </td>
                                 <td>
                                 {runner.schoolName}
+                                </td>
+                                <td>
+                                <Button bsStyle="primary" onClick={this.handleProfile.bind(this,i)}>Go to Profile</Button>
                                 </td>
                               </tr>);
                     },this)}

@@ -66,7 +66,7 @@ define(
                                 runner.schoolName
                                 ), 
                                 React.createElement("td", null, 
-                                React.createElement(Button, {bsStyle: "primary", onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
+                                React.createElement(Button, {onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
                                 )
                               ));
                     },this)

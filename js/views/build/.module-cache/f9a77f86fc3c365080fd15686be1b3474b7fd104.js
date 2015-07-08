@@ -28,13 +28,6 @@ define(
               
       },
 
-      handleProfile: function(i) {
-            
-        var str = "#runnerprofile/" + this.props.runners[i].runnerID;
-        window.location.href = str;
-              
-      },
-
       render: function() {
         var Table = ReactBoot.Table;
         var Button = ReactBoot.Button;
@@ -66,7 +59,7 @@ define(
                                 runner.schoolName
                                 ), 
                                 React.createElement("td", null, 
-                                React.createElement(Button, {bsStyle: "primary", onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
+                                React.createElement(Button, {onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
                                 )
                               ));
                     },this)

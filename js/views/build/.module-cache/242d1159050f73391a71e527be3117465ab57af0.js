@@ -29,8 +29,12 @@ define(
       },
 
       handleProfile: function(i) {
-            
-        var str = "#runnerprofile/" + this.props.runners[i].runnerID;
+        
+        
+        // Index of object
+        var a = this.props.runners[i].runnerID;
+        
+        var str = "#runnerprofile/" + response;
         window.location.href = str;
               
       },
@@ -66,7 +70,7 @@ define(
                                 runner.schoolName
                                 ), 
                                 React.createElement("td", null, 
-                                React.createElement(Button, {bsStyle: "primary", onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
+                                React.createElement(Button, {onClick: this.handleProfile.bind(this,i)}, "Go to Profile")
                                 )
                               ));
                     },this)
