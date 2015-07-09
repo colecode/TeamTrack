@@ -10,8 +10,9 @@ define([
   'views/build/myteams',
   'views/build/sandbox',
   'views/build/runnerprofile',
-  'views/build/racesummary'
-], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams, Sandbox, RunnerProfile, RaceSummary){
+  'views/build/racesummary',
+  'views/build/teambuilder'
+], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams, Sandbox, RunnerProfile, RaceSummary, TeamBuilder){
   
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -33,6 +34,8 @@ define([
       'sandbox' : 'sandBox',
 
       'racesummary/:id' : 'raceSummary',
+
+      'teambuilder' : 'teamBuilder',
 
       // Default
       '*actions': 'defaultAction'
@@ -84,7 +87,7 @@ define([
 
     });
 
-    app_router.on('route:myTeams', function(id){
+    app_router.on('route:myTeams', function(  ){
 
       var myteams = new MyTeams();
       myteams.render();
@@ -102,6 +105,13 @@ define([
 
       var raceSummary = new RaceSummary({raceID: id});
       raceSummary.render();
+
+    });
+
+    app_router.on('route:teamBuilder', function(){
+
+      var teamBuilder = new TeamBuilder();
+      teamBuilder.render();
 
     });
   

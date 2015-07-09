@@ -368,6 +368,26 @@ $app->get('/getruninrace/:id', function($id)  {
         echo json_encode($result);
 });
 
+// GET runners per race
+$app->get('/getrunnersperschool/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql = "SELECT a.runnerID, a.firstName, a.lastName, b.description AS schoolName, a.gender
+                FROM Runners a
+                INNER JOIN Schools b ON b.id = a.fk_schoolID
+                WHERE a.fk_schoolID = $id"; 
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
 $app->run();
 
 ?>

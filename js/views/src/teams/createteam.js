@@ -10,7 +10,7 @@ define(
   'views/build/dropdownContainer'
   ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
 
-    var CreateTeamMaster = React.createClass({
+    var CreateTeamClass = React.createClass({
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -44,6 +44,27 @@ define(
       handleSelect_dmnSchools: function(val) {
         this.setState({schoolName: val.selectedDomain.children});
         this.setState({schoolCode: val.selectedDomain.domainCode});
+        
+        // push selected school to teambuilder so it can properly load the simple-runner-table
+        //this.props.selectedSchool.push(val.selectedDomain.domainCode); 
+        $.ajax({
+          url:"api/index.php/getrunnersperschool/" + val.selectedDomain.domainCode,
+          type:"GET",
+          success:function(data){
+            //this.props.schoolRunners.push(data);
+            this.props.schoolRunners = data.slice();
+          }.bind(this), 
+          error:function(err) {
+
+            console.log('error building runners list based on school selection');
+            console.log(err);
+          },    
+          dataType:"json"
+        });
+
+
+
+
       },
 
       handleSelect_dmnStates: function(val) {
@@ -105,9 +126,8 @@ define(
         
         return (
         
-        <div className={'form-box-wrap'}>
-        <h3>Create Team</h3>
-          <div className={'input-group margin-bottom-sm form-field-sizes'}>
+        <div >   
+          <div className={'input-group form-field-sizes'}>
             <input className={'form-control text-center'} type="text" placeholder="Team name" valueLink={this.linkState('teamName')} />
           </div>
           <div className={'input-group form-field-sizes'}>
@@ -116,34 +136,32 @@ define(
           <div className={'input-group form-field-sizes'}>
             <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />   
           </div>  
-           <div className={'input-group form-field-sizes'}>
-            <button className={'btn btn form-control form-save-btn'} onClick={this.handleSubmit}>Save</button>
-          </div>
         </div>
   
         )
-      }
+    }
+      
 
     });
     
-    var CreateTeamView = Backbone.View.extend({
+    // var CreateTeamView = Backbone.View.extend({
     
-      el: $('#mainContent'),
-      events: {
-      },
+    //   el: $('#mainContent'),
+    //   events: {
+    //   },
 
-      initialize: function() {          
-      },
+    //   initialize: function() {          
+    //   },
 
-      render: function (){
+    //   render: function (){
         
-        React.render(       
-          <CreateTeamMaster/>,
-          this.el
-        );
-      } 
-    });
+    //     React.render(       
+    //       <CreateTeamMaster/>,
+    //       this.el
+    //     );
+    //   } 
+    // });
 
-    return CreateTeamView;
+    return CreateTeamClass;
   });
 
