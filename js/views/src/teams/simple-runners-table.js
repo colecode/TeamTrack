@@ -59,7 +59,7 @@ define(
       render: function() {
        
         var Table = ReactBoot.Table;
-
+        var Button = ReactBoot.Button;
         return (          
             <div>
               <Table>
@@ -67,8 +67,6 @@ define(
                   <tr>
                   <th>First Name</th>
                   <th>Last Name</th>
-                  <th>School</th>
-                  <th>Gender</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -80,14 +78,13 @@ define(
                                 <td>
                                 {runner.lastName}
                                 </td>
-                                <td>
-                                {runner.schoolName}
-                                </td>
-                                <td>
-                                {runner.gender}
-                                </td>
                               </tr>);
                     },this)}
+                <tr>
+                <td>
+                <Button bsStyle={'primary'}>Create New Runner</Button>
+                </td>
+                </tr>
                 </tbody>
               </Table>
             </div>          

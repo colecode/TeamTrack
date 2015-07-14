@@ -67,12 +67,11 @@ define(
 
         return (
 
-          <div className={'form-box-wrap'}>
-            <h3>Create Runner</h3>
-            <div className={'input-group margin-bottom-sm form-field-sizes'}>
+          <div>  
+            <div className={'input-group form-field-sizes'}>
               <input className={'form-control text-center'} type="text" placeholder="First name" valueLink={this.linkState('firstName')} />
             </div>
-            <div className={'input-group margin-bottom-sm form-field-sizes'}>
+            <div className={'input-group form-field-sizes'}>
               <input className={'form-control text-center'} type="text" placeholder="Last name" valueLink={this.linkState('lastName')} />
             </div>
             <div className={'input-group form-field-sizes'}>

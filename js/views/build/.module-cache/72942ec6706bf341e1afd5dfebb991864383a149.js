@@ -58,26 +58,33 @@ define(
         var Grid = ReactBoot.Grid;
         var Row = ReactBoot.Row;
         var Col = ReactBoot.Col;
-
+        
         return (
           React.createElement("div", null, 
             React.createElement("div", {className: 'wrap'}, 
 
               React.createElement(Grid, null, 
-                React.createElement(Row, {className: "show-grid"}, 
-                  React.createElement(Col, {xs: 12, md: 8}, 
-                    React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate})
-                  )
-                ), 
-                React.createElement(Row, {className: "show-grid"}, 
-                  React.createElement(Col, {xs: 8, md: 6}, 
-                    React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
-                  ), 
-                  React.createElement(Col, {xs: 4, md: 2}, 
-                    React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
-                  )
-                )
+              React.createElement(Row, {className: "show-grid"}, 
+                React.createElement(Col, {xs: 12, md: 8}, React.createElement("code", null, "<", 'Col xs={12} md={8}', " />")), 
+                React.createElement(Col, {xs: 6, md: 4}, React.createElement("code", null, "<", 'Col xs={6} md={4}', " />"))
               ), 
+
+              React.createElement(Row, {className: "show-grid"}, 
+                React.createElement(Col, {xs: 6, md: 4}, React.createElement("code", null, "<", 'Col xs={6} md={4}', " />")), 
+                React.createElement(Col, {xs: 6, md: 4}, React.createElement("code", null, "<", 'Col xs={6} md={4}', " />")), 
+                React.createElement(Col, {xs: 6, md: 4}, React.createElement("code", null, "<", 'Col xs={6} md={4}', " />"))
+              ), 
+
+              React.createElement(Row, {className: "show-grid"}, 
+                React.createElement(Col, {xs: 6, xsOffset: 6}, React.createElement("code", null, "<", 'Col xs={6} xsOffset={6}', " />"))
+              )
+              ), 
+
+
+
+              React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate}), 
+              React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
+              React.createElement(CreateRunner, {schoolCode: this.state.schoolCode}), 
               React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
             )
           )

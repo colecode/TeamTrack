@@ -76,9 +76,14 @@ define(
                   React.createElement(Col, {xs: 4, md: 2}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
                   )
+                ), 
+                React.createElement(Row, {className: "show-grid"}, 
+                  React.createElement(Col, {xs: 12, md: 12}, 
+                    React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+                  )
                 )
-              ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+              )
+              
             )
           )
         )

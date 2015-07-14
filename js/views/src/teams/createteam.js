@@ -48,13 +48,14 @@ define(
 
       handleSelect_dmnSchools: function(val) {
         this.props.onSchoolSelect({selectedDomain: val.selectedDomain});
+        this.setState({schoolName:val.selectedDomain.children});
       },
 
       handleSelect_dmnStates: function(val) {
-        this.setState({ stateName: val.selectedDomain.children});
-        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});
-        this.setState({ schoolName: 'Select school' });
         
+        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});    
+        this.setState({stateName:val.selectedDomain.children});
+
         // Load School dropdown after state is selected
         $.ajax({
           url:"api/index.php/dmnSchools/" + val.selectedDomain.domainCode,
@@ -97,7 +98,7 @@ define(
             <DropdownContainer dmnArray={this.state.dmnArray_States} menuTitle={this.state.stateName} onDomainSelect={this.handleSelect_dmnStates} />
           </div> 
           <div className={'input-group form-field-sizes'}>
-            <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.props.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />   
+            <DropdownContainer disabled={this.state.disableDropdown} dmnArray={this.state.dmnArray_Schools} menuTitle={this.state.schoolName} onDomainSelect={this.handleSelect_dmnSchools} />   
           </div>  
         </div>
   

@@ -59,7 +59,7 @@ define(
       render: function() {
        
         var Table = ReactBoot.Table;
-        var Button = ReactBoot.Button;
+
         return (          
             React.createElement("div", null, 
               React.createElement(Table, null, 

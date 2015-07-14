@@ -14,13 +14,9 @@ define(
         var headerStyle = {
           marginTop: '0'
         };
-        var wellStyle = {
-          backgroundColor: '#4CDA84'
-        };
-
         return (          
           React.createElement("div", null, 
-            React.createElement(Well, {style: wellStyle}, 
+            React.createElement(Well, null, 
               React.createElement("h3", {style: headerStyle}, "Team Card"), 
               React.createElement("div", {className: 'input-group form-field-sizes'}, 
                 React.createElement("p", null, "Team Name:"), this.props.teamName

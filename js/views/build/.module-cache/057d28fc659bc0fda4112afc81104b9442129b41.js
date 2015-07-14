@@ -17,10 +17,9 @@ define(
         var wellStyle = {
           backgroundColor: '#4CDA84'
         };
-
         return (          
-          React.createElement("div", null, 
-            React.createElement(Well, {style: wellStyle}, 
+          React.createElement("div", {style: true}, 
+            React.createElement(Well, {bsStyle: 'info'}, 
               React.createElement("h3", {style: headerStyle}, "Team Card"), 
               React.createElement("div", {className: 'input-group form-field-sizes'}, 
                 React.createElement("p", null, "Team Name:"), this.props.teamName

@@ -70,15 +70,20 @@ define(
                   )
                 ), 
                 React.createElement(Row, {className: "show-grid"}, 
-                  React.createElement(Col, {xs: 8, md: 6}, 
+                  React.createElement(Col, {xs: 6, md: 4}, 
                     React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
                   ), 
-                  React.createElement(Col, {xs: 4, md: 2}, 
+                  React.createElement(Col, {xs: 6, md: 4}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
                   )
+                ), 
+                React.createElement(Row, {className: "show-grid"}, 
+                  React.createElement(Col, {xs: 12, md: 8}, 
+                    React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+                  )
                 )
-              ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+              )
+              
             )
           )
         )

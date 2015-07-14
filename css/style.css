@@ -180,6 +180,10 @@
 	margin-bottom: 5px;
 }
 
+.input-group .form-field-sizes p {
+	margin-bottom: 0px;
+}
+
 /*.create-team-header {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;

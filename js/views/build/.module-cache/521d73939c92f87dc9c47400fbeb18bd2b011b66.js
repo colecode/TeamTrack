@@ -59,7 +59,7 @@ define(
       render: function() {
        
         var Table = ReactBoot.Table;
-        var Button = ReactBoot.Button;
+
         return (          
             React.createElement("div", null, 
               React.createElement(Table, null, 
@@ -79,12 +79,7 @@ define(
                                 runner.lastName
                                 )
                               ));
-                    },this), 
-                React.createElement("tr", null, 
-                React.createElement("td", null, 
-                React.createElement(Button, {bsStyle: 'primary'}, "Create New Runner")
-                )
-                )
+                    },this)
                 )
               )
             )          

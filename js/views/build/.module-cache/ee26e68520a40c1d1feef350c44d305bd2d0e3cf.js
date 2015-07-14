@@ -11,25 +11,18 @@ define(
 
       render: function() {
         var Well = ReactBoot.Well;
-        var headerStyle = {
-          marginTop: '0'
-        };
-        var wellStyle = {
-          backgroundColor: '#4CDA84'
-        };
-
         return (          
           React.createElement("div", null, 
-            React.createElement(Well, {style: wellStyle}, 
-              React.createElement("h3", {style: headerStyle}, "Team Card"), 
+            React.createElement(Well, null, 
+              React.createElement("h3", null, "Team Card"), 
               React.createElement("div", {className: 'input-group form-field-sizes'}, 
-                React.createElement("p", null, "Team Name:"), this.props.teamName
+                this.props.teamName
               ), 
               React.createElement("div", {className: 'input-group form-field-sizes'}, 
-                React.createElement("p", null, "State:"), this.props.stateName
+                this.props.schoolName
               ), 
               React.createElement("div", {className: 'input-group form-field-sizes'}, 
-               React.createElement("p", null, "School:"), this.props.schoolName
+               this.props.stateName
               )
             )
         )        

@@ -26,16 +26,11 @@ define(
         };
       },
 
-      handleClick: function() {
-        console.log('test');
-        var testArr = [];
-        testArr = this.state.schoolRunners.splice();
-        
-      },
-
       handleSchoolSelect: function(val) {
-        this.setState({schoolName: val.selectedDomain.children});
+        
         this.setState({schoolCode: val.selectedDomain.domainCode});
+        this.setState({schoolName: val.selectedDomain.children});
+
         $.ajax({
           url:"api/index.php/getrunnersperschool/" + val.selectedDomain.domainCode,
           type:"GET",
@@ -50,42 +45,39 @@ define(
         });
       },
 
-      handleCreateRunner: function() {
-        
-        $.ajax({
-          url:"api/index.php/getrunnersperschool/" + this.state.schoolCode,
-          type:"GET",
-          success:function(data){
-            this.setState({allRunners: data.slice() }) ;
-          }.bind(this), 
-          error:function(err) {
-            console.log('error building runners list based on school selection');
-            console.log(err);
-          },    
-          dataType:"json"
-        });
-      },
-
       handleTeamNameUpdate: function(val) {
-        console.log(val);
         this.setState({teamName:val.teamName});
       },
 
       handleStateNameUpdate: function(val) {
-        console.log(val);
         this.setState({stateName:val.stateName});
       },
 
 
       render: function() {
-        var Button = ReactBoot.Button;
+        var Grid = ReactBoot.Grid;
+        var Row = ReactBoot.Row;
+        var Col = ReactBoot.Col;
+
         return (
           <div>
             <div className={'wrap'}>   
-              <CreateTeam onSchoolSelect={this.handleSchoolSelect} schoolName={this.state.schoolName} onTeamNameUpdate={this.handleTeamNameUpdate} onStateNameUpdate={this.handleStateNameUpdate} />
-              <SimpleRunnersTable selectedRunners={this.state.selectedRunners} allRunners={this.state.allRunners}/>
-              <CreateRunner schoolCode={this.state.schoolCode} handleCreateRunner={this.handleCreateRunner} />
-              <Button onClick={this.handleClick}> POST </Button>
+
+              <Grid>
+                <Row className='show-grid'>
+                  <Col xs={12} md={8}>
+                    <CreateTeam onSchoolSelect={this.handleSchoolSelect} onTeamNameUpdate={this.handleTeamNameUpdate} onStateNameUpdate={this.handleStateNameUpdate} />
+                  </Col>
+                </Row>
+                <Row className='show-grid'>
+                  <Col xs={8} md={6}>
+                    <SimpleRunnersTable selectedRunners={this.state.selectedRunners} allRunners={this.state.allRunners}/>
+                  </Col>
+                  <Col xs={4} md={2}>
+                    <CreateRunner schoolCode={this.state.schoolCode} />
+                  </Col>
+                </Row>
+              </Grid>
               <TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} />
             </div>
           </div>
