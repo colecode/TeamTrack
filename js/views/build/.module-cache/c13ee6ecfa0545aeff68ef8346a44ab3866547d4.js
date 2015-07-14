@@ -41,12 +41,24 @@ define(
 
       handleSubmit: function() {
 
+        // var myRunner = new CreateRunnerModel({'fName':this.state.firstName, 'lName':this.state.lastName, 'sCode':this.state.schoolCode});
+
+        // myRunner.save(null, {
+        //   success:function(model, response) {
+        //     swal({title:"", text: "Successfully created new runner!", type:"success", timer: 2000 });
+        //   },
+        //   error: function(model, error) {
+        //     sweetAlert("Oops!", "An error occured while creating a new runner!", "error");
+        //     console.log(error);
+        //   }
+        // });
+
         var myParent = this;
 
         var myRunner = new CreateRunnerModel({'firstName':this.state.firstName, 'lastName':this.state.lastName, 'fk_schoolID':this.props.schoolCode, 'gender':this.state.genderName});
         myRunner.save(null, {
           success:function(model, response) {
-            myParent.props.handleCreateRunner();
+            this.props.handleCreateRunner(theVal);
           },
           error: function(model, error) {
             
@@ -59,6 +71,7 @@ define(
         this.setState({ genderName: val.selectedDomain.children});
       },
 
+      // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
       componentDidMount: function() {
         this.loadDomainsFromServer();
       },

@@ -135,14 +135,15 @@ $app->post('/runners', function() use ($app) {
     $request = (array) json_decode($app->request()->getBody());
 
     // Retrieve input values - put into local vars
-    $fName = $request['fName'];
-    $lName = $request['lName'];
-    $sCode = $request['sCode'];
+    $fName = $request['firstName'];
+    $lName = $request['lastName'];
+    $sCode = $request['fk_schoolID'];
+    $gName = $request['genderName'];
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO Runners (firstName,lastName,fk_schoolID) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $fName, $lName, $sCode);
+        $stmt = $db->prepare("INSERT INTO Runners (firstName,lastName,fk_schoolID, gender) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssis", $fName, $lName, $sCode, $gName);
         $stmt->execute();
         $stmt->close();
 
@@ -258,6 +259,23 @@ $app->get('/dmnStates', function() {
         $db = db_connect();  
         $result = array();
         $sql= "SELECT id, description FROM States"; 
+        
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// GET dmn_States
+$app->get('/dmnGender', function() {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql= "SELECT id, description FROM Gender"; 
         
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){

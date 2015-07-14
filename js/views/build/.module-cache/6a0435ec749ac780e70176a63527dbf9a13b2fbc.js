@@ -52,7 +52,6 @@ define(
 
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
-        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
         
         // Load School dropdown after state is selected
@@ -80,8 +79,8 @@ define(
         //this.props.schoolName = "Select School";
       },
 
-     onTeamNameUpdate: function (e) {
-      //this.setState({ teamName: e.target.value });
+     onFirstNameChange: function (e) {
+      this.setState({ teamName: e.target.value });
       this.props.onTeamNameUpdate({teamName: e.target.value});
      }, 
 
@@ -91,7 +90,7 @@ define(
         
         React.createElement("div", null, 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
-            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", onChange: this.onTeamNameUpdate})
+            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", onChange: this.onFirstNameChange})
           ), 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
             React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})

@@ -52,7 +52,6 @@ define(
 
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
-        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
         
         // Load School dropdown after state is selected
@@ -75,15 +74,30 @@ define(
 
       },
 
-      componentDidMount: function() {
-        this.loadDomainsFromServer();
-        //this.props.schoolName = "Select School";
+      handleSubmit: function() {
+
+        myTeam = new CreateTeamModel({'tName':this.state.teamName, 'sCode':this.state.schoolCode});
+        myParent = this;
+
+        myTeam.save(null, {
+          success:function(model, response) {
+            var str = "#selectrunners/" + response;
+            //swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
+
+            // Go to 'Select runners' page
+            window.location.href = str;
+          },
+          error: function(model, error) {
+            sweetAlert("Oops!", "An error occured while creating a new team!", "error");
+            console.log(error);
+          }
+        });
       },
 
-     onTeamNameUpdate: function (e) {
-      //this.setState({ teamName: e.target.value });
-      this.props.onTeamNameUpdate({teamName: e.target.value});
-     }, 
+      componentDidMount: function() {
+        this.loadDomainsFromServer();
+        this.props.schoolName = "Select Da School";
+      },
 
       render: function() {
 
@@ -91,7 +105,7 @@ define(
         
         React.createElement("div", null, 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
-            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", onChange: this.onTeamNameUpdate})
+            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", valueLink: this.linkState('teamName')})
           ), 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
             React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})

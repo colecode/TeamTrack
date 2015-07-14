@@ -8,9 +8,8 @@ define(
   'reactboot',
   'views/build/createteam',
   'views/build/createrunner',
-  'views/build/simple-runners-table',
-  'views/build/team-card'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard){
+  'views/build/simple-runners-table'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable){
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
@@ -20,9 +19,7 @@ define(
       getInitialState: function () {
         return {
             selectedRunners:[],
-            allRunners:[],
-            teamName: '',
-            schoolName: ''
+            allRunners:[]
         };
       },
 
@@ -50,43 +47,14 @@ define(
         });
       },
 
-      handleCreateRunner: function() {
-        
-        $.ajax({
-          url:"api/index.php/getrunnersperschool/" + this.state.schoolCode,
-          type:"GET",
-          success:function(data){
-            this.setState({allRunners: data.slice() }) ;
-          }.bind(this), 
-          error:function(err) {
-            console.log('error building runners list based on school selection');
-            console.log(err);
-          },    
-          dataType:"json"
-        });
-      },
-
-      handleTeamNameUpdate: function(val) {
-        console.log(val);
-        this.setState({teamName:val.teamName});
-      },
-
-      handleStateNameUpdate: function(val) {
-        console.log(val);
-        this.setState({stateName:val.stateName});
-      },
-
-
       render: function() {
         var Button = ReactBoot.Button;
         return (
           React.createElement("div", null, 
             React.createElement("div", {className: 'wrap'}, 
-              React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, schoolName: this.state.schoolName, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate}), 
+              React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, schoolTitle: this.state.schoolName}), 
               React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
-              React.createElement(CreateRunner, {schoolCode: this.state.schoolCode, handleCreateRunner: this.handleCreateRunner}), 
-              React.createElement(Button, {onClick: this.handleClick}, " POST "), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+              React.createElement(Button, {onClick: this.handleClick}, " POST ")
             )
           )
         )

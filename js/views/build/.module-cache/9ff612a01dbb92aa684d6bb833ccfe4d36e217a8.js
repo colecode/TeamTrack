@@ -52,7 +52,6 @@ define(
 
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
-        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
         
         // Load School dropdown after state is selected

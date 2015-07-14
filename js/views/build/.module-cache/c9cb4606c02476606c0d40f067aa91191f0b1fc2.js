@@ -47,12 +47,37 @@ define(
       },
 
       handleSelect_dmnSchools: function(val) {
+
         this.props.onSchoolSelect({selectedDomain: val.selectedDomain});
+
+        //myParent.props.onDomainSelect({selectedDomain:this})
+        //this.setState({schoolName: val.selectedDomain.children});
+        //this.setState({schoolCode: val.selectedDomain.domainCode});
+        
+        // push selected school to teambuilder so it can properly load the simple-runner-table
+        //this.props.selectedSchool.push(val.selectedDomain.domainCode); 
+        // $.ajax({
+        //   url:"api/index.php/getrunnersperschool/" + val.selectedDomain.domainCode,
+        //   type:"GET",
+        //   success:function(data){
+        //     //this.props.schoolRunners.push(data);
+        //     this.props.schoolRunners = data.slice();
+        //   }.bind(this), 
+        //   error:function(err) {
+
+        //     console.log('error building runners list based on school selection');
+        //     console.log(err);
+        //   },    
+        //   dataType:"json"
+        // });
+
+
+
+
       },
 
       handleSelect_dmnStates: function(val) {
         this.setState({ stateName: val.selectedDomain.children});
-        this.props.onStateNameUpdate({stateName: val.selectedDomain.children});
         this.setState({ schoolName: 'Select school' });
         
         // Load School dropdown after state is selected
@@ -75,37 +100,58 @@ define(
 
       },
 
-      componentDidMount: function() {
-        this.loadDomainsFromServer();
-        //this.props.schoolName = "Select School";
+      handleSubmit: function() {
+
+        myTeam = new CreateTeamModel({'tName':this.state.teamName, 'sCode':this.state.schoolCode});
+        myParent = this;
+
+        myTeam.save(null, {
+          success:function(model, response) {
+            var str = "#selectrunners/" + response;
+            //swal({title:"", text: "Successfully created new team!", type:"success", timer: 2000 }); 
+
+            // Go to 'Select runners' page
+            window.location.href = str;
+          },
+          error: function(model, error) {
+            sweetAlert("Oops!", "An error occured while creating a new team!", "error");
+            console.log(error);
+          }
+        });
       },
 
-     onTeamNameUpdate: function (e) {
-      //this.setState({ teamName: e.target.value });
-      this.props.onTeamNameUpdate({teamName: e.target.value});
-     }, 
+      componentDidMount: function() {
+        this.loadDomainsFromServer();
+      },
 
       render: function() {
+
+        var Button = ReactBoot.Button;
+        var ButtonGroup = ReactBoot.ButtonGroup;
+
+        var btnBlockBuffer = {paddingTop: 100};
+        var myWidth = $(".wrap").width() / 2;
+        var wrapWidth = {width:myWidth};
 
         return (
         
         React.createElement("div", null, 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
-            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", onChange: this.onTeamNameUpdate})
+            React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "Team name", valueLink: this.linkState('teamName')})
           ), 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
             React.createElement(DropdownContainer, {dmnArray: this.state.dmnArray_States, menuTitle: this.state.stateName, onDomainSelect: this.handleSelect_dmnStates})
           ), 
           React.createElement("div", {className: 'input-group form-field-sizes'}, 
-            React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.props.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
+            React.createElement(DropdownContainer, {disabled: this.state.disableDropdown, dmnArray: this.state.dmnArray_Schools, menuTitle: this.state.schoolName, onDomainSelect: this.handleSelect_dmnSchools})
           )
         )
   
         )
     }
-  });
+    });
     
-  return CreateTeamClass;
-
+    return CreateTeamClass;
+    
   });
 

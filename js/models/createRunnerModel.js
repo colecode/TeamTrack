@@ -1,4 +1,3 @@
-// Filename: models/team
 define([
   'underscore',
   'backbone'
@@ -6,9 +5,10 @@ define([
   
 var CreateRunnerModel = Backbone.Model.extend({
       defaults: {
-        fName: "", 
-        lName: "",
-        sName:""
+        firstName: '', 
+        lastName: '',
+        schoolCode: '',
+        gender: ''
       },
       url : 'api/index.php/runners'
 });

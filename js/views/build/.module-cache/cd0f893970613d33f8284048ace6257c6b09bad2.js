@@ -12,7 +12,7 @@ define(
   'views/build/team-card'
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard){
 
-    var TeamBuilderClass = React.createClass({
+    var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -71,6 +71,11 @@ define(
         this.setState({teamName:val.teamName});
       },
 
+      handleSchoolNameUpdate: function(val) {
+        console.log(val);
+        this.setState({schoolName:val.schoolName});
+      },
+
       handleStateNameUpdate: function(val) {
         console.log(val);
         this.setState({stateName:val.stateName});
@@ -80,15 +85,15 @@ define(
       render: function() {
         var Button = ReactBoot.Button;
         return (
-          <div>
-            <div className={'wrap'}>   
-              <CreateTeam onSchoolSelect={this.handleSchoolSelect} schoolName={this.state.schoolName} onTeamNameUpdate={this.handleTeamNameUpdate} onStateNameUpdate={this.handleStateNameUpdate} />
-              <SimpleRunnersTable selectedRunners={this.state.selectedRunners} allRunners={this.state.allRunners}/>
-              <CreateRunner schoolCode={this.state.schoolCode} handleCreateRunner={this.handleCreateRunner} />
-              <Button onClick={this.handleClick}> POST </Button>
-              <TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} />
-            </div>
-          </div>
+          React.createElement("div", null, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, schoolName: this.state.schoolName, onTeamNameUpdate: this.handleTeamNameUpdate, onSchoolNameUpdate: this.handleSchoolNameUpdate, onStateNameUpdate: this.handleStateNameUpdate}), 
+              React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
+              React.createElement(CreateRunner, {schoolCode: this.state.schoolCode, handleCreateRunner: this.handleCreateRunner}), 
+              React.createElement(Button, {onClick: this.handleClick}, " POST "), 
+              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
+            )
+          )
         )
       }
     });
@@ -107,7 +112,7 @@ define(
       render: function (){
         
         React.render(       
-          <TeamBuilderClass/>,
+          React.createElement(TeamBuilderClass, null),
           this.el
         );
       } 
