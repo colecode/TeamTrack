@@ -5,10 +5,9 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'models/createTeamModel',
   'reactboot',
   'views/build/dropdownContainer'
-  ], function($, _, Backbone, React, backboneMixin, CreateTeamModel, ReactBoot, DropdownContainer){
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, DropdownContainer){
 
 
     var myParent = this;

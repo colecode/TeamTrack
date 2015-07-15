@@ -69,7 +69,7 @@ define(
             // Loop through all selected runners and insert into TeamRoster table
             for (var i = myParent.state.selectedRunners.length - 1; i >= 0; i--) {
           
-              var tmp = myParent.state.selectedRunners[i];
+              var tmp = this.state.selectedRunners[i];
               var myRoster = new TeamRosterModel({'fk_teamID':response, 'fk_runnerID':tmp.runnerID});
 
               myRoster.save(null, {

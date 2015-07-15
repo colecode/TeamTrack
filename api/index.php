@@ -194,13 +194,13 @@ $app->post('/teamroster', function() use ($app) {
     $request = (array) json_decode($app->request()->getBody());
     
     // Retrieve input values - put into local vars
-    $tId = $request['fk_teamID'];
-    $rId = $request['fk_runnerID'];
+    $fk_teamID = $request['fk_teamID'];
+    $fk_runnerID = $request['fk_runnerID'];
 
     try {
         // Prepare statement
         $stmt = $db->prepare("INSERT INTO TeamRoster (fk_teamID, fk_runnerID) VALUES (?,?)");
-        $stmt->bind_param("ii", $tId, $rId);
+        $stmt->bind_param("ii", $fk_teamID, $fk_runnerID);
         $stmt->execute();
         $stmt->close();
         

@@ -58,7 +58,7 @@ define(
       },
 
       handleSubmit: function() {
-        var myParent = this;
+
         var myTeam = new CreateTeamModel({'teamName':this.state.teamName, 'fk_schoolID':this.state.schoolCode, 'fk_coachID':3});
         
         myTeam.save(null, {
@@ -67,14 +67,14 @@ define(
             console.log('success! now populating TeamRoster....');
 
             // Loop through all selected runners and insert into TeamRoster table
-            for (var i = myParent.state.selectedRunners.length - 1; i >= 0; i--) {
+            for (var i = this.state.selectedRunners.length - 1; i >= 0; i--) {
           
-              var tmp = myParent.state.selectedRunners[i];
-              var myRoster = new TeamRosterModel({'fk_teamID':response, 'fk_runnerID':tmp.runnerID});
+              var tmp = this.state.selectedRunners[i];
+              var myRoster = new TeamRosterModel({'fk_teamID':teamId, 'fk_runnerID':tmp.runnerID});
 
               myRoster.save(null, {
                 success:function(model, response) {
-                  console.log('successfully added runner to roster!');
+                  console.log('success!');
                 },
                 error: function(model, error) {
                   console.log(error);
