@@ -186,7 +186,14 @@
 
 .no-padding {
 	padding: 0px;
+	margin-right:10px;
+    float:left;
 }
+
+#teamBuildSubmitBtn {
+	margin-top: 100px;
+}
+
 
 /*.create-team-header {
 	font-family: 'Roboto', sans-serif;

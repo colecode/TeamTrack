@@ -15,7 +15,7 @@ define(
   
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel, TeamRosterModel){
 
-    var TeamBuilderClass = React.createClass({
+    var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
       mixins: [backboneMixin],
       mixins: [React.addons.LinkedStateMixin],
@@ -96,35 +96,31 @@ define(
         var Col = ReactBoot.Col;
         var Button = ReactBoot.Button;
 
-        var colStyle = {marginRight:130};
-        var headerStyle = {width:250, marginBottom:50};
-
         return (
-          <div>
-            <div className={'wrap'}>   
-              <Grid>
-                <Row className='show-grid'>
-                <h4>Enter Team Info</h4>
-                  <Col className='no-padding' xs={12} md={8}>
-                    <CreateTeam onSchoolSelect={this.handleSchoolSelect} onTeamNameUpdate={this.handleTeamNameUpdate} onStateNameUpdate={this.handleStateNameUpdate} />
-                  </Col>
-                </Row>
-                <Row className='show-grid'>
-                  <Col className='no-padding' style={colStyle} xs={7} md={5}>
-                    <h4>Select Runners</h4>
-                    <SimpleRunnersTable selectedRunners={this.state.selectedRunners} allRunners={this.state.allRunners}/>
-                  </Col>
-                  <Col className='no-padding' xs={4} md={2}>
-                    <h4 style={headerStyle} >Create New Runner</h4>
-                    <CreateRunner schoolCode={this.state.schoolCode} />
-                  </Col>
-                </Row>
-              </Grid>
-              <div id="teamBuildSubmitBtn">
-              <Button bsStyle="info" bsSize="large" block onClick={this.handleSubmit}>Finish</Button>
-              </div>
-            </div>
-          </div>
+          React.createElement("div", null, 
+            React.createElement("div", {className: 'wrap'}, 
+              React.createElement(Grid, null, 
+                React.createElement(Row, {className: "show-grid"}, 
+                React.createElement("h4", null, "Enter Team Info"), 
+                  React.createElement(Col, {className: "no-padding", xs: 12, md: 8}, 
+                    React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate})
+                  )
+                ), 
+                React.createElement(Row, {className: "show-grid"}, 
+                React.createElement("h4", null, "Select Runners"), 
+                  React.createElement(Col, {className: "no-padding", xs: 8, md: 6}, 
+                    React.createElement("h4", null, "Select Runners"), 
+                    React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
+                  ), 
+                  React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
+                    React.createElement("h4", null, "Create New Runner"), 
+                    React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
+                  )
+                )
+              ), 
+              React.createElement(Button, {bsStyle: "info", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
+            )
+          )
         )
       }
     });
@@ -143,7 +139,7 @@ define(
       render: function (){
         
         React.render(       
-          <TeamBuilderClass/>,
+          React.createElement(TeamBuilderClass, null),
           this.el
         );
       } 
