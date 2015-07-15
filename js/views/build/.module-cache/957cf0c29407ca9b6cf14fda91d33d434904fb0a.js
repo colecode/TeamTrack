@@ -9,9 +9,8 @@ define(
   'views/build/createteam',
   'views/build/createrunner',
   'views/build/simple-runners-table',
-  'views/build/team-card',
-  'mdl'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
+  'views/build/team-card'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard){
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
@@ -80,8 +79,7 @@ define(
                   )
                 )
               ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName}), 
-              React.createElement("button", {className: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'}, "MDL")
+              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
             )
           )
         )

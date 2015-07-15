@@ -80,8 +80,7 @@ define(
                   )
                 )
               ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName}), 
-              React.createElement("button", {className: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'}, "MDL")
+              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
             )
           )
         )

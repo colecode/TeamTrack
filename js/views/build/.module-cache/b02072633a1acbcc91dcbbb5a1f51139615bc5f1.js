@@ -5,8 +5,9 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot){
+  'reactboot',
+  'mdl'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, MDL){
     
     var schoolID = -1;
 
@@ -62,7 +63,7 @@ define(
         var Button = ReactBoot.Button;
         return (          
             React.createElement("div", null, 
-              React.createElement("table", {className: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}, 
+              React.createElement("table", {class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}, 
                 React.createElement("thead", null, 
                   React.createElement("tr", null, 
                     React.createElement("th", null, "First Name"), 

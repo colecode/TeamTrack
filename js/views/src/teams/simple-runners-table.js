@@ -5,7 +5,7 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot',
+  'reactboot'
   ], function($, _, Backbone, React, backboneMixin, ReactBoot){
     
     var schoolID = -1;
@@ -58,19 +58,19 @@ define(
 
       render: function() {
        
-        var Table = ReactBoot.Table;
+        //var Table = ReactBoot.Table;
         var Button = ReactBoot.Button;
         return (          
             <div>
-              <Table>
+              <table className={"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}>
                 <thead>
                   <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                   </tr>
                 </thead>
                 <tbody>
-                {this.props.allRunners.map(function(runner, i) {
+                  {this.props.allRunners.map(function(runner, i) {
                       return (<tr onClick={this.handleSelect.bind(this, i)} key={i}>
                                 <td>
                                 {runner.firstName}
@@ -80,13 +80,8 @@ define(
                                 </td>
                               </tr>);
                     },this)}
-                <tr>
-                <td>
-                <Button bsStyle={'primary'}>Create New Runner</Button>
-                </td>
-                </tr>
                 </tbody>
-              </Table>
+              </table>
             </div>          
         )
       }

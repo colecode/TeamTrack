@@ -9,9 +9,8 @@ define(
   'views/build/createteam',
   'views/build/createrunner',
   'views/build/simple-runners-table',
-  'views/build/team-card',
-  'mdl'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
+  'views/build/team-card'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard){
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
@@ -65,23 +64,20 @@ define(
             React.createElement("div", {className: 'wrap'}, 
               React.createElement(Grid, null, 
                 React.createElement(Row, {className: "show-grid"}, 
-                React.createElement("h3", null, "Enter Team Info"), 
                   React.createElement(Col, {className: "no-padding", xs: 12, md: 8}, 
                     React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate})
                   )
                 ), 
                 React.createElement(Row, {className: "show-grid"}, 
-                React.createElement("h3", null, "Select Runners"), 
-                  React.createElement(Col, {className: "no-padding", xs: 8, md: 6}, 
+                  React.createElement(Col, {xs: 8, md: 6}, 
                     React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
                   ), 
-                  React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
+                  React.createElement(Col, {xs: 4, md: 2}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
                   )
                 )
               ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName}), 
-              React.createElement("button", {className: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'}, "MDL")
+              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName})
             )
           )
         )

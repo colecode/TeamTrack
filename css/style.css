@@ -184,6 +184,10 @@
 	margin-bottom: 0px;
 }
 
+.no-padding {
+	padding: 0px;
+}
+
 /*.create-team-header {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;

@@ -9,8 +9,9 @@ define(
   'views/build/createteam',
   'views/build/createrunner',
   'views/build/simple-runners-table',
-  'views/build/team-card'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard){
+  'views/build/team-card',
+  'mdl'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
 
     var TeamBuilderClass = React.createClass({
 
@@ -62,23 +63,25 @@ define(
         return (
           <div>
             <div className={'wrap'}>   
-
               <Grid>
                 <Row className='show-grid'>
-                  <Col xs={12} md={8}>
+                <h3>Enter Team Info</h3>
+                  <Col className='no-padding' xs={12} md={8}>
                     <CreateTeam onSchoolSelect={this.handleSchoolSelect} onTeamNameUpdate={this.handleTeamNameUpdate} onStateNameUpdate={this.handleStateNameUpdate} />
                   </Col>
                 </Row>
                 <Row className='show-grid'>
-                  <Col xs={8} md={6}>
+                <h3>Select Runners</h3>
+                  <Col className='no-padding' xs={8} md={6}>
                     <SimpleRunnersTable selectedRunners={this.state.selectedRunners} allRunners={this.state.allRunners}/>
                   </Col>
-                  <Col xs={4} md={2}>
+                  <Col className='no-padding' xs={4} md={2}>
                     <CreateRunner schoolCode={this.state.schoolCode} />
                   </Col>
                 </Row>
               </Grid>
               <TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} />
+              <button className={'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'}>MDL</button>
             </div>
           </div>
         )
