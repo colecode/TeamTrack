@@ -163,14 +163,14 @@ $app->post('/teams', function() use ($app)  {
     $request = (array) json_decode($app->request()->getBody());
     
     // Retrieve input values - put into local vars
-    $tName = $request['tName'];
-    $userID = 23;
-    $sCode = $request['sCode'];
+    $teamName = $request['teamName'];
+    $fk_coachID = $request['fk_coachID'];
+    $fk_schoolID = $request['fk_schoolID'];
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO Teams (teamName, fk_coachID, schoolID) VALUES (?,?,?)");
-        $stmt->bind_param("sii", $tName, $userID, $sCode);
+        $stmt = $db->prepare("INSERT INTO Teams (teamName, fk_coachID, fk_schoolID) VALUES (?,?,?)");
+        $stmt->bind_param("sii", $teamName, $fk_coachID, $fk_schoolID);
         $stmt->execute();
         $stmt->close();
 
@@ -194,8 +194,8 @@ $app->post('/teamroster', function() use ($app) {
     $request = (array) json_decode($app->request()->getBody());
     
     // Retrieve input values - put into local vars
-    $tId = $request['tId'];
-    $rId = $request['rId'];
+    $tId = $request['fk_teamID'];
+    $rId = $request['fk_runnerID'];
 
     try {
         // Prepare statement

@@ -8,14 +8,11 @@ define(
   ], function($, _, Backbone, React, ReactBoot){
     
     var TeamCardClass = React.createClass({displayName: "TeamCardClass",
-      handleSubmit: function() {
-        console.log('test2');
-      },
+
       render: function() {
         
         var Well = ReactBoot.Well;
         var Table = ReactBoot.Table;
-        var Button = ReactBoot.Button;
         
         var headerStyle = {
           marginTop: '0'

@@ -10,8 +10,9 @@ define(
   'views/build/createrunner',
   'views/build/simple-runners-table',
   'views/build/team-card',
-  'mdl'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
+  'js/models/create-team-model'
+  
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel){
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
@@ -23,7 +24,8 @@ define(
             selectedRunners:[],
             allRunners:[],
             teamName: '',
-            schoolName: ''
+            schoolName: '',
+            schoolCode: -1
         };
       },
 
@@ -55,7 +57,17 @@ define(
       },
 
       handleSubmit: function() {
-        console.log('test');
+
+        var myTeam = new CreateTeamModel({'teamName':this.state.teamName, 'fk_schoolID':this.state.schoolCode, 'fk_coachID':3});
+        myTeam.save(null, {
+          success:function(model, response) {
+            console.log('success!');
+          },
+          error: function(model, error) {
+            
+            console.log(error);
+          }
+        });   
       },
 
       updateSelectedRunners: function(val) {

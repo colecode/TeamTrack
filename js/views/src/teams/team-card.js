@@ -8,9 +8,15 @@ define(
   ], function($, _, Backbone, React, ReactBoot){
     
     var TeamCardClass = React.createClass({
-
+      handleSubmit: function() {
+        console.log('test2');
+      },
       render: function() {
+        
         var Well = ReactBoot.Well;
+        var Table = ReactBoot.Table;
+        var Button = ReactBoot.Button;
+        
         var headerStyle = {
           marginTop: '0'
         };
@@ -18,39 +24,41 @@ define(
           backgroundColor: '#4CDA84'
         };
 
-        return (          
+        return (  
+       
           <div>   
             <Well style={wellStyle}>
               <h3 style={headerStyle}>Team Card</h3>
-              <div className={'input-group form-field-sizes'}>
-                <p>Team Name:</p>{this.props.teamName}
+              <div>
+                <p>{this.props.teamName}</p>
               </div>
-              <div className={'input-group form-field-sizes'}>
-                <p>State:</p>{this.props.stateName}
+              <div>
+                <p>{this.props.stateName}</p>
               </div> 
-              <div className={'input-group form-field-sizes'}>
-               <p>School:</p>{this.props.schoolName}  
-              </div>  
+              <div>
+               <p>{this.props.schoolName}  </p>
+              </div> 
+              <Table id='card-runners-table'>
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.selectedRunners.map(function(runner, i) {
+                      return (<tr key={i}>
+                                <td>
+                                {runner.firstName}
+                                </td>
+                                <td>
+                                {runner.lastName}
+                                </td>
+                              </tr>);
+                    },this)}
+                </tbody>
+              </Table> 
             </Well>
-            <div className={"mdl-card mdl-shadow--2dp demo-card-wide"}>
-              <div className={"mdl-card__title"}>
-                <h2 className={"mdl-card__title-text"}>Welcome</h2>
-              </div>
-              <div className={"mdl-card__supporting-text"}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Mauris sagittis pellentesque lacus eleifend lacinia...
-              </div>
-              <div className={"mdl-card__actions mdl-card--border"}>
-                <a className={"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"}>
-                  Get Started
-                </a>
-              </div>
-              <div className={"mdl-card__menu"}>
-                <button className={"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"}>
-                  <i className={"material-icons"}>share</i>
-                </button>
-              </div>
-            </div>
         </div>        
         )
       }

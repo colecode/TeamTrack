@@ -59,7 +59,7 @@ define(
       },
 
       updateSelectedRunners: function(val) {
-        this.setState({selectedRunners: val.splice()})
+        this.setState({selectedRunners: val.splice()});
       },
 
 
@@ -82,8 +82,8 @@ define(
                 React.createElement(Row, {className: "show-grid"}, 
                 React.createElement("h3", null, "Select Runners"), 
                   React.createElement(Col, {className: "no-padding", xs: 8, md: 6}, 
-                    React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
-                    React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "SUBMIT")
+                    React.createElement(SimpleRunnersTable, {selectedRunners: this.updateSelectedRunners, allRunners: this.state.allRunners}), 
+                    React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
                   ), 
                   React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})

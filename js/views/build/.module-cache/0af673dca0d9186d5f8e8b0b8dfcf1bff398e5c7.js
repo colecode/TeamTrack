@@ -10,7 +10,7 @@ define(
     
     var schoolID = -1;
 
-    var SimpleRunnersTableClass = React.createClass({
+    var SimpleRunnersTableClass = React.createClass({displayName: "SimpleRunnersTableClass",
 
       mixins: [backboneMixin],
 
@@ -22,7 +22,7 @@ define(
       },
 
        handleSelect: function(i) {
-        $($("#simple-runners-table tbody tr")[i]).toggleClass("info");;
+        $($("#simple-runnres-table tbody tr")[i]).toggleClass("info");;
         
         // Index of object
         var a = this.props.selectedRunners.indexOf(this.props.allRunners[i]);
@@ -61,28 +61,28 @@ define(
         var Table = ReactBoot.Table;
         var Button = ReactBoot.Button;
         return (          
-            <div>
-              <Table id='simple-runners-table'>
-                <thead>
-                  <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.props.allRunners.map(function(runner, i) {
-                      return (<tr onClick={this.handleSelect.bind(this, i)} key={i}>
-                                <td>
-                                {runner.firstName}
-                                </td>
-                                <td>
-                                {runner.lastName}
-                                </td>
-                              </tr>);
-                    },this)}
-                </tbody>
-              </Table>
-            </div>          
+            React.createElement("div", null, 
+              React.createElement(Table, {id: "simple-runners-table"}, 
+                React.createElement("thead", null, 
+                  React.createElement("tr", null, 
+                    React.createElement("th", null, "First Name"), 
+                    React.createElement("th", null, "Last Name")
+                  )
+                ), 
+                React.createElement("tbody", null, 
+                  this.props.allRunners.map(function(runner, i) {
+                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, i), key: i}, 
+                                React.createElement("td", null, 
+                                runner.firstName
+                                ), 
+                                React.createElement("td", null, 
+                                runner.lastName
+                                )
+                              ));
+                    },this)
+                )
+              )
+            )          
         )
       }
 

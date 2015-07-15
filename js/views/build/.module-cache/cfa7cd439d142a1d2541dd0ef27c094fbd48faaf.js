@@ -57,7 +57,8 @@ define(
                               ));
                     },this)
                 )
-              )
+              ), 
+              React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
             )
         )        
         )

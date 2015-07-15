@@ -10,8 +10,9 @@ define(
   'views/build/createrunner',
   'views/build/simple-runners-table',
   'views/build/team-card',
-  'mdl'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
+  'js/models/create-team-model'
+  
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel){
 
     var TeamBuilderClass = React.createClass({
 
@@ -23,7 +24,8 @@ define(
             selectedRunners:[],
             allRunners:[],
             teamName: '',
-            schoolName: ''
+            schoolName: '',
+            schoolCode: -1
         };
       },
 
@@ -54,11 +56,25 @@ define(
         this.setState({stateName:val.stateName});
       },
 
+      handleSubmit: function() {
+
+        var myTeam = new CreateTeamModel({'teamName':this.state.teamName, 'fk_schoolID':this.state.schoolCode, 'fk_coachID':3});
+        myTeam.save(null, {
+          success:function(model, response) {
+            console.log('success!');
+          },
+          error: function(model, error) {
+            
+            console.log(error);
+          }
+        });   
+      },
 
       render: function() {
         var Grid = ReactBoot.Grid;
         var Row = ReactBoot.Row;
         var Col = ReactBoot.Col;
+        var Button = ReactBoot.Button;
 
         return (
           <div>
@@ -80,8 +96,7 @@ define(
                   </Col>
                 </Row>
               </Grid>
-              <TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} />
-              <button className={'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'}>MDL</button>
+              <Button bsStyle="info" bsSize="large" block onClick={this.handleSubmit}>Finish</Button>
             </div>
           </div>
         )
@@ -111,3 +126,5 @@ define(
     return TeamBuilderView;
   });
 
+
+//<TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} selectedRunners={this.state.selectedRunners} />

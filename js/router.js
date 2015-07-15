@@ -11,7 +11,7 @@ define([
   'views/build/sandbox',
   'views/build/runnerprofile',
   'views/build/racesummary',
-  'views/build/teambuilder'
+  'views/build/team-builder'
 ], function($, _, Backbone, RunnerList, CreateRunner, CreateTeam, HomePage, SelectRunners, MyTeams, Sandbox, RunnerProfile, RaceSummary, TeamBuilder){
   
   var AppRouter = Backbone.Router.extend({

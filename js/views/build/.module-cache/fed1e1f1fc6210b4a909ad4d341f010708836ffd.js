@@ -54,14 +54,6 @@ define(
         this.setState({stateName:val.stateName});
       },
 
-      handleSubmit: function() {
-        console.log('test');
-      },
-
-      updateSelectedRunners: function(val) {
-        this.setState({selectedRunners: val.splice()})
-      },
-
 
       render: function() {
         var Grid = ReactBoot.Grid;
@@ -83,7 +75,7 @@ define(
                 React.createElement("h3", null, "Select Runners"), 
                   React.createElement(Col, {className: "no-padding", xs: 8, md: 6}, 
                     React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
-                    React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "SUBMIT")
+                    React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
                   ), 
                   React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})

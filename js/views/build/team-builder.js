@@ -10,8 +10,9 @@ define(
   'views/build/createrunner',
   'views/build/simple-runners-table',
   'views/build/team-card',
-  'mdl'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, MDL){
+  'js/models/create-team-model'
+  
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel){
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
@@ -23,7 +24,8 @@ define(
             selectedRunners:[],
             allRunners:[],
             teamName: '',
-            schoolName: ''
+            schoolName: '',
+            schoolCode: -1
         };
       },
 
@@ -55,13 +57,18 @@ define(
       },
 
       handleSubmit: function() {
-        console.log('test');
-      },
 
-      updateSelectedRunners: function(val) {
-        this.setState({selectedRunners: val.splice()})
+        var myTeam = new CreateTeamModel({'teamName':this.state.teamName, 'fk_schoolID':this.state.schoolCode, 'fk_coachID':3});
+        myTeam.save(null, {
+          success:function(model, response) {
+            console.log('success!');
+          },
+          error: function(model, error) {
+            
+            console.log(error);
+          }
+        });   
       },
-
 
       render: function() {
         var Grid = ReactBoot.Grid;
@@ -82,15 +89,14 @@ define(
                 React.createElement(Row, {className: "show-grid"}, 
                 React.createElement("h3", null, "Select Runners"), 
                   React.createElement(Col, {className: "no-padding", xs: 8, md: 6}, 
-                    React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners}), 
-                    React.createElement(Button, {bsStyle: "success", bsSize: "large", block: true, onClick: this.handleSubmit}, "SUBMIT")
+                    React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
                   ), 
                   React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
                     React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
                   )
                 )
               ), 
-              React.createElement(TeamCard, {teamName: this.state.teamName, schoolName: this.state.schoolName, stateName: this.state.stateName, selectedRunners: this.state.selectedRunners})
+              React.createElement(Button, {bsStyle: "info", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
             )
           )
         )
@@ -120,3 +126,5 @@ define(
     return TeamBuilderView;
   });
 
+
+//<TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} selectedRunners={this.state.selectedRunners} />
