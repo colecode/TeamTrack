@@ -40,22 +40,6 @@ define(
               
       },
 
-      loadListfromServer: function() {
-        
-        $.ajax({
-          url:"api/index.php/runnersperschool",
-          type:"GET",
-          success:function(data){
-            this.setState({allRunners: data});
-          }.bind(this),     
-          dataType:"json"
-        });
-      },
-
-      componentDidMount: function() {
-        //this.loadListfromServer();
-      },
-
       render: function() {
        
         var Table = ReactBoot.Table;

@@ -90,6 +90,21 @@ define(
         });   
       },
 
+      handleCreateRunner: function() {
+        $.ajax({
+          url:"api/index.php/getrunnersperschool/" + {this.state.schoolCode}
+          type:"GET",
+          success:function(data){
+            this.setState({allRunners: data.slice() }) ;
+          }.bind(this), 
+          error:function(err) {
+            console.log('error building runners list based on school selection');
+            console.log(err);
+          },    
+          dataType:"json"
+        });
+      },
+
       render: function() {
         var Grid = ReactBoot.Grid;
         var Row = ReactBoot.Row;
@@ -116,7 +131,7 @@ define(
                   </Col>
                   <Col className='no-padding' xs={4} md={2}>
                     <h4 style={headerStyle} >Create New Runner</h4>
-                    <CreateRunner schoolCode={this.state.schoolCode} />
+                    <CreateRunner schoolCode={this.state.schoolCode} handleCreateRunner={this.handleCreateRunner} />
                   </Col>
                 </Row>
               </Grid>
