@@ -90,6 +90,24 @@ define(
         });   
       },
 
+      handleCreateRunner: function() {
+
+        var schoolCode = this.state.schoolCode;
+
+        $.ajax({
+          url:"api/index.php/getrunnersperschool/" + schoolCode,
+          type:"GET",
+          success:function(data){
+            this.setState({allRunners: data.slice() }) ;
+          }.bind(this), 
+          error:function(err) {
+            console.log('error building runners list based on school selection');
+            console.log(err);
+          },    
+          dataType:"json"
+        });
+      },
+
       render: function() {
         var Grid = ReactBoot.Grid;
         var Row = ReactBoot.Row;
@@ -116,7 +134,7 @@ define(
                   ), 
                   React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
                     React.createElement("h4", {style: headerStyle}, "Create New Runner"), 
-                    React.createElement(CreateRunner, {schoolCode: this.state.schoolCode})
+                    React.createElement(CreateRunner, {schoolCode: this.state.schoolCode, handleCreateRunner: this.handleCreateRunner})
                   )
                 )
               ), 

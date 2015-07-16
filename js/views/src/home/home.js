@@ -15,7 +15,6 @@ define(
 
       render: function() {
         var Jumbotron = ReactBoot.Jumbotron;
-        var Button = ReactBoot.Button;
 
         var jumboStyle = {
           marginBottom: 0
@@ -28,7 +27,6 @@ define(
               <div className={'my-jumbotron'}>
                 <h1>TeamTrack</h1>
                 <p>E Pluribus Unum</p>
-                <Button bsStyle="primary" href="#createrunner">Let&apos;s get started</Button>
               </div>
               </div>
             </div>

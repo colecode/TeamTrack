@@ -15,7 +15,6 @@ define(
 
       render: function() {
         var Jumbotron = ReactBoot.Jumbotron;
-        var Button = ReactBoot.Button;
 
         var jumboStyle = {
           marginBottom: 0
@@ -27,8 +26,7 @@ define(
               React.createElement("div", {className: 'navbar-wrap'}, 
               React.createElement("div", {className: 'my-jumbotron'}, 
                 React.createElement("h1", null, "TeamTrack"), 
-                React.createElement("p", null, "E Pluribus Unum"), 
-                React.createElement(Button, {bsStyle: "primary", href: "#createrunner"}, "Let's get started")
+                React.createElement("p", null, "E Pluribus Unum")
               )
               )
             )

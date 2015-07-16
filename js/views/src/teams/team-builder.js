@@ -91,8 +91,11 @@ define(
       },
 
       handleCreateRunner: function() {
+
+        var schoolCode = this.state.schoolCode;
+
         $.ajax({
-          url:"api/index.php/getrunnersperschool/" + {this.state.schoolCode}
+          url:"api/index.php/getrunnersperschool/" + schoolCode,
           type:"GET",
           success:function(data){
             this.setState({allRunners: data.slice() }) ;

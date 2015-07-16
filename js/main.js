@@ -10,8 +10,7 @@ require.config({
     react: '../css/react-with-addons',
     backbonemixin: 'http://cdnjs.cloudflare.com/ajax/libs/backbone-react-component/0.7.2/backbone-react-component',
     reactboot:'../css/react-bootstrap.min',
-    fixeddatatable: '../css/fixed-data-table',
-    mdl: 'https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min'
+    fixeddatatable: '../css/fixed-data-table'
   }
 });
 
