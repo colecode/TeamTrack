@@ -44,7 +44,7 @@ define(
       loadListfromServer: function() {
         
         $.ajax({
-          url:"api/index.php/runners",
+          url:"api/index.php/getrunners",
           type:"GET",
           success:function(data){
             this.setState({allRunners: data});

@@ -42,11 +42,13 @@ define(
 
       render: function() {
        
-        var Table = ReactBoot.Table;
+        //var Table = ReactBoot.Table;
         var Button = ReactBoot.Button;
+        var smallScrollTable = {height:100};
+
         return (          
-            <div>
-              <Table id='simple-runners-table'>
+            <div className={"small-table"}>
+              <table id='simple-runners-table' className={"table table-bordered"}>
                 <thead>
                   <tr>
                     <th>First Name</th>
@@ -65,7 +67,7 @@ define(
                               </tr>);
                     },this)}
                 </tbody>
-              </Table>
+              </table>
             </div>          
         )
       }

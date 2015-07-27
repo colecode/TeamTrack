@@ -42,11 +42,13 @@ define(
 
       render: function() {
        
-        var Table = ReactBoot.Table;
+        //var Table = ReactBoot.Table;
         var Button = ReactBoot.Button;
+        var smallScrollTable = {height:100};
+
         return (          
-            React.createElement("div", null, 
-              React.createElement(Table, {id: "simple-runners-table"}, 
+            React.createElement("div", {className: "small-table"}, 
+              React.createElement("table", {id: "simple-runners-table", className: "table table-bordered"}, 
                 React.createElement("thead", null, 
                   React.createElement("tr", null, 
                     React.createElement("th", null, "First Name"), 

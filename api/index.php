@@ -87,7 +87,7 @@ function sendResponse($status = 200, $body = '', $content_type = 'text/html')
 }
 
 // GET Runners
-$app->get('/runners', function() {
+$app->get('/getrunners', function() {
         
         $db = db_connect();
         $result = array();

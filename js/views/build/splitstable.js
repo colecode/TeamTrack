@@ -7,52 +7,15 @@ define(
   'reactboot',
   ], function($, _, Backbone, React, ReactBoot){
 
-    var SplitsTable = React.createClass({displayName: 'SplitsTable',
-       
-      // getInitialState: function () {
-      //   return {
-      //       allSplits:[]
-      //     };
-      // },
-
-      // loadDataFromServer: function() {
-        
-      //   var test = this.props.myRace;
-        
-      //   if(test)
-      //   {
-      //   $.ajax({
-      //     url:"api/index.php/getsplits/" + test,
-      //     type:"GET",
-      //     success:function(data){            
-      //       this.setState({allSplits: data});  
-      //     }.bind(this),     
-      //     dataType:"json"
-      //   });
-      // }
-
-      // },
-
-      handleSelect: function(i) {
-
-        var test = 'test';
-        var test2 = 'test2';
-      },
-              
-
-      // // Called immediately when the React class is rendered - better option than passing in loaded domain arrays from via Backbone View
-      componentDidMount: function() {
-        //this.loadDataFromServer();
-        var test = this.props.allSplits;
-      },
-       
+    var SplitsTable = React.createClass({displayName: "SplitsTable",
+      
       render: function() {
         var Table = ReactBoot.Table;
 
         return (
             
-            React.createElement("div", {id: "splitsTableComponent"}, 
-              React.createElement(Table, {id: "mySplitsTable"}, 
+            React.createElement("div", null, 
+              React.createElement(Table, null, 
               React.createElement("thead", null, 
                 React.createElement("tr", null, 
                 React.createElement("th", null, "Split Number"), 
@@ -61,7 +24,7 @@ define(
               ), 
               React.createElement("tbody", null, 
                 this.props.allSplits.map(function(split, j) {
-                      return (React.createElement("tr", {onClick: this.handleSelect.bind(this, j), key: j}, 
+                      return (React.createElement("tr", null, 
                                 React.createElement("td", null, 
                                 split.splitIndex
                                 ), 

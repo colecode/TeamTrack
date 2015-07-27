@@ -115,7 +115,7 @@ define(
         var Button = ReactBoot.Button;
 
         var colStyle = {marginRight:130};
-        var headerStyle = {width:250, marginBottom:50};
+        var headerStyle = {width:250, marginBottom:20};
 
         return (
           <div>

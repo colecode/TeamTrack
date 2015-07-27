@@ -191,8 +191,18 @@
 }
 
 #teamBuildSubmitBtn {
-	margin-top: 100px;
+	margin-top: 50px;
 }
+
+.small-table {
+	height: 300px;
+	overflow: auto;
+}
+
+.show-grid p {
+	margin-bottom: 0px;
+}
+
 
 
 /*.create-team-header {
