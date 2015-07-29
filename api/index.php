@@ -406,6 +406,28 @@ $app->get('/getrunnersperschool/:id', function($id)  {
         echo json_encode($result);
 });
 
+// GET runners per race
+$app->get('/getteamsperrunner/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql = "SELECT b.teamName, b.fk_coachID
+                FROM TeamRoster a 
+                INNER JOIN Teams b ON a.fk_teamID = b.teamID 
+                WHERE a.fk_runnerID = 1";
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+
+
 $app->run();
 
 ?>

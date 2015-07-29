@@ -5,8 +5,7 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot){
+  ], function($, _, Backbone, React, backboneMixin){
     
     var schoolID = -1;
 
@@ -42,17 +41,13 @@ define(
 
       render: function() {
        
-        //var Table = ReactBoot.Table;
-        var Button = ReactBoot.Button;
-        var smallScrollTable = {height:100};
-
         return (          
             React.createElement("div", {className: "small-table"}, 
-              React.createElement("table", {id: "simple-runners-table", className: "table table-bordered"}, 
+              React.createElement("table", {id: "simple-runners-table", className: "table table-responsive"}, 
                 React.createElement("thead", null, 
                   React.createElement("tr", null, 
-                    React.createElement("th", null, "First Name"), 
-                    React.createElement("th", null, "Last Name")
+                    React.createElement("th", {className: "centered"}, "First Name"), 
+                    React.createElement("th", {className: "centered"}, "Last Name")
                   )
                 ), 
                 React.createElement("tbody", null, 
@@ -68,6 +63,7 @@ define(
                     },this)
                 )
               )
+
             )          
         )
       }

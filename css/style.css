@@ -154,7 +154,6 @@
 }
 
 .form-box-wrap {
-	padding-top: 75px;
 	width: 300px;
 	margin-left: auto;
 	margin-right: auto;
@@ -163,7 +162,6 @@
 .form-box-wrap h3 {
 	font-family: 'Roboto', sans-serif;
 	text-align: center;
-	padding-bottom: 100px;
 }
 
 .left-align-container {
@@ -196,11 +194,40 @@
 
 .small-table {
 	height: 300px;
+	width: 500px;
 	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .show-grid p {
 	margin-bottom: 0px;
+}
+
+.profile-placeholder {
+
+	background-image: url("../resources/placeholder.png");
+	
+}
+
+.header-center {
+	text-align: center;
+}
+
+.centered {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.row-padding {
+	padding-top: 20px;
+}
+
+.button-block {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 

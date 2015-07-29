@@ -8,14 +8,13 @@ define(
   'reactboot',
   'fixeddatatable',
   'views/build/racestable',
-  'views/build/splitstable',
-  'views/build/runner-teams-table'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable, RunnerTeamsTable){
+  'views/build/splitstable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable){
 
     var runnerId = -1;
     var allRows = [];
 
-    var RunnerProfileClass = React.createClass({displayName: "RunnerProfileClass",
+    var TeamManagerClass = React.createClass({displayName: "TeamManagerClass",
 
       mixins: [backboneMixin],
 
@@ -30,11 +29,10 @@ define(
             selectedRace:[],
             allRaces:[],
             allSplits: [],
-            runnerTeams: []
         };
       },
 
-      handleRaceSelect: function(val) {
+      handleTeamSelect: function(val) {
           $.ajax({
             url:"api/index.php/getsplits/" + val,
             type:"GET",
@@ -68,15 +66,6 @@ define(
           dataType:"json"
         });
 
-        $.ajax({
-          url:"api/index.php/getteamsperrunner/" + runnerId,
-          type:"GET",
-          success:function(data){            
-            this.setState({runnerTeams: data});  
-          }.bind(this),     
-          dataType:"json"
-        });
-
       },
 
       componentDidMount: function() {
@@ -89,7 +78,6 @@ define(
         var Row = ReactBoot.Row;
         var Col = ReactBoot.Col;
         var Button = ReactBoot.Button;
-        var Thumbnail = ReactBoot.Thumbnail;
 
         var colStyle = {marginRight:130};
         var headerStyle = {width:250, marginBottom:20};
@@ -100,19 +88,12 @@ define(
             React.createElement("div", {className: 'wrap'}, 
               React.createElement(Grid, null, 
                 React.createElement(Row, {className: "show-grid"}, 
-
-                  React.createElement(Col, {className: "no-padding"}, 
-                      React.createElement("h4", null, "Runner Description"), 
-                      React.createElement("p", null, "Name: ", this.state.firstName, " ", this.state.lastName), 
-                      React.createElement("p", null, "State: ", this.state.stateName), 
-                      React.createElement("p", null, "School: ", this.state.schoolName)
-                  )
+                  React.createElement("h4", null, "Runner Description")
                 ), 
-                React.createElement(Row, null, 
-                React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
-                    React.createElement("h4", null, "Team Affiliations"), 
-                    React.createElement(RunnerTeamsTable, {runnerTeams: this.state.runnerTeams})
-                  )
+                React.createElement(Row, {className: "show-grid"}, 
+                  React.createElement("p", null, "Name: ", this.state.firstName, " ", this.state.lastName), 
+                  React.createElement("p", null, "State: ", this.state.stateName), 
+                  React.createElement("p", null, "School: ", this.state.schoolName)
                 ), 
                 React.createElement(Row, {className: "show-grid"}, 
                   React.createElement(Col, {className: "no-padding", style: colStyle, xs: 7, md: 5}, 
@@ -132,51 +113,28 @@ define(
 
     });
     
-    var RunnerProfileView = Backbone.View.extend({
+    var TeamManagerView = Backbone.View.extend({
     
       el: $('#mainContent'),
       events: {
         
       },
 
-      initialize: function(options) { 
+      initialize: function() { 
 
-          if(options)
-          {
-            runnerId = options.runnerId;
-          }
-        },
+      },
 
       render: function (){
         
         React.render(       
-          React.createElement(RunnerProfileClass, null),
+          React.createElement(TeamManagerClass, null),
           this.el
         );
       } 
     });
 
-    return RunnerProfileView;
+    return TeamManagerView;
   });
 
 
-// <div className={'left-align-container'}>
-//           <div id="profile-header">
-//             <h3>Runner Profile</h3>
-//             <div className={'input-group margin-bottom-sm form-field-sizes'}>
-//               <h4>First Name: {this.state.firstName}</h4> 
-//               <h4>Last Name: {this.state.lastName}</h4> 
-//               <h4>School Name: {this.state.schoolName}</h4>
-//               <h4>State Name: {this.state.stateName}</h4>
-//             </div>
-//           </div>
-//           <div id="races-box">
-//             <h3>Races</h3>
-                 
-//           </div>
-//           </div>
-
-                  // <Col xs={6} md={3}>
-                  //   <img className={'profile-placeholder'} />
-                  // </Col>
 

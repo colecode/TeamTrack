@@ -67,7 +67,7 @@ define(
 
         return (
 
-          <div>  
+          <div className={"form-box-wrap"}>  
             <div className={'input-group form-field-sizes'}>
               <input className={'form-control text-center'} type="text" placeholder="First name" valueLink={this.linkState('firstName')} />
             </div>

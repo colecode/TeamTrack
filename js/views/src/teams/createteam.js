@@ -89,7 +89,7 @@ define(
 
         return (
         
-        <div >   
+        <div className="form-box-wrap" >   
           <div className={'input-group form-field-sizes'}>
             <input className={'form-control text-center'} type="text" placeholder="Team name" onChange={this.onTeamNameUpdate} />
           </div>

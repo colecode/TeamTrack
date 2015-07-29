@@ -11,14 +11,78 @@ define(
   'views/build/simple-runners-table',
   'views/build/team-card',
   'models/create-team-model',
-  'models/team-roster-model'
+  'models/team-roster-model',
   
   ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel, TeamRosterModel){
+
+    var OverlayMixin = ReactBoot.OverlayMixin;
+
+    const CreateRunnerModal = React.createClass({displayName: "CreateRunnerModal",
+
+      mixins: [OverlayMixin],
+      
+      getInitialState: function () {
+        return {
+            showModal: true
+        };
+      },
+
+      handleToggle: function() {
+        this.setState({showModal:!this.state.showModal});
+      },
+
+      handleCreateRunner: function() {
+        
+        var schoolCode = this.props.schoolCode;
+
+        $.ajax({
+          url:"api/index.php/getrunnersperschool/" + schoolCode,
+          type:"GET",
+          success:function(data){
+            this.setState({allRunners: data.slice() }) ;
+          }.bind(this), 
+          error:function(err) {
+            console.log('error building runners list');
+            console.log(err);
+          },    
+          dataType:"json"
+        });
+
+      },
+
+      render: function() {     
+          return (React.createElement("div", null));
+      },
+
+      renderOverlay: function() {
+
+       var Modal = ReactBoot.Modal;
+       var Button = ReactBoot.Button;
+
+       if (!this.state.showModal) {
+            return React.createElement("span", null);
+        }
+
+        return (
+              React.createElement(Modal, {title: "Create Runner", onRequestHide: this.handleToggle}, 
+                React.createElement("div", {className: "modal-body"}, 
+                  React.createElement(CreateRunner, {schoolCode: this.props.schoolCode, handleCreateRunner: this.handleCreateRunner})
+                ), 
+                React.createElement("div", {className: "modal-footer"}, 
+                  React.createElement(Button, {onClick: this.handleToggle}, "Close")
+                )
+              )
+          );
+        }
+           
+    });
+
+
 
     var TeamBuilderClass = React.createClass({displayName: "TeamBuilderClass",
 
       mixins: [backboneMixin],
-      mixins: [React.addons.LinkedStateMixin],
+      
 
       getInitialState: function () {
         return {
@@ -26,7 +90,8 @@ define(
             allRunners:[],
             teamName: '',
             schoolName: '',
-            schoolCode: -1
+            schoolCode: -1,
+            showModal: false,
         };
       },
 
@@ -90,6 +155,10 @@ define(
         });   
       },
 
+      openModal: function(){
+        this.setState({ showModal: true });
+      },
+
       handleCreateRunner: function() {
 
         var schoolCode = this.state.schoolCode;
@@ -109,40 +178,27 @@ define(
       },
 
       render: function() {
-        var Grid = ReactBoot.Grid;
-        var Row = ReactBoot.Row;
-        var Col = ReactBoot.Col;
-        var Button = ReactBoot.Button;
-
-        var colStyle = {marginRight:130};
-        var headerStyle = {width:250, marginBottom:20};
 
         return (
-          React.createElement("div", null, 
-            React.createElement("div", {className: 'wrap'}, 
-              React.createElement(Grid, null, 
-                React.createElement(Row, {className: "show-grid"}, 
-                React.createElement("h4", null, "Enter Team Info"), 
-                  React.createElement(Col, {className: "no-padding", xs: 12, md: 8}, 
+            React.createElement("div", {className: 'container'}, 
+                React.createElement("div", {className: "row row-padding"}, 
+                  React.createElement("div", {className: "col-md-12 centered"}, 
+                    React.createElement("h4", null, "Enter Team Description"), 
                     React.createElement(CreateTeam, {onSchoolSelect: this.handleSchoolSelect, onTeamNameUpdate: this.handleTeamNameUpdate, onStateNameUpdate: this.handleStateNameUpdate})
                   )
                 ), 
-                React.createElement(Row, {className: "show-grid"}, 
-                  React.createElement(Col, {className: "no-padding", style: colStyle, xs: 7, md: 5}, 
+                React.createElement("div", {className: "row row-padding"}, 
+                  React.createElement("div", {className: "col-md-12 centered"}, 
                     React.createElement("h4", null, "Select Runners"), 
                     React.createElement(SimpleRunnersTable, {selectedRunners: this.state.selectedRunners, allRunners: this.state.allRunners})
-                  ), 
-                  React.createElement(Col, {className: "no-padding", xs: 4, md: 2}, 
-                    React.createElement("h4", {style: headerStyle}, "Create New Runner"), 
-                    React.createElement(CreateRunner, {schoolCode: this.state.schoolCode, handleCreateRunner: this.handleCreateRunner})
+                  )
+                ), 
+                React.createElement("div", {className: "row-padding"}, 
+                  React.createElement("div", {className: "text-center button-block"}, 
+                    React.createElement("button", {className: "btn btn-block btn-primary"}, "Done")
                   )
                 )
-              ), 
-              React.createElement("div", {id: "teamBuildSubmitBtn"}, 
-              React.createElement(Button, {bsStyle: "info", bsSize: "large", block: true, onClick: this.handleSubmit}, "Finish")
-              )
             )
-          )
         )
       }
     });
@@ -170,5 +226,22 @@ define(
     return TeamBuilderView;
   });
 
+
+// var Modal = ReactBoot.Modal;
+//         var Button = ReactBoot.Button;
+//         return (
+//           <Modal show={this.state.showModal} title='Modal heading' onRequestHide={this.handleToggle}>
+//             <div className='modal-body'>
+//               <CreateRunner schoolCode={this.props.schoolCode} handleCreateRunner={this.handleCreateRunner} />
+//             </div>
+//             <div className='modal-footer'>
+//               <Button onClick={this.handleToggle}>Close</Button>
+//             </div>
+//           </Modal>
+
+// <Col className='no-padding' xs={4} md={2}>
+//                     <h4 style={headerStyle} >Create New Runner</h4>
+//                     <CreateRunner schoolCode={this.state.schoolCode} handleCreateRunner={this.handleCreateRunner} />
+//                   </Col>
 
 //<TeamCard teamName={this.state.teamName} schoolName={this.state.schoolName} stateName={this.state.stateName} selectedRunners={this.state.selectedRunners} />

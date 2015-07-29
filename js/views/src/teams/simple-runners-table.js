@@ -5,8 +5,7 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot){
+  ], function($, _, Backbone, React, backboneMixin){
     
     var schoolID = -1;
 
@@ -42,17 +41,13 @@ define(
 
       render: function() {
        
-        //var Table = ReactBoot.Table;
-        var Button = ReactBoot.Button;
-        var smallScrollTable = {height:100};
-
         return (          
             <div className={"small-table"}>
-              <table id='simple-runners-table' className={"table table-bordered"}>
+              <table id="simple-runners-table" className={"table table-responsive"}>
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th className={"centered"}>First Name</th>
+                    <th className={"centered"}>Last Name</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,6 +63,7 @@ define(
                     },this)}
                 </tbody>
               </table>
+
             </div>          
         )
       }

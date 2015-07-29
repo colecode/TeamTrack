@@ -8,14 +8,13 @@ define(
   'reactboot',
   'fixeddatatable',
   'views/build/racestable',
-  'views/build/splitstable',
-  'views/build/runner-teams-table'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable, RunnerTeamsTable){
+  'views/build/splitstable'
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable){
 
     var runnerId = -1;
     var allRows = [];
 
-    var RunnerProfileClass = React.createClass({
+    var TeamManagerClass = React.createClass({
 
       mixins: [backboneMixin],
 
@@ -30,11 +29,10 @@ define(
             selectedRace:[],
             allRaces:[],
             allSplits: [],
-            runnerTeams: []
         };
       },
 
-      handleRaceSelect: function(val) {
+      handleTeamSelect: function(val) {
           $.ajax({
             url:"api/index.php/getsplits/" + val,
             type:"GET",
@@ -68,15 +66,6 @@ define(
           dataType:"json"
         });
 
-        $.ajax({
-          url:"api/index.php/getteamsperrunner/" + runnerId,
-          type:"GET",
-          success:function(data){            
-            this.setState({runnerTeams: data});  
-          }.bind(this),     
-          dataType:"json"
-        });
-
       },
 
       componentDidMount: function() {
@@ -89,7 +78,6 @@ define(
         var Row = ReactBoot.Row;
         var Col = ReactBoot.Col;
         var Button = ReactBoot.Button;
-        var Thumbnail = ReactBoot.Thumbnail;
 
         var colStyle = {marginRight:130};
         var headerStyle = {width:250, marginBottom:20};
@@ -100,19 +88,12 @@ define(
             <div className={'wrap'}>   
               <Grid>
                 <Row className='show-grid'>
-
-                  <Col className='no-padding'>
-                      <h4>Runner Description</h4>
-                      <p>Name: {this.state.firstName} {this.state.lastName}</p>
-                      <p>State: {this.state.stateName}</p> 
-                      <p>School: {this.state.schoolName}</p>
-                  </Col>   
+                  <h4>Runner Description</h4>
                 </Row>
-                <Row>
-                <Col className='no-padding' xs={4} md={2}>
-                    <h4>Team Affiliations</h4>  
-                    <RunnerTeamsTable runnerTeams={this.state.runnerTeams} />
-                  </Col>
+                <Row className='show-grid'>
+                  <p>Name: {this.state.firstName} {this.state.lastName}</p>
+                  <p>State: {this.state.stateName}</p> 
+                  <p>School: {this.state.schoolName}</p> 
                 </Row>
                 <Row className='show-grid'>
                   <Col className='no-padding' style={colStyle} xs={7} md={5}>
@@ -132,51 +113,28 @@ define(
 
     });
     
-    var RunnerProfileView = Backbone.View.extend({
+    var TeamManagerView = Backbone.View.extend({
     
       el: $('#mainContent'),
       events: {
         
       },
 
-      initialize: function(options) { 
+      initialize: function() { 
 
-          if(options)
-          {
-            runnerId = options.runnerId;
-          }
-        },
+      },
 
       render: function (){
         
         React.render(       
-          <RunnerProfileClass/>,
+          <TeamManagerClass/>,
           this.el
         );
       } 
     });
 
-    return RunnerProfileView;
+    return TeamManagerView;
   });
 
 
-// <div className={'left-align-container'}>
-//           <div id="profile-header">
-//             <h3>Runner Profile</h3>
-//             <div className={'input-group margin-bottom-sm form-field-sizes'}>
-//               <h4>First Name: {this.state.firstName}</h4> 
-//               <h4>Last Name: {this.state.lastName}</h4> 
-//               <h4>School Name: {this.state.schoolName}</h4>
-//               <h4>State Name: {this.state.stateName}</h4>
-//             </div>
-//           </div>
-//           <div id="races-box">
-//             <h3>Races</h3>
-                 
-//           </div>
-//           </div>
-
-                  // <Col xs={6} md={3}>
-                  //   <img className={'profile-placeholder'} />
-                  // </Col>
 

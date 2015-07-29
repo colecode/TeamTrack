@@ -67,7 +67,7 @@ define(
 
         return (
 
-          React.createElement("div", null, 
+          React.createElement("div", {className: "form-box-wrap"}, 
             React.createElement("div", {className: 'input-group form-field-sizes'}, 
               React.createElement("input", {className: 'form-control text-center', type: "text", placeholder: "First name", valueLink: this.linkState('firstName')})
             ), 
