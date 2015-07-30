@@ -11,7 +11,7 @@ define(
   'reactboot'
   ], function($, _, Backbone, React, backboneMixin, SearchBar, RunnerTable, RunnerCollection, ReactBoot){
 
-    var RunnerListMaster = React.createClass({
+    var RunnerListClass = React.createClass({
 
       mixins: [backboneMixin],
 
@@ -23,7 +23,7 @@ define(
       },
 
       handleSearch: function(val) {
-        var test = val.searchTerm;
+
         if(val.searchTerm)
         {
           $.ajax({
@@ -61,13 +61,10 @@ define(
         var Button = ReactBoot.Button;
         
         return (
-          <div className={'my-container'}>
-            <div className={'wrap'}>           
-              <SearchBar onSearch={this.handleSearch} />
-              <div className={'runner-table-div'}>
-                <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
-              </div>
-            </div>          
+          <div className={'container'}>
+            <div className={'wrap'}>
+              <SearchBar onSearch={this.handleSearch} />  
+            </div>
           </div>
         )
       }
@@ -80,17 +77,14 @@ define(
   
         },
 
-        initialize: function(options) { 
-          if(options)
-          {
-            var test = options.teamId;
-          }
+        initialize: function() { 
+
         },
 
         render: function (){
         
         React.render(       
-          <RunnerListMaster/>,
+          <RunnerListClass/>,
           this.el
           );
       } 
@@ -99,3 +93,9 @@ define(
 
     return RunnerListView;
   });
+
+
+
+// <div className={'runner-table-div'}>
+//                 <RunnerTable selectedRunners={this.state.selectedRunners} runners={this.state.allRunners} onTeamSubmit={this.handleTeamSubmit} />
+//               </div>

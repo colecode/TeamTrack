@@ -16,13 +16,12 @@ define(
 
       render: function() {
 
-        return (
-          
-            React.createElement("div", {id: "searchBarComponent"}, 
-            React.createElement("div", {className: 'input-group'}, 
-              React.createElement("span", {className: "input-group-addon"}, React.createElement("i", {className: "glyphicon glyphicon-search"})), 
-              React.createElement("input", {type: "text", className: "form-control", placeholder: "Search", value: this.state.searchInput, onChange: this.onSearchChange, placeholder: "Search by last name"})
-            )
+        return (     
+            React.createElement("div", {id: "search-bar"}, 
+              React.createElement("div", {className: 'input-group', style: {height:70}}, 
+                React.createElement("span", {className: "input-group-addon"}, React.createElement("i", {className: "glyphicon glyphicon-search"})), 
+                React.createElement("input", {type: "text", className: "form-control", style: {height:70}, value: this.state.searchInput, onChange: this.onSearchChange, placeholder: "Search by last name"})
+              )
             )
           )
         },

@@ -5,6 +5,10 @@
 	min-width: 960px;
 }
 
+#the-body {
+	background-color: whitesmoke;
+}
+
 .nav-main {
 	background: #222;
 	color: #fafafa;
@@ -57,8 +61,14 @@
 }
 
 
-#searchBarComponent {
+#search-bar {
+	vertical-align: center;
+	margin-top: 200px;
 	padding-bottom: 30px;
+}
+
+#search-bar input {
+	font-size: 24px;
 }
 
 
