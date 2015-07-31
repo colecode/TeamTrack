@@ -5,14 +5,10 @@ define(
   'backbone',
   'react',
   'backbonemixin',
-  'reactboot',
-  'fixeddatatable',
-  'views/build/racestable',
-  'views/build/splitstable'
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, FixedDataTable, RacesTable, SplitsTable){
+  'views/build/my-teams-table',
+  'views/build/tm-runners-table'
+  ], function($, _, Backbone, React, backboneMixin, MyTeamsTable, TMRunnersTable){
 
-    var runnerId = -1;
-    var allRows = [];
 
     var TeamManagerClass = React.createClass({
 
@@ -20,97 +16,43 @@ define(
 
       getInitialState: function () {
         return {
-            firstName: '',
-            lastName: '',
-            age: '',  
-            stateName:'',
-            schoolName: '',
-            races:[], 
-            selectedRace:[],
-            allRaces:[],
-            allSplits: [],
+          teamRunners: []
         };
       },
 
       handleTeamSelect: function(val) {
-          $.ajax({
-            url:"api/index.php/getsplits/" + val,
-            type:"GET",
-            success:function(data){            
-              this.setState({allSplits: data});  
-            }.bind(this),     
-            dataType:"json"
-          });
-      },
-
-      loadDataFromServer: function() {
-        
+        //<MyTeamsTable onTeamSelect={this.handleTeamSelect}/>
+        //<TMRunnersTable teamRunners={this.state.teamRunners}/>
         $.ajax({
-          url:"api/index.php/getprofile/" + runnerId,
+          url:"api/index.php/getrunnersperteam/" + val,
           type:"GET",
           success:function(data){            
-            this.setState({firstName: data[0].firstName});
-            this.setState({lastName: data[0].lastName});
-            this.setState({schoolName: data[0].schoolName});
-            this.setState({stateName: data[0].stateName});
+            this.setState({teamRunners: data});
           }.bind(this),     
           dataType:"json"
         });
 
-        $.ajax({
-          url:"api/index.php/getraces/" + runnerId,
-          type:"GET",
-          success:function(data){            
-            this.setState({allRaces: data});  
-          }.bind(this),     
-          dataType:"json"
-        });
-
-      },
-
-      componentDidMount: function() {
-        this.loadDataFromServer();
       },
 
       render: function() {
 
-        var Grid = ReactBoot.Grid;
-        var Row = ReactBoot.Row;
-        var Col = ReactBoot.Col;
-        var Button = ReactBoot.Button;
-
-        var colStyle = {marginRight:130};
-        var headerStyle = {width:250, marginBottom:20};
-
         return (
-
-          <div>
-            <div className={'wrap'}>   
-              <Grid>
-                <Row className='show-grid'>
-                  <h4>Runner Description</h4>
-                </Row>
-                <Row className='show-grid'>
-                  <p>Name: {this.state.firstName} {this.state.lastName}</p>
-                  <p>State: {this.state.stateName}</p> 
-                  <p>School: {this.state.schoolName}</p> 
-                </Row>
-                <Row className='show-grid'>
-                  <Col className='no-padding' style={colStyle} xs={7} md={5}>
-                    <h4>Races</h4>
-                    <RacesTable onRaceSelect={this.handleRaceSelect} selectedRace={this.state.selectedRace} races={this.state.allRaces} /> 
-                  </Col>
-                  <Col className='no-padding' xs={4} md={2}>
-                    <h4 style={headerStyle} >Splits</h4>  
-                    <SplitsTable allSplits={this.state.allSplits} />
-                  </Col>
-                </Row>
-              </Grid>
+            <div className={'container'}>   
+                <div className={"row row-padding"}>
+                  <div className={"col-md-12 centered"}>
+                    <h4>My Teams</h4>
+                    <MyTeamsTable onTeamSelect={this.handleTeamSelect}/>
+                  </div>
+                </div>
+                <div className={"row row-padding"}>
+                  <div className={"col-md-12 centered"}>
+                    <h4>Select Runners</h4>
+                    <TMRunnersTable teamRunners={this.state.teamRunners}/>
+                  </div>
+                </div>
             </div>
-          </div>
         )
       }
-
     });
     
     var TeamManagerView = Backbone.View.extend({
@@ -121,7 +63,7 @@ define(
       },
 
       initialize: function() { 
-
+        
       },
 
       render: function (){
@@ -135,6 +77,5 @@ define(
 
     return TeamManagerView;
   });
-
 
 
