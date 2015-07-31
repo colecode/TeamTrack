@@ -6,7 +6,7 @@ define(
   'react',
   'backbonemixin',
   'reactboot',
-  'views/build/createteam',
+  'views/build/create-team',
   'views/build/createrunner',
   'views/build/simple-runners-table',
   'views/build/team-card',

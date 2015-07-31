@@ -6,8 +6,9 @@ define(
   'react',
   'backbonemixin',
   'views/build/my-teams-table',
-  'views/build/tm-runners-table'
-  ], function($, _, Backbone, React, backboneMixin, MyTeamsTable, TMRunnersTable){
+  'views/build/tm-runners-table',
+  'views/build/runner-profile-component'
+  ], function($, _, Backbone, React, backboneMixin, MyTeamsTable, TMRunnersTable, RunnerProfile){
 
 
     var TeamManagerClass = React.createClass({
@@ -16,15 +17,21 @@ define(
 
       getInitialState: function () {
         return {
-          teamRunners: []
+          teamRunners: [],
+          teamName: 'Select a team above',
+          generalData:[],
+          racesPerRunner:[],
+          teamsPerRunner:[],
+          teamsPerCoach:[]
         };
       },
 
-      handleTeamSelect: function(val) {
-        //<MyTeamsTable onTeamSelect={this.handleTeamSelect}/>
-        //<TMRunnersTable teamRunners={this.state.teamRunners}/>
+      handleTeamSelect: function(data) {
+
+        this.setState({teamName:data.teamName})
+
         $.ajax({
-          url:"api/index.php/getrunnersperteam/" + val,
+          url:"api/index.php/getrunnersperteam/" + data.teamID,
           type:"GET",
           success:function(data){            
             this.setState({teamRunners: data});
@@ -34,6 +41,60 @@ define(
 
       },
 
+      handleRunnerSelect: function(data) {
+
+        // Populate general runner profile data
+        $.ajax({
+          url:"api/index.php/getprofile/" + data,
+          type:"GET",
+          success:function(data){       
+            this.setState({generalData: data[0]});     
+          }.bind(this),     
+          dataType:"json"
+        });
+
+        // Populate profile races table
+        $.ajax({
+          url:"api/index.php/getraces/" + data,
+          type:"GET",
+          success:function(data){            
+            this.setState({racesPerRunner: data});  
+          }.bind(this),     
+          dataType:"json"
+        });
+
+        // Populate profile teams table
+        $.ajax({
+          url:"api/index.php/getteamsperrunner/" + data,
+          type:"GET",
+          success:function(data){            
+            this.setState({teamsPerRunner: data});  
+          }.bind(this),     
+          dataType:"json"
+        });
+
+      },
+
+      loadDataFromServer: function() {
+        
+        // Hardcoded until User Mgmt is setup
+        var coachID = 3;
+
+        $.ajax({
+          url:"api/index.php/getteamspercoach/" + coachID,
+          type:"GET",
+          success:function(data){            
+            this.setState({teamsPerCoach: data});  
+          }.bind(this),     
+          dataType:"json"
+        });
+
+      },
+
+      componentDidMount: function() {
+        this.loadDataFromServer();
+      },
+
       render: function() {
 
         return (
@@ -41,13 +102,18 @@ define(
                 <div className={"row row-padding"}>
                   <div className={"col-md-12 centered"}>
                     <h4>My Teams</h4>
-                    <MyTeamsTable onTeamSelect={this.handleTeamSelect}/>
+                    <MyTeamsTable teamsPerCoach={this.state.teamsPerCoach} handleTeamSelect={this.handleTeamSelect}/>
                   </div>
                 </div>
                 <div className={"row row-padding"}>
                   <div className={"col-md-12 centered"}>
-                    <h4>Select Runners</h4>
-                    <TMRunnersTable teamRunners={this.state.teamRunners}/>
+                    <h4>{this.state.teamName}</h4>
+                    <TMRunnersTable handleRunnerSelect={this.handleRunnerSelect} teamRunners={this.state.teamRunners}/>
+                  </div>
+                </div>
+                <div className={"row row-padding"}>
+                  <div className={"col-md-12 centered"}>
+                    <RunnerProfile generalData={this.state.generalData} racesPerRunner = {this.state.racesPerRunner} teamsPerRunner={this.state.teamsPerRunner} />
                   </div>
                 </div>
             </div>

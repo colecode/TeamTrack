@@ -2,24 +2,21 @@ define(
   [
   'jquery',
   'underscore',
-  'backbone',
   'react',
-  'reactboot',
-  ], function($, _, Backbone, React, ReactBoot){
+  ], function($, _, React){
 
     var RunnerTeamsTable = React.createClass({
       
       render: function() {
-        var Table = ReactBoot.Table;
 
         return (
             
-            <div>
-              <Table>
+            <div className={"medium-table"}>
+              <table className={"table table-responsive"}>
               <thead>
                 <tr>
-                <th>Team Name</th>
-                <th>Coach</th>
+                <th className={"centered"}>Team Name</th>
+                <th className={"centered"}>Coach</th>
               </tr>
               </thead>
               <tbody>
@@ -34,7 +31,7 @@ define(
                               </tr>);
                     },this)}
                 </tbody>
-              </Table>
+              </table>
             </div>              
           )
       }

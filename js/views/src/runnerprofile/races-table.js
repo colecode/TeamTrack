@@ -2,11 +2,8 @@ define(
   [
   'jquery',
   'underscore',
-  'backbone',
-  'react',
-  'reactboot',
-  'views/build/splitstable'
-  ], function($, _, Backbone, React, ReactBoot, SplitsTable){
+  'react'
+  ], function($, _, React){
 
     var RacesTable = React.createClass({
             
@@ -19,25 +16,24 @@ define(
 
       handleSelect: function(i) {
 
-        $($("#myRacesTable tbody tr")[i]).toggleClass("info");;
+        //$($("#myRacesTable tbody tr")[i]).toggleClass("info");;
 
         var runInRaceID = this.props.races[i].runInRaceID;
         this.props.onRaceSelect(runInRaceID);          
       },
 
       render: function() {
-        var Table = ReactBoot.Table;
 
         return (
-            
-            <div id="raceTableComponent">
-              <Table id="myRacesTable">
+
+            <div className={"medium-table"}>
+              <table className={"table table-responsive"}>
               <thead>
                 <tr>
-                <th>Date</th>
-                <th>Race Name</th>
-                <th>Event</th>
-                <th>Finish Time</th>
+                <th className={"centered"}>Date</th>
+                <th className={"centered"}>Race Name</th>
+                <th className={"centered"}>Event</th>
+                <th className={"centered"}>Finish Time</th>
               </tr>
               </thead>
               <tbody>
@@ -58,8 +54,7 @@ define(
                               </tr>);
                     },this)}
                 </tbody>
-              </Table>
-              
+              </table>
             </div>              
           )
       }

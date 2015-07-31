@@ -2,10 +2,10 @@ define(
   [
   'jquery',
   'underscore',
-  'react',
+  'react'
   ], function($, _, React){
 
-    var RunnerTeamsTable = React.createClass({displayName: "RunnerTeamsTable",
+    var SplitsTable = React.createClass({displayName: "SplitsTable",
       
       render: function() {
 
@@ -15,18 +15,18 @@ define(
               React.createElement("table", {className: "table table-responsive"}, 
               React.createElement("thead", null, 
                 React.createElement("tr", null, 
-                React.createElement("th", {className: "centered"}, "Team Name"), 
-                React.createElement("th", {className: "centered"}, "Coach")
+                React.createElement("th", {className: "centered"}, "Split Number"), 
+                React.createElement("th", {className: "centered"}, "Split Time")
               )
               ), 
               React.createElement("tbody", null, 
-                this.props.runnerTeams.map(function(team, j) {
+                this.props.allSplits.map(function(split, j) {
                       return (React.createElement("tr", null, 
                                 React.createElement("td", null, 
-                                team.teamName
+                                split.splitIndex
                                 ), 
                                 React.createElement("td", null, 
-                                "Matt Martin"
+                                split.splitTime
                                 )
                               ));
                     },this)
@@ -37,7 +37,7 @@ define(
       }
     });
 
-    return RunnerTeamsTable;
+    return SplitsTable;
 });
 
 

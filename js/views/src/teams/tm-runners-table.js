@@ -6,16 +6,19 @@ define(
   'react'
   ], function($, _, Backbone, React){
     
+  
     var TMRunnersTable = React.createClass({
 
       handleSelect: function(i) {
-        console.log('selected runner from table');  
+
+          var selectedRunner = this.props.teamRunners[i];
+          this.props.handleRunnerSelect(selectedRunner.runnerID);
       },
 
       render: function() {
        
         return (          
-            <div >
+            <div className={"small-table"} >
               <table className={"table table-responsive"}>
                 <thead>
                   <tr>
@@ -24,12 +27,10 @@ define(
                 </thead>
                 <tbody>
                   {this.props.teamRunners.map(function(runner, i) {
+                      
                       return (<tr onClick={this.handleSelect.bind(this, i)} key={i}>
                                 <td>
                                 {runner.firstName} {runner.lastName}
-                                </td>
-                                <td>
-                                View Profile
                                 </td>
                                 <td>
                                 Remove From Team

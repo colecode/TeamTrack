@@ -9,7 +9,7 @@ define([
   'views/build/selectRunners',
   'views/build/myteams',
   'views/build/sandbox',
-  'views/build/runnerprofile',
+  'views/build/runner-profile-page',
   'views/build/racesummary',
   'views/build/team-builder',
   'views/build/team-manager'

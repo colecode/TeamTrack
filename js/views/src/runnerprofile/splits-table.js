@@ -2,24 +2,21 @@ define(
   [
   'jquery',
   'underscore',
-  'backbone',
-  'react',
-  'reactboot',
-  ], function($, _, Backbone, React, ReactBoot){
+  'react'
+  ], function($, _, React){
 
     var SplitsTable = React.createClass({
       
       render: function() {
-        var Table = ReactBoot.Table;
 
         return (
             
-            <div>
-              <Table>
+            <div className={"medium-table"}>
+              <table className={"table table-responsive"}>
               <thead>
                 <tr>
-                <th>Split Number</th>
-                <th>Split Time</th>
+                <th className={"centered"}>Split Number</th>
+                <th className={"centered"}>Split Time</th>
               </tr>
               </thead>
               <tbody>
@@ -34,7 +31,7 @@ define(
                               </tr>);
                     },this)}
                 </tbody>
-              </Table>
+              </table>
             </div>              
           )
       }
