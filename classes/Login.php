@@ -52,7 +52,9 @@ class Login
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
             // create a database connection, using the constants from config/db.php (which we loaded in index.php)
+            //$config = parse_ini_file('../../../Config/config.ini'); 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            //$this->db_connection = new mysqli($config['host'],$config['username'],$config['password'],$config['dbname']);
 
             // change character set to utf8 and check it
             if (!$this->db_connection->set_charset("utf8")) {

@@ -43,6 +43,7 @@
             <li><a href="index.php?logout">Logout</a></li>
           </ul>
         </li>
+        <li><a href="index.php?logout">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
 </div><!-- .navbar-wrap -->

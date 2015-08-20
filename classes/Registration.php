@@ -66,7 +66,10 @@ class Registration
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
             // create a database connection
+            //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            //$config = parse_ini_file('../../../Config/config.ini'); 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            //$this->db_connection = new mysqli($config['host'],$config['username'],$config['password'],$config['dbname']);
 
             // change character set to utf8 and check it
             if (!$this->db_connection->set_charset("utf8")) {
