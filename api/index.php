@@ -156,6 +156,119 @@ $app->post('/runners', function() use ($app) {
     }
 });
 
+// POST Runner
+$app->post('/postrunnertime', function() use ($app) {
+    
+    $db = db_connect();
+    $request = (array) json_decode($app->request()->getBody());
+
+    // Retrieve input values - put into local vars
+    $finishTime = $request['finishTime'];
+    $runInRaceID = $request['runInRaceID'];
+
+    try {
+        // Prepare statement
+        $stmt = $db->prepare("UPDATE RunnersInRace SET finishTime = ?  WHERE runInRaceID = ?");
+        $stmt->bind_param("di", $finishTime,$runInRaceID);
+        $stmt->execute();
+        $stmt->close();
+
+        // Send success code
+        sendResponse(200, json_encode('Success'));
+        
+    } catch(PDOException $e) {
+        // Send error code
+        sendResponse(400, '. $e->getMessage() .');
+    }
+});
+
+// POST Runner
+$app->post('/postrunnersplit', function() use ($app) {
+    
+    $db = db_connect();
+    $request = (array) json_decode($app->request()->getBody());
+
+    // Retrieve input values - put into local vars
+    $runInRaceID= $request['runInRaceID'];
+    $splitNumber = $request['splitNumber'];
+    $splitTime = $request['splitTime'];
+
+    try {
+        // Prepare statement
+        $stmt = $db->prepare("INSERT INTO Splits (fk_runInRaceID, splitNumber, splitTime) VALUES (?, ?, ?)");
+        $stmt->bind_param("iid", $runInRaceID, $splitNumber, $splitTime);
+        $stmt->execute();
+        $stmt->close();
+
+        // Send success code
+        sendResponse(200, json_encode('Success'));
+        
+    } catch(PDOException $e) {
+        // Send error code
+        sendResponse(400, '. $e->getMessage() .');
+    }
+});
+
+// POST Race
+$app->post('/postrace', function() use ($app) {
+    
+    date_default_timezone_set('America/New_York');
+    
+    $db = db_connect();
+    $request = (array) json_decode($app->request()->getBody());
+
+    // Retrieve input values - put into local vars
+    $workoutName = $request['workoutName'];
+    $eventName= $request['eventName'];
+    $today = date("Y-m-d H:i:s");
+
+    try {
+        // Prepare statement
+        $stmt = $db->prepare("INSERT INTO Races (raceName, eventName, raceDate) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $workoutName, $eventName, $today);
+        $stmt->execute();
+        $stmt->close();
+
+        $lastId = $db->insert_id;
+
+        // Send success code
+        sendResponse(200, json_encode($lastId));
+        
+    } catch(PDOException $e) {
+        // Send error code
+        sendResponse(400, '. $e->getMessage() .');
+    }
+});
+
+// POST Race
+$app->post('/postrunnerinrace', function() use ($app) {
+        
+    $db = db_connect();
+    $request = (array) json_decode($app->request()->getBody());
+
+    // Retrieve input values - put into local vars
+    $fkRaceID = $request['fkRaceID'];
+    $fkRunnerID = $request['fkRunnerID'];
+
+    try {
+        // Prepare statement
+        $stmt = $db->prepare("INSERT INTO RunnersInRace (fk_raceID, fk_runnerID) VALUES (?, ?)");
+        $stmt->bind_param("ii", $fkRaceID, $fkRunnerID);
+        $stmt->execute();
+        $stmt->close();
+
+        $lastId = $db->insert_id;
+        $arr = array('runInRaceID' => $lastId, 'runnerID' => $fkRunnerID);
+
+        // Send success code
+        sendResponse(200, json_encode($arr));
+        
+    } catch(PDOException $e) {
+        // Send error code
+        sendResponse(400, '. $e->getMessage() .');
+    }
+});
+
 // POST Team
 $app->post('/teams', function() use ($app)  {
     

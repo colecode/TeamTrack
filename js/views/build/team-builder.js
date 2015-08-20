@@ -9,101 +9,12 @@ define(
   'views/build/create-team',
   'views/build/createrunner',
   'views/build/simple-runners-table',
-  'views/build/team-card',
   'models/create-team-model',
   'models/team-roster-model',
   
-  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, TeamCard, CreateTeamModel, TeamRosterModel){
+  ], function($, _, Backbone, React, backboneMixin, ReactBoot, CreateTeam, CreateRunner, SimpleRunnersTable, CreateTeamModel, TeamRosterModel){
 
-    var OverlayMixin = ReactBoot.OverlayMixin;
-
-    const CreateRunnerModal = React.createClass({displayName: "CreateRunnerModal",
-
-      mixins: [OverlayMixin],
-      
-      getInitialState: function () {
-        return {
-            showModal: true
-        };
-      },
-
-      handleToggle: function() {
-        this.setState({showModal:!this.state.showModal});
-      },
-
-      handleCreateRunner: function() {
-        
-        var schoolCode = this.props.schoolCode;
-
-        $.ajax({
-          url:"api/index.php/getrunnersperschool/" + schoolCode,
-          type:"GET",
-          success:function(data){
-            this.setState({allRunners: data.slice() }) ;
-          }.bind(this), 
-          error:function(err) {
-            console.log('error building runners list');
-            console.log(err);
-          },    
-          dataType:"json"
-        });
-
-      },
-
-      render: function() {     
-          return (React.createElement("div", null));
-      },
-
-      renderOverlay: function() {
-
-       var Modal = ReactBoot.Modal;
-       var Button = ReactBoot.Button;
-
-       if (!this.state.showModal) {
-            return React.createElement("span", null);
-        }
-
-        return (
-              React.createElement(Modal, {title: "Create Runner", onRequestHide: this.handleToggle}, 
-                React.createElement("div", {className: "modal-body"}, 
-                  React.createElement(CreateRunner, {schoolCode: this.props.schoolCode, handleCreateRunner: this.handleCreateRunner})
-                ), 
-                React.createElement("div", {className: "modal-footer"}, 
-                  React.createElement(Button, {onClick: this.handleToggle}, "Close")
-                )
-              )
-          );
-        }
-           
-    });
-
-
-    var ColinModal = React.createClass({displayName: "ColinModal",
-      render: function() {
-        return(
-
-            React.createElement("div", {className: "modal fade", id: "myModal", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel"}, 
-              React.createElement("div", {className: "modal-dialog", role: "document"}, 
-                React.createElement("div", {className: "modal-content"}, 
-                  React.createElement("div", {className: "modal-header"}, 
-                    React.createElement("button", {type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close"}, React.createElement("span", {"aria-hidden": "true"}, "×")), 
-                    React.createElement("h4", {className: "modal-title", id: "myModalLabel"}, "Modal title")
-                  ), 
-                  React.createElement("div", {className: "modal-body"}, 
-                    "Test Test!"
-                  ), 
-                  React.createElement("div", {className: "modal-footer"}, 
-                    React.createElement("button", {type: "button", className: "btn btn-default", "data-dismiss": "modal"}, "Close"), 
-                    React.createElement("button", {type: "button", className: "btn btn-primary"}, "Save changes")
-                  )
-                )
-              )
-            )
-
-          );
-      }
-
-    });
+    
 
 
 
@@ -223,7 +134,7 @@ define(
                 ), 
                 React.createElement("div", {className: "row-padding"}, 
                   React.createElement("div", {className: "text-center button-block"}, 
-                    React.createElement("button", {className: "btn btn-block btn-primary"}, "Done")
+                    React.createElement("button", {className: "btn btn-block btn-primary", onClick: this.handleSubmit}, "Done")
                   )
                 )
             )
@@ -254,6 +165,96 @@ define(
     return TeamBuilderView;
   });
 
+
+// var OverlayMixin = ReactBoot.OverlayMixin;
+
+//     const CreateRunnerModal = React.createClass({
+
+//       mixins: [OverlayMixin],
+      
+//       getInitialState: function () {
+//         return {
+//             showModal: true
+//         };
+//       },
+
+//       handleToggle: function() {
+//         this.setState({showModal:!this.state.showModal});
+//       },
+
+//       handleCreateRunner: function() {
+        
+//         var schoolCode = this.props.schoolCode;
+
+//         $.ajax({
+//           url:"api/index.php/getrunnersperschool/" + schoolCode,
+//           type:"GET",
+//           success:function(data){
+//             this.setState({allRunners: data.slice() }) ;
+//           }.bind(this), 
+//           error:function(err) {
+//             console.log('error building runners list');
+//             console.log(err);
+//           },    
+//           dataType:"json"
+//         });
+
+//       },
+
+//       render: function() {     
+//           return (<div></div>);
+//       },
+
+//       renderOverlay: function() {
+
+//        var Modal = ReactBoot.Modal;
+//        var Button = ReactBoot.Button;
+
+//        if (!this.state.showModal) {
+//             return <span/>;
+//         }
+
+//         return (
+//               <Modal title='Create Runner' onRequestHide={this.handleToggle}>
+//                 <div className='modal-body'>
+//                   <CreateRunner schoolCode={this.props.schoolCode} handleCreateRunner={this.handleCreateRunner} />
+//                 </div>
+//                 <div className='modal-footer'>
+//                   <Button onClick={this.handleToggle}>Close</Button>
+//                 </div>
+//               </Modal>
+//           );
+//         }
+           
+//     });
+
+
+//     var ColinModal = React.createClass({
+//       render: function() {
+//         return(
+
+//             <div className={"modal fade"} id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+//               <div className={"modal-dialog"} role="document">
+//                 <div className={"modal-content"}>
+//                   <div className={"modal-header"}>
+//                     <button type="button" className={"close"} data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+//                     <h4 className={"modal-title"} id="myModalLabel">Modal title</h4>
+//                   </div>
+//                   <div className={"modal-body"}>
+//                     Test Test!
+//                   </div>
+//                   <div className={"modal-footer"}>
+//                     <button type="button" className={"btn btn-default"} data-dismiss="modal">Close</button>
+//                     <button type="button" className={"btn btn-primary"}>Save changes</button>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//           );
+//       }
+
+//     });
 
 // var Modal = ReactBoot.Modal;
 //         var Button = ReactBoot.Button;

@@ -62,9 +62,7 @@ define(
         
         return (
           <div className={'container'}>
-            <div className={'wrap'}>
               <SearchBar onSearch={this.handleSearch} />  
-            </div>
           </div>
         )
       }

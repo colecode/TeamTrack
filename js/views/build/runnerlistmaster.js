@@ -62,9 +62,7 @@ define(
         
         return (
           React.createElement("div", {className: 'container'}, 
-            React.createElement("div", {className: 'wrap'}, 
               React.createElement(SearchBar, {onSearch: this.handleSearch})
-            )
           )
         )
       }
