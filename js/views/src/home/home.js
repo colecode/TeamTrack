@@ -26,7 +26,7 @@ define(
               <div className={'navbar-wrap'}>
               <div className={'my-jumbotron'}>
                 <h1>TeamTrack</h1>
-                <p>E Pluribus Unum</p>
+                <p>One watch to rule them all.</p>
               </div>
               </div>
             </div>
