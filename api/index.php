@@ -221,11 +221,13 @@ $app->post('/postrace', function() use ($app) {
     $workoutName = $request['workoutName'];
     $eventName= $request['eventName'];
     $today = date("Y-m-d H:i:s");
+    $createdBy = $request['createdBy'];
+    $type = $request['type'];
 
     try {
         // Prepare statement
-        $stmt = $db->prepare("INSERT INTO Races (raceName, eventName, raceDate) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $workoutName, $eventName, $today);
+        $stmt = $db->prepare("INSERT INTO Races (raceName, eventName, raceDate, createdBy, type) VALUES (?, ?, ?, ? , ?)");
+        $stmt->bind_param("sssii", $workoutName, $eventName, $today, $createdBy, $type);
         $stmt->execute();
         $stmt->close();
 
@@ -438,7 +440,26 @@ $app->get('/getprofile/:id', function($id)  {
         echo json_encode($result);
 });
 
-// GET races per user
+// GET races per coach
+$app->get('/getracespercoach/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql = "SELECT raceID, raceName, raceDate                 
+                FROM Races
+                WHERE createdBy = $id";
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// GET races per athlete
 $app->get('/getraces/:id', function($id)  {
         
         $db = db_connect();  
@@ -464,9 +485,30 @@ $app->get('/getsplits/:id', function($id)  {
         
         $db = db_connect();  
         $result = array();
-        $sql = "SELECT splitID, splitNumber AS splitIndex, TIME(splitTime) AS splitTime
+        $sql = "SELECT splitID, splitNumber AS splitIndex, TIME(splitTime) AS splitTime, fk_runInRaceID
                 FROM Splits
                 WHERE fk_runInRaceID = $id";
+
+        $r = $db->query($sql);
+        while($domainVal = $r->fetch_assoc()){
+            
+            $result[] = $domainVal;
+        }
+
+        // return JSON encoded array
+        echo json_encode($result);
+});
+
+// GET splits per race
+$app->get('/getrunnerswithsplits/:id', function($id)  {
+        
+        $db = db_connect();  
+        $result = array();
+        $sql = "SELECT a.runInRaceID, a.finishTime, splitNumber AS splitIndex, splitTime AS splitTime, c.firstName, c.lastName
+                FROM RunnersInRace a
+                INNER JOIN Splits b ON a.runInRaceID = b.fk_runInRaceID
+                INNER JOIN Runners c ON a.fk_runnerID = c.runnerID
+                WHERE a.fk_raceID = $id";
 
         $r = $db->query($sql);
         while($domainVal = $r->fetch_assoc()){
@@ -483,7 +525,7 @@ $app->get('/getruninrace/:id', function($id)  {
         
         $db = db_connect();  
         $result = array();
-        $sql = "SELECT a.runInRaceID, c.raceID, c.raceDate, c.raceName, c.eventName, b.firstName, b.lastName, a.finishTime
+        $sql = "SELECT a.runInRaceID, c.raceID, c.raceDate, c.raceName, c.eventName, b.firstName, b.lastName, a.finishTime, b.runnerID
                 FROM RunnersInRace a
                 INNER JOIN Runners b ON b.runnerID = a.fk_runnerID
                 INNER JOIN Races c ON c.raceID = a.fk_raceID

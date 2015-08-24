@@ -36,7 +36,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#teambuilder">Team Builder</a></li>
         <li><a href="#teammanager">Team Manager</a></li>
-        <li><a href="#runnerslist">Browse My Runners</a></li>
+        <li><a href="#runnerslist">Browse My Runners Test</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hey, <?php echo $_SESSION['user_name']; ?><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
